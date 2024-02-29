@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 //TODO: if you still aren't making use of partial controllers make it not partial
 public partial class PlayerController : MonoBehaviour
@@ -23,7 +24,7 @@ public partial class PlayerController : MonoBehaviour
 
     [Header("Controls")]
     public KeyCode sprintKey = KeyCode.LeftShift;
-    public KeyCode interactionKey = KeyCode.F;
+    [FormerlySerializedAs("interactionKey")] public KeyCode shootKey = KeyCode.Mouse0;
     public KeyCode abortKey = KeyCode.Space;
     public KeyCode pauseKey = KeyCode.Escape;
     public KeyCode wInput = KeyCode.W;
@@ -66,6 +67,7 @@ public partial class PlayerController : MonoBehaviour
 
         MouseLook();
         WasdGetSet();
+        Shoot();
         Jump();
     }
 
@@ -73,8 +75,7 @@ public partial class PlayerController : MonoBehaviour
     {
         if (!_overwriteInAction)
         {
-            //Update
-            PlayerGravityIncrement();   //TODO: this is still fucky as hell
+            PlayerGravityIncrement();
         }
     }
 
@@ -109,7 +110,6 @@ public partial class PlayerController : MonoBehaviour
 
     private void IsGroundedCheck()
     {
-        //TODO: why in god's name does -transform.up not actually go down and has to be hacked like this
         isGrounded = Physics.BoxCast(_transformCache.position,
                                         new Vector3(playerRadius * 0.5f, 0.05f, playerRadius * 0.5f),
                                         -_transformCache.up,

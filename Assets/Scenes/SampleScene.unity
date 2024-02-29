@@ -327,6 +327,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b474b67346d7554b97ffa8aeeeb6c3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shootRange: 10
+  _enemyHealth: {fileID: 0}
   controller: {fileID: 141584203}
   playerCamera: {fileID: 330585545}
   playerRadius: 1
@@ -338,7 +340,7 @@ MonoBehaviour:
   gravityVelocityMax: 5
   gravityAcceleration: 2
   sprintKey: 304
-  interactionKey: 102
+  shootKey: 316
   abortKey: 32
   pauseKey: 27
   wInput: 119
@@ -752,6 +754,7 @@ GameObject:
   - component: {fileID: 546777228}
   - component: {fileID: 546777227}
   - component: {fileID: 546777226}
+  - component: {fileID: 546777230}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -802,7 +805,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 9b057c350ece91043809ac6b27f30003, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -847,6 +850,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &546777230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546777225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dc638e78517c404daa0c4d7140487d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
