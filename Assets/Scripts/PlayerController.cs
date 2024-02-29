@@ -35,17 +35,18 @@ public partial class PlayerController : MonoBehaviour
 
     [Header("Player Stats")]
     [SerializeField] private Vector2 playerInput;
-    private readonly float _lowerLookLimit = 75.0f;
-    private readonly float _upperLookLimit = 75.0f;
+    private readonly float _lowerLookLimit = 85.0f;
+    private readonly float _upperLookLimit = 85.0f;
     private float _xRotation;
     private float _yRotation;
     private bool _overwriteInAction;
 
     Transform _transformCache;   // does this actually save performance? rider says so, and surely rider isn't lying
+    [SerializeField] private float jumpForce = 10f;
 
     private void Awake()
     {
-        _transformCache = transform;
+        _transformCache = controller.transform;
     }
 
     void Start()
@@ -65,6 +66,7 @@ public partial class PlayerController : MonoBehaviour
 
         MouseLook();
         WasdGetSet();
+        Jump();
     }
 
     private void FixedUpdate()
@@ -108,22 +110,27 @@ public partial class PlayerController : MonoBehaviour
     private void IsGroundedCheck()
     {
         //TODO: why in god's name does -transform.up not actually go down and has to be hacked like this
-        isGrounded = Physics.BoxCast(controller.transform.position,
+        isGrounded = Physics.BoxCast(_transformCache.position,
                                         new Vector3(playerRadius * 0.5f, 0.05f, playerRadius * 0.5f),
-                                        -_transformCache.up * 1000,
+                                        -_transformCache.up,
                                         _transformCache.rotation,
-                                        (controller.transform.localScale.y * (controller.height / 2)) + 0.2f);
+                                        (_transformCache.localScale.y * (controller.height / 2)) + 0.2f);
     }
 
     private void PlayerGravityIncrement()
     {
-        if (isGrounded)
-            gravity.y = -0.005f;
-        else
-            {
-                gravity.y -= gravityAcceleration * Time.deltaTime;
-                gravity.y = Mathf.Clamp(gravity.y, -gravityVelocityMax, 0);
-            }
+        if (isGrounded) return;
+        
+        gravity.y -= gravityAcceleration * Time.deltaTime;
+        gravity.y = Mathf.Clamp(gravity.y, -gravityVelocityMax, jumpForce);
+    }
+
+    private void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            gravity.y = jumpForce;
+        }
     }
 
     #region Getters/Setters
