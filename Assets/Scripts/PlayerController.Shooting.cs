@@ -2,7 +2,7 @@ using UnityEngine;
 
 public partial class PlayerController
 {
-    [SerializeField] private float shootRange;
+    private readonly float _shootRange = 50;
     [SerializeField] private int ammunition;
     [SerializeField] private int maxAmmunition = 1;
     [SerializeField] private GameObject bullet;
@@ -34,9 +34,8 @@ public partial class PlayerController
         }
 
         Ray ray = new Ray(playerCamera.transform.position + playerCamera.transform.forward, playerCamera.transform.forward);
-        Debug.Log("Shoot input!");
         
-        if (Physics.Raycast(ray, out RaycastHit hit, shootRange))
+        if (Physics.Raycast(ray, out RaycastHit hit, _shootRange))
         {
             bullet.GetComponent<BulletCollision>().LastEnemy = hit.transform.gameObject;
             
@@ -48,9 +47,9 @@ public partial class PlayerController
             _gunIsRacked = false;
             
             AttachBullet(hit);
-            
-            if (hit.collider.gameObject.TryGetComponent(out PrototypeAI enemyHealth))
-                enemyHealth.TakeDamage(50, hit.transform.position, hit.normal, playerCamera.transform.forward);
+
+            if (hit.collider.gameObject.TryGetComponent<PrototypeAI>(out PrototypeAI prototypeAI))
+                prototypeAI.TakeDamage(50, hit.transform.position, hit.normal, playerCamera.transform.forward);
         }
     }
 

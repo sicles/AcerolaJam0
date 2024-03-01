@@ -9,6 +9,7 @@ public partial class PlayerController
 
     public void TakeDamage(int amount)
     {
+        Debug.Log("takedamage has been called");
         _playerHealth -= amount;
 
         if (_playerHealth <= 0)

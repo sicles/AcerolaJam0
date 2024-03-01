@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 5955957005075287940}
   - component: {fileID: 3427447574503075210}
   - component: {fileID: 7920950204574336731}
-  - component: {fileID: 5907099166258268207}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -36,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4385457393028166429
 MeshFilter:
@@ -126,6 +125,7 @@ MonoBehaviour:
   health: 100
   bloodGush: {fileID: 1282858200991441193, guid: 2312843041ab2224b8a2744cdcad0cbf,
     type: 3}
+  player: {fileID: 0}
 --- !u!54 &3427447574503075210
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -175,16 +175,3 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &5907099166258268207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 938082215214455337}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 593407a54534d264fafd39fd2e74da5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}

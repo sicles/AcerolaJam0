@@ -19,8 +19,9 @@ public partial class PlayerController : MonoBehaviour
     [Header("Physics")]
     [SerializeField] bool isGrounded;
     [SerializeField] Vector3 gravity;   // this needs to be vector3 to avoid a runtime cast
-    [SerializeField] float gravityVelocityMax = 5f;
-    [SerializeField] float gravityAcceleration = 0.1f;
+    private readonly float _gravityVelocityMax = 3f;
+    private readonly float _gravityAcceleration = 0.001f;
+    private readonly float _jumpForce = 1.2f;
 
     [Header("Controls")]
     public KeyCode sprintKey = KeyCode.LeftShift;
@@ -44,7 +45,6 @@ public partial class PlayerController : MonoBehaviour
     private bool _overwriteInAction;
 
     Transform _transformCache;   // does this actually save performance? rider says so, and surely rider isn't lying
-    [SerializeField] private float jumpForce = 10f;
 
     private void Awake()
     {
@@ -88,7 +88,7 @@ public partial class PlayerController : MonoBehaviour
     {
         if (!_overwriteInAction)
         {
-            PlayerGravityIncrement();
+            SetGravity();
         }
     }
 
@@ -130,19 +130,25 @@ public partial class PlayerController : MonoBehaviour
                                         (_transformCache.localScale.y * (controller.height / 2)) + 0.2f);
     }
 
-    private void PlayerGravityIncrement()
+    private void SetGravity()
     {
-        if (isGrounded) return;
+        if (isGrounded)
+        {
+            if (gravity.y < 0)
+                gravity.y = 0;
+            
+            return;
+        }
         
-        gravity.y -= gravityAcceleration * Time.deltaTime;
-        gravity.y = Mathf.Clamp(gravity.y, -gravityVelocityMax, jumpForce);
+        gravity.y -= _gravityAcceleration * Time.fixedTime;
+        gravity.y = Mathf.Clamp(gravity.y, -_gravityVelocityMax, _jumpForce);
     }
 
     private void Jump()
     {
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            gravity.y = jumpForce;
+            gravity.y = _jumpForce;
         }
     }
 
