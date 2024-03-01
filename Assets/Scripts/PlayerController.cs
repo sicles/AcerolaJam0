@@ -67,12 +67,18 @@ public partial class PlayerController : MonoBehaviour
         BulletTravel();
 
         MouseLook();
+        
+        DashTick();
         CallDash();
         Dash();
+        
         WasdGetSet();
+        Jump();
+        
+        LetGoOfRack();
+        RackGun();
         Reload();
         Shoot();
-        Jump();
     }
 
     private void FixedUpdate()

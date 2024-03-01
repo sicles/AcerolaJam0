@@ -7,8 +7,10 @@ public partial class PlayerController
     private Vector3 _dashDirection;
     private bool _isDashing;
     private bool _dashIsActive;
-    [SerializeField] private float _dashForce = 100;
+    private float _dashForce = 10;
     private readonly float _dashDuration = 0.25f;
+    private float _dashTicker = 2.5f;
+    private float _dashCooldown = 2.5f;
 
     /// <summary>
     /// 1. Player calls dash, correct vector is calculated.
@@ -17,6 +19,7 @@ public partial class PlayerController
     private void CallDash()
     {
         if (!Input.GetKeyDown(KeyCode.LeftShift)) return;
+        if (_dashTicker < _dashCooldown) return;
 
         if (Input.GetAxis("Vertical") > 0)
             _dashDirection += transform.forward;
@@ -32,7 +35,8 @@ public partial class PlayerController
             _dashDirection = transform.forward;
         else
             _dashDirection = _dashDirection.normalized;
-        
+
+        _dashTicker = 0;
         _isDashing = true;
     }
 
@@ -57,6 +61,14 @@ public partial class PlayerController
         _isDashing = false;
         _dashIsActive = false;
         _dashDirection = Vector3.zero;
+    }
+
+    private void DashTick()
+    {
+        if (_dashIsActive) return;
+
+        if (_dashTicker < _dashCooldown)
+            _dashTicker += Time.deltaTime;
     }
 }
 
