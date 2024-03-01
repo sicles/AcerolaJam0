@@ -1,36 +1,48 @@
-using System.Collections;
 using UnityEngine;
 
 public partial class PlayerController : MonoBehaviour
 {
     [SerializeField] private float shootRange;
-    [SerializeField] private EnemyHealth _enemyHealth;
+    [SerializeField] private int ammunition;
+    [SerializeField] private int maxAmmunition = 1;
     partial void Shoot();
+    partial void Reload();
     partial void AbortInput();  // not implemented
     partial void PauseGame();   // not checked in update **yet** because this is really annoying while editing
 
     partial void Shoot()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            Ray r = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
-            Debug.DrawLine(playerCamera.transform.position, playerCamera.transform.forward * shootRange);
-            Debug.Log("Shoot input!");
+        if (ammunition == 0) return;
+        if (!Input.GetKeyDown(KeyCode.Mouse0)) return;
+
+        ammunition--;
+
+        Ray r = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+        Debug.Log("Shoot input!");
             
-            if (Physics.Raycast(r, out RaycastHit hit, shootRange))
+        if (Physics.Raycast(r, out RaycastHit hit, shootRange))
+        {
+            if (hit.collider.gameObject.TryGetComponent(out EnemyHealth enemyHealth))
             {
-                if (hit.collider.gameObject.TryGetComponent(out EnemyHealth _enemyHealth))
-                {
-                    _enemyHealth.TakeDamage(10);
-                    Debug.Log("Dealt damage to an enemy!");
-                    return;
-                }
-                Debug.Log("Hit a non-enemy!");
+                enemyHealth.TakeDamage(10, hit.transform.position, hit.normal, playerCamera.transform.forward);
+                Debug.Log("Dealt damage to an enemy!");
                 return;
             }
+            Debug.Log("Hit a non-enemy!");
+            return;
+        }
             
-            Debug.Log("Missed!");
-        }            
+        Debug.Log("Missed!");
+    }
+
+    partial void Reload()
+    {
+        if (ammunition >= maxAmmunition) return;
+        if (!Input.GetKeyDown(KeyCode.R)) return;
+        
+        ammunition++;
+        Debug.Log("Reload successful");
+        // supposed to call back your bullet - for now, just adds one
     }
     
     partial void PauseGame()

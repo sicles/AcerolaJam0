@@ -67,6 +67,7 @@ public partial class PlayerController : MonoBehaviour
 
         MouseLook();
         WasdGetSet();
+        Reload();
         Shoot();
         Jump();
     }
