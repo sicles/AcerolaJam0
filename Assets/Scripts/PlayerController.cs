@@ -58,6 +58,7 @@ public partial class PlayerController : MonoBehaviour
         playerRadius = controller.radius;
         ePlayerState = PlayerState.CanMove;
         _playerAcceleration = defaultPlayerAcceleration;
+        _playerHealth = _playerMaxHealth;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
