@@ -64,8 +64,11 @@ public partial class PlayerController : MonoBehaviour
         //PauseGame(); not yet implemented
 
         IsGroundedCheck();
+        BulletTravel();
 
         MouseLook();
+        CallDash();
+        Dash();
         WasdGetSet();
         Reload();
         Shoot();
@@ -99,9 +102,9 @@ public partial class PlayerController : MonoBehaviour
 
     private void WasdGetSet()
     {
-
         if (ePlayerState != PlayerState.CanMove) return;
-
+        if (_dashIsActive) return;
+        
         playerInput.x = Input.GetAxis("Horizontal");
         playerInput.y = Input.GetAxis("Vertical");
         playerInput = Vector2.ClampMagnitude(playerInput, 1f);
