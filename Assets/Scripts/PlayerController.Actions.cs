@@ -5,6 +5,7 @@ public partial class PlayerController : MonoBehaviour
     [SerializeField] private float shootRange;
     [SerializeField] private int ammunition;
     [SerializeField] private int maxAmmunition = 1;
+    [SerializeField] private GameObject bullet;
     partial void Shoot();
     partial void Reload();
     partial void AbortInput();  // not implemented
@@ -17,11 +18,13 @@ public partial class PlayerController : MonoBehaviour
 
         ammunition--;
 
-        Ray r = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
         Debug.Log("Shoot input!");
-            
-        if (Physics.Raycast(r, out RaycastHit hit, shootRange))
+        
+        if (Physics.Raycast(ray, out RaycastHit hit, shootRange))
         {
+            Debug.DrawRay(hit.collider.transform.position, playerCamera.transform.forward);
+            MoveBullet(hit);
             if (hit.collider.gameObject.TryGetComponent(out EnemyHealth enemyHealth))
             {
                 enemyHealth.TakeDamage(10, hit.transform.position, hit.normal, playerCamera.transform.forward);
@@ -33,6 +36,13 @@ public partial class PlayerController : MonoBehaviour
         }
             
         Debug.Log("Missed!");
+    }
+
+    private void MoveBullet(RaycastHit hit)
+    {
+        // bullet.transform.parent = hit.transform.gameObject.transform;
+        bullet.transform.rotation = hit.transform.rotation;
+        bullet.transform.position = hit.point;
     }
 
     partial void Reload()
