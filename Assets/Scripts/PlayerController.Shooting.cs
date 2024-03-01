@@ -93,8 +93,6 @@ public partial class PlayerController
     {
         if (!Input.GetKey(KeyCode.Mouse1))
             _rackIsReady = true;
-        
-        Debug.Log("Rack has been readied!");
     }
 
     /// <summary>

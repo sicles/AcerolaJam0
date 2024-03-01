@@ -11,6 +11,7 @@ public partial class PlayerController
     private readonly float _dashDuration = 0.25f;
     private float _dashTicker = 2.5f;
     private float _dashCooldown = 2.5f;
+    private readonly float _dizzyTime = 0.5f;
 
     /// <summary>
     /// 1. Player calls dash, correct vector is calculated.
@@ -38,6 +39,7 @@ public partial class PlayerController
 
         _dashTicker = 0;
         _isDashing = true;
+        _playerAcceleration = 0.5f * defaultPlayerAcceleration;
     }
 
     /// <summary>
@@ -61,6 +63,12 @@ public partial class PlayerController
         _isDashing = false;
         _dashIsActive = false;
         _dashDirection = Vector3.zero;
+        Invoke(nameof(RestorePlayerSpeed), _dizzyTime);
+    }
+
+    private void RestorePlayerSpeed()
+    {
+        _playerAcceleration = defaultPlayerAcceleration;
     }
 
     private void DashTick()

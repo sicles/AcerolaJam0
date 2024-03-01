@@ -32,7 +32,8 @@ public partial class PlayerController : MonoBehaviour
     public KeyCode dInput = KeyCode.A;
     public KeyCode aInput = KeyCode.D;
     public float mouseSensitivity = 1f;
-    [SerializeField] private float playerAcceleration = 1f;
+    private float _playerAcceleration;
+    [SerializeField] private float defaultPlayerAcceleration = 2.5f;
 
     [Header("Player Stats")]
     [SerializeField] private Vector2 playerInput;
@@ -56,6 +57,7 @@ public partial class PlayerController : MonoBehaviour
         playerCamera = this.GetComponentInChildren<Camera>();
         playerRadius = controller.radius;
         ePlayerState = PlayerState.CanMove;
+        _playerAcceleration = defaultPlayerAcceleration;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -115,7 +117,7 @@ public partial class PlayerController : MonoBehaviour
         playerInput.y = Input.GetAxis("Vertical");
         playerInput = Vector2.ClampMagnitude(playerInput, 1f);
 
-        controller.Move(playerAcceleration * Time.deltaTime * (playerInput.x * _transformCache.right + playerInput.y * _transformCache.forward + gravity.y * _transformCache.up));
+        controller.Move(_playerAcceleration * Time.deltaTime * (playerInput.x * _transformCache.right + playerInput.y * _transformCache.forward + gravity.y * _transformCache.up));
     }
 
     private void IsGroundedCheck()
