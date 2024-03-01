@@ -1,6 +1,6 @@
-using System;
-using System.Collections;
+using FMOD.Studio;
 using UnityEngine;
+using FMODUnity;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -27,6 +27,9 @@ public class EnemyHealth : MonoBehaviour
 
     private void Die(Vector3 bulletDirection)
     {
+        EventInstance yodaDeath = FMODUnity.RuntimeManager.CreateInstance("event:/prototypeDeath");
+        yodaDeath.start();
+        
         Debug.Log("Ouch!");
         _rigidbody.isKinematic = false;
         _rigidbody.AddForce(bulletDirection * 1000);
