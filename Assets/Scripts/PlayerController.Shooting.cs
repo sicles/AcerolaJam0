@@ -10,6 +10,11 @@ public partial class PlayerController
     [SerializeField] private float bulletTravelSpeed = 3;
     private bool _bulletIsTraveling;
     private readonly float _bulletRotationSpeed = 1000;
+    
+    [SerializeField] private bool _gunIsRacked;
+    private float _rackTargetCharge = 2f;
+    [SerializeField] private float _rackCharge;
+    private bool _rackIsReady = true;
     public Vector3 BulletBackcallDirection { get; private set; }
     
     partial void Shoot();
@@ -21,6 +26,12 @@ public partial class PlayerController
     {
         if (ammunition == 0) return;
         if (!Input.GetKeyDown(KeyCode.Mouse0)) return;
+        if (!_gunIsRacked)
+        {
+            //TODO logic if gun fails to shoot
+            Debug.Log("Shoot attempt was made, but gun is not racked");
+            return;
+        }
 
         Ray ray = new Ray(playerCamera.transform.position + playerCamera.transform.forward, playerCamera.transform.forward);
         Debug.Log("Shoot input!");
@@ -32,6 +43,9 @@ public partial class PlayerController
             bullet.transform.SetParent(null, true);
             bullet.transform.GetComponent<MeshRenderer>().enabled = true;
             ammunition--;
+            _rackCharge = 0;
+            _rackIsReady = false;
+            _gunIsRacked = false;
             
             AttachBullet(hit);
             
@@ -57,6 +71,30 @@ public partial class PlayerController
         if (!Input.GetKeyDown(KeyCode.R)) return;
 
         BulletRecall();
+    }
+
+    private void RackGun()
+    {
+        if (_gunIsRacked || !_rackIsReady) return;
+
+        if (Input.GetKey(KeyCode.Mouse1))
+            _rackCharge += Time.deltaTime;
+        else
+            _rackCharge = 0;    
+        
+        if (_rackCharge >= _rackTargetCharge)
+            _gunIsRacked = true;
+    }
+
+    /// <summary>
+    /// Called in update and forces player to let go of the button after shooting once.
+    /// </summary>
+    private void LetGoOfRack()
+    {
+        if (!Input.GetKey(KeyCode.Mouse1))
+            _rackIsReady = true;
+        
+        Debug.Log("Rack has been readied!");
     }
 
     /// <summary>
