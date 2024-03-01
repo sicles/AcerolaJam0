@@ -49,7 +49,7 @@ public partial class PlayerController
             
             AttachBullet(hit);
             
-            if (hit.collider.gameObject.TryGetComponent(out EnemyHealth enemyHealth))
+            if (hit.collider.gameObject.TryGetComponent(out PrototypeAI enemyHealth))
                 enemyHealth.TakeDamage(50, hit.transform.position, hit.normal, playerCamera.transform.forward);
         }
     }

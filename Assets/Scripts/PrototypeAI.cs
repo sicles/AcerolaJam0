@@ -1,16 +1,26 @@
+using System;
 using FMOD.Studio;
 using UnityEngine;
-using FMODUnity;
+using UnityEngine.AI;
 
-public class EnemyHealth : MonoBehaviour
+
+public class PrototypeAI : MonoBehaviour
 {
     [SerializeField] private int health = 100;
     [SerializeField] private ParticleSystem bloodGush;
+    [SerializeField] private Transform player;
+    private NavMeshAgent _agent;
     private Rigidbody _rigidbody;
 
     private void Start()
     {
         _rigidbody = transform.GetComponent<Rigidbody>();
+        _agent = GetComponent<NavMeshAgent>();
+    }
+
+    private void Update()
+    {
+        _agent.destination = player.position;
     }
 
     public void TakeDamage(int damage, Vector3 position, Vector3 rotation, Vector3 bulletDirection)
