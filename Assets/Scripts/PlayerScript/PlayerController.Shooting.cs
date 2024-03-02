@@ -50,7 +50,7 @@ namespace PlayerScript
             
                 AttachBullet(hit);
 
-                if (hit.collider.gameObject.TryGetComponent<PrototypeAI>(out PrototypeAI prototypeAI))
+                if (hit.collider.gameObject.TryGetComponent<AI.PrototypeAI>(out AI.PrototypeAI prototypeAI))
                     prototypeAI.TakeDamage(50, hit.transform.position, hit.normal, playerCamera.transform.forward);
             }
         }

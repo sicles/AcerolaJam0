@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4385457393028166429}
   - component: {fileID: 5296444703661379879}
   - component: {fileID: 2879174908390987028}
-  - component: {fileID: 5955957005075287940}
   - component: {fileID: 3427447574503075210}
   - component: {fileID: 7920950204574336731}
   m_Layer: 6
@@ -110,22 +109,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5955957005075287940
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 938082215214455337}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dc638e78517c404daa0c4d7140487d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
-  bloodGush: {fileID: 1282858200991441193, guid: 2312843041ab2224b8a2744cdcad0cbf,
-    type: 3}
-  player: {fileID: 0}
 --- !u!54 &3427447574503075210
 Rigidbody:
   m_ObjectHideFlags: 0

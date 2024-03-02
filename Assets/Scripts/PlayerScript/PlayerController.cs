@@ -21,7 +21,7 @@ namespace PlayerScript
         [SerializeField] bool isGrounded;
         [SerializeField] Vector3 gravity;   // this needs to be vector3 to avoid a runtime cast
         private readonly float _gravityVelocityMax = 3f;
-        private readonly float _gravityAcceleration = 0.001f;
+        private readonly float _gravityAcceleration = 0.01f;
         private readonly float _jumpForce = 1.2f;
 
         [Header("Controls")]
@@ -46,6 +46,8 @@ namespace PlayerScript
         private bool _overwriteInAction;
 
         Transform _transformCache;   // does this actually save performance? rider says so, and surely rider isn't lying
+        private RaycastHit _viewDirection;
+        private bool _thousandYardStare;
 
         private void Awake()
         {
@@ -71,6 +73,7 @@ namespace PlayerScript
             BulletTravel();
 
             MouseLook();
+            PlayerViewDirectionCheck();
         
             DashTick();
             CallDash();
@@ -88,9 +91,7 @@ namespace PlayerScript
         private void FixedUpdate()
         {
             if (!_overwriteInAction)
-            {
                 SetGravity();
-            }
         }
 
         private void MouseLook()
@@ -108,6 +109,21 @@ namespace PlayerScript
                     transform.rotation = Quaternion.Euler(0, playerViewConstraints + 60, 0);
                 else if (transform.rotation.eulerAngles.y < playerViewConstraints - 60)
                     transform.rotation = Quaternion.Euler(0, playerViewConstraints - 60, 0);
+        }
+
+        private void PlayerViewDirectionCheck()
+        {
+            // Listen, if I can't return null, I'm making my own null with blackjack and hookers. Only god can judge me
+            
+            if (!Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out _viewDirection,
+                    100))
+                Physics.Raycast(controller.transform.position, -controller.transform.up,
+                    out _viewDirection, 100);
+        }
+
+        public RaycastHit GetPlayerViewDirection()
+        {
+            return _viewDirection;
         }
 
         private void WasdGetSet()
@@ -159,11 +175,7 @@ namespace PlayerScript
         /// </summary>
         partial void PauseGame()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
-                if (Time.timeScale < 1)
-                    Time.timeScale = 1;
-                else
-                    Time.timeScale = 0;
+            if (Input.GetKeyDown(KeyCode.Escape)) Time.timeScale = Time.timeScale < 1 ? 1 : 0;
         }
 
         #region Getters/Setters

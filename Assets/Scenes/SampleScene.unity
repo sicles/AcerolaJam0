@@ -712,6 +712,26 @@ PrefabInstance:
     - target: {fileID: 7920950204574336731, guid: 44425a36ed7ba9945b5176a820fcfecc,
         type: 3}
       propertyPath: m_Speed
+      value: 2.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7920950204574336731, guid: 44425a36ed7ba9945b5176a820fcfecc,
+        type: 3}
+      propertyPath: m_AutoBraking
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7920950204574336731, guid: 44425a36ed7ba9945b5176a820fcfecc,
+        type: 3}
+      propertyPath: m_Acceleration
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7920950204574336731, guid: 44425a36ed7ba9945b5176a820fcfecc,
+        type: 3}
+      propertyPath: m_AngularSpeed
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7920950204574336731, guid: 44425a36ed7ba9945b5176a820fcfecc,
+        type: 3}
+      propertyPath: m_StoppingDistance
       value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents:
@@ -722,7 +742,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 938082215214455337, guid: 44425a36ed7ba9945b5176a820fcfecc,
         type: 3}
-      insertIndex: -1
+      insertIndex: 5
       addedObject: {fileID: 366117861}
   m_SourcePrefab: {fileID: 100100000, guid: 44425a36ed7ba9945b5176a820fcfecc, type: 3}
 --- !u!1 &366117853 stripped
@@ -745,15 +765,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chargeRadius: 3
   attackRadius: 1
-  chargeSpeed: 3
+  chargeSpeed: 12
   chargeCooldown: 8
-  attackCooldown: 3
+  _chargeTicker: 0
+  attackCooldown: 2
+  _attackTicker: 0
+  chargeWindupTime: 1.5
+  chargeActiveTime: 0.5
+  chargeRecoverTime: 0
   health: 100
   maxHealth: 100
   bloodGush: {fileID: 1282858200991441193, guid: 2312843041ab2224b8a2744cdcad0cbf,
     type: 3}
   player: {fileID: 141584201}
   detectionRadius: 5
+  dodgeCooldown: 10
+  dodgeChance: 0.3
+  dodgeTicker: 0
+  tauntDuration: 2
+  tauntChance: 0.5
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1174,6 +1204,26 @@ PrefabInstance:
     - target: {fileID: 7920950204574336731, guid: 44425a36ed7ba9945b5176a820fcfecc,
         type: 3}
       propertyPath: m_Speed
+      value: 2.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7920950204574336731, guid: 44425a36ed7ba9945b5176a820fcfecc,
+        type: 3}
+      propertyPath: m_AutoBraking
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7920950204574336731, guid: 44425a36ed7ba9945b5176a820fcfecc,
+        type: 3}
+      propertyPath: m_Acceleration
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7920950204574336731, guid: 44425a36ed7ba9945b5176a820fcfecc,
+        type: 3}
+      propertyPath: m_AngularSpeed
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7920950204574336731, guid: 44425a36ed7ba9945b5176a820fcfecc,
+        type: 3}
+      propertyPath: m_StoppingDistance
       value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents:
@@ -1184,7 +1234,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 938082215214455337, guid: 44425a36ed7ba9945b5176a820fcfecc,
         type: 3}
-      insertIndex: -1
+      insertIndex: 5
       addedObject: {fileID: 729922469}
   m_SourcePrefab: {fileID: 100100000, guid: 44425a36ed7ba9945b5176a820fcfecc, type: 3}
 --- !u!1 &729922461 stripped
@@ -1207,15 +1257,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chargeRadius: 3
   attackRadius: 1
-  chargeSpeed: 3
+  chargeSpeed: 12
   chargeCooldown: 8
-  attackCooldown: 3
+  _chargeTicker: 0
+  attackCooldown: 2
+  _attackTicker: 0
+  chargeWindupTime: 1.5
+  chargeActiveTime: 0.5
+  chargeRecoverTime: 0
   health: 100
   maxHealth: 100
   bloodGush: {fileID: 1282858200991441193, guid: 2312843041ab2224b8a2744cdcad0cbf,
     type: 3}
   player: {fileID: 141584201}
   detectionRadius: 5
+  dodgeCooldown: 10
+  dodgeChance: 0.3
+  dodgeTicker: 0
+  tauntDuration: 2
+  tauntChance: 0.5
 --- !u!1001 &782196633
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2365,6 +2425,26 @@ PrefabInstance:
     - target: {fileID: 7920950204574336731, guid: 44425a36ed7ba9945b5176a820fcfecc,
         type: 3}
       propertyPath: m_Speed
+      value: 2.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7920950204574336731, guid: 44425a36ed7ba9945b5176a820fcfecc,
+        type: 3}
+      propertyPath: m_AutoBraking
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7920950204574336731, guid: 44425a36ed7ba9945b5176a820fcfecc,
+        type: 3}
+      propertyPath: m_Acceleration
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7920950204574336731, guid: 44425a36ed7ba9945b5176a820fcfecc,
+        type: 3}
+      propertyPath: m_AngularSpeed
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7920950204574336731, guid: 44425a36ed7ba9945b5176a820fcfecc,
+        type: 3}
+      propertyPath: m_StoppingDistance
       value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents:
@@ -2375,7 +2455,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 938082215214455337, guid: 44425a36ed7ba9945b5176a820fcfecc,
         type: 3}
-      insertIndex: -1
+      insertIndex: 5
       addedObject: {fileID: 1339236256086809744}
   m_SourcePrefab: {fileID: 100100000, guid: 44425a36ed7ba9945b5176a820fcfecc, type: 3}
 --- !u!1 &1339236256086809736 stripped
@@ -2398,12 +2478,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chargeRadius: 3
   attackRadius: 1
-  chargeSpeed: 3
+  chargeSpeed: 12
   chargeCooldown: 8
-  attackCooldown: 3
+  _chargeTicker: 0
+  attackCooldown: 2
+  _attackTicker: 0
+  chargeWindupTime: 1.5
+  chargeActiveTime: 0.5
+  chargeRecoverTime: 0
   health: 100
   maxHealth: 100
   bloodGush: {fileID: 1282858200991441193, guid: 2312843041ab2224b8a2744cdcad0cbf,
     type: 3}
   player: {fileID: 141584201}
   detectionRadius: 5
+  dodgeCooldown: 10
+  dodgeChance: 0.3
+  dodgeTicker: 0
+  tauntDuration: 2
+  tauntChance: 0.5

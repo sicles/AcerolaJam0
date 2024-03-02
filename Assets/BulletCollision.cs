@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletCollision : MonoBehaviour
 {
-    private PrototypeAI _prototypeAI;
+    private AI.PrototypeAI _prototypeAI;
     private PlayerScript.PlayerController _playerController;
     public bool IsActive { get; set; }
 
@@ -19,9 +19,9 @@ public class BulletCollision : MonoBehaviour
     {
         if (!IsActive) return;
         
-        if (other.transform.GetComponent<PrototypeAI>() != null && other.gameObject != LastEnemy)
+        if (other.transform.GetComponent<AI.PrototypeAI>() != null && other.gameObject != LastEnemy)
         {
-            other.transform.GetComponent<PrototypeAI>().TakeDamage(50, other.transform.position, other.transform.rotation.eulerAngles, _playerController.BulletBackcallDirection);
+            other.transform.GetComponent<AI.PrototypeAI>().TakeDamage(50, other.transform.position, other.transform.rotation.eulerAngles, _playerController.BulletBackcallDirection);
         }
 
         LastEnemy = other.gameObject;
