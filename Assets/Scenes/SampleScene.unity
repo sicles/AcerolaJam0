@@ -716,10 +716,44 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5907099166258268207, guid: 44425a36ed7ba9945b5176a820fcfecc, type: 3}
+    - {fileID: 5955957005075287940, guid: 44425a36ed7ba9945b5176a820fcfecc, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 938082215214455337, guid: 44425a36ed7ba9945b5176a820fcfecc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 366117861}
   m_SourcePrefab: {fileID: 100100000, guid: 44425a36ed7ba9945b5176a820fcfecc, type: 3}
+--- !u!1 &366117853 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 938082215214455337, guid: 44425a36ed7ba9945b5176a820fcfecc,
+    type: 3}
+  m_PrefabInstance: {fileID: 366117852}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &366117861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366117853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5989fceaa11961449a545f83734689d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chargeRadius: 3
+  attackRadius: 1
+  chargeSpeed: 3
+  chargeCooldown: 8
+  attackCooldown: 3
+  health: 100
+  maxHealth: 100
+  bloodGush: {fileID: 1282858200991441193, guid: 2312843041ab2224b8a2744cdcad0cbf,
+    type: 3}
+  player: {fileID: 141584201}
+  detectionRadius: 5
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1144,10 +1178,44 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5907099166258268207, guid: 44425a36ed7ba9945b5176a820fcfecc, type: 3}
+    - {fileID: 5955957005075287940, guid: 44425a36ed7ba9945b5176a820fcfecc, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 938082215214455337, guid: 44425a36ed7ba9945b5176a820fcfecc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 729922469}
   m_SourcePrefab: {fileID: 100100000, guid: 44425a36ed7ba9945b5176a820fcfecc, type: 3}
+--- !u!1 &729922461 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 938082215214455337, guid: 44425a36ed7ba9945b5176a820fcfecc,
+    type: 3}
+  m_PrefabInstance: {fileID: 729922460}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &729922469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729922461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5989fceaa11961449a545f83734689d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chargeRadius: 3
+  attackRadius: 1
+  chargeSpeed: 3
+  chargeCooldown: 8
+  attackCooldown: 3
+  health: 100
+  maxHealth: 100
+  bloodGush: {fileID: 1282858200991441193, guid: 2312843041ab2224b8a2744cdcad0cbf,
+    type: 3}
+  player: {fileID: 141584201}
+  detectionRadius: 5
 --- !u!1001 &782196633
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2301,7 +2369,41 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5907099166258268207, guid: 44425a36ed7ba9945b5176a820fcfecc, type: 3}
+    - {fileID: 5955957005075287940, guid: 44425a36ed7ba9945b5176a820fcfecc, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 938082215214455337, guid: 44425a36ed7ba9945b5176a820fcfecc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1339236256086809744}
   m_SourcePrefab: {fileID: 100100000, guid: 44425a36ed7ba9945b5176a820fcfecc, type: 3}
+--- !u!1 &1339236256086809736 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 938082215214455337, guid: 44425a36ed7ba9945b5176a820fcfecc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1339236256086809735}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1339236256086809744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1339236256086809736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5989fceaa11961449a545f83734689d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chargeRadius: 3
+  attackRadius: 1
+  chargeSpeed: 3
+  chargeCooldown: 8
+  attackCooldown: 3
+  health: 100
+  maxHealth: 100
+  bloodGush: {fileID: 1282858200991441193, guid: 2312843041ab2224b8a2744cdcad0cbf,
+    type: 3}
+  player: {fileID: 141584201}
+  detectionRadius: 5
