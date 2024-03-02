@@ -17,6 +17,7 @@ namespace PlayerScript
         private float _rackTargetCharge = 2f;
         [SerializeField] private float _rackCharge;
         private bool _rackIsReady = true;
+        [SerializeField] private float spreadAmount = 1;
         public Vector3 BulletBackcallDirection { get; private set; }
     
         partial void Shoot();
@@ -35,7 +36,7 @@ namespace PlayerScript
                 return;
             }
 
-            Ray ray = new Ray(playerCamera.transform.position + playerCamera.transform.forward, playerCamera.transform.forward);
+            Ray ray = new Ray(playerCamera.transform.position + playerCamera.transform.forward, CalculateShotDirection());
         
             if (Physics.Raycast(ray, out RaycastHit hit, _shootRange))
             {
@@ -53,6 +54,20 @@ namespace PlayerScript
                 if (hit.collider.gameObject.TryGetComponent<AI.PrototypeAI>(out AI.PrototypeAI prototypeAI))
                     prototypeAI.TakeDamage(50, hit.transform.position, hit.normal, playerCamera.transform.forward);
             }
+        }
+
+        /// <summary>
+        /// Calculate movement dependent spread.
+        /// </summary>
+        private Vector3 CalculateShotDirection()
+        {
+            float upRng = Random.Range(-1f, 1f);
+            float rightRng = Random.Range(-1f, 1f);
+
+            Vector3 normalizedSpread = (playerCamera.transform.up * upRng * playerInput.y 
+                                        + playerCamera.transform.right * rightRng * playerInput.x).normalized;
+
+            return (playerCamera.transform.forward + normalizedSpread * (spreadAmount * Mathf.Clamp(Mathf.Abs(gravity.y), 1, 2 )));
         }
 
         /// <summary>
@@ -143,7 +158,6 @@ namespace PlayerScript
         /// <summary>
         ///     /// Unparent bullet and activate gravity.
         /// </summary>
-        /// <param name="isFreed">True if bullet should be freed.</param>
         public void SetBulletFree()
         {
             bullet.transform.parent = null;
