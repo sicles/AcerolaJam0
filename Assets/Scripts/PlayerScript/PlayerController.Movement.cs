@@ -25,6 +25,7 @@ namespace PlayerScript
         [SerializeField] float _dashTiltAmount = 10f;
         [SerializeField] private float dashSteps;
         private bool _dashRecovery;
+        [SerializeField] bool playerIsInvincible;
 
         /// <summary>
         /// 1. Player calls dash, correct vector is calculated.
@@ -65,10 +66,11 @@ namespace PlayerScript
             else
                 _dashDirection = _dashDirection.normalized;
 
+
+            StartCoroutine(PlayerIFrames(3));
             _dashTicker = 0;
             _isDashing = true;
             _playerAcceleration = 0.5f * defaultPlayerAcceleration;
-            Debug.Log("Dash is starting, z value at: " + playerCamera.transform.localRotation.eulerAngles.z);
         }
 
         /// <summary>
@@ -87,9 +89,18 @@ namespace PlayerScript
             controller.Move(_dashDirection * (_dashForce * Time.deltaTime));
         }
 
+        private IEnumerator PlayerIFrames(int amount)
+        {
+            playerIsInvincible = true;
+            for (int i = 0; i < amount; i++)
+            {
+                yield return new WaitForFixedUpdate();
+            }
+            playerIsInvincible = false;
+        }
+
         private void StopDash()
         {
-            Debug.Log("Dash is stopping, z value at: " + playerCamera.transform.localRotation.eulerAngles.z);
             _isDashing = false;
             _dashIsActive = false;
             _dashDirection = Vector3.zero;

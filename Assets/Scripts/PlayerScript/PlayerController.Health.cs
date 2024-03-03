@@ -12,9 +12,13 @@ namespace PlayerScript
 
         public void TakeDamage(int amount)
         {
+            if (playerIsInvincible)
+            {
+                Debug.Log("player has dodged via iframes!");    // TODO may implement player feedback to this later
+                return;
+            }
             if (_playerIsDead) return;
             
-            Debug.Log("takedamage has been called");
             playerHealth -= amount;
 
             uiManager.UpdateHealthbar(amount);
