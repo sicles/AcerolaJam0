@@ -73,6 +73,7 @@ namespace PlayerScript
             BulletTravel();
 
             MouseLook();
+            PlayerTilt();
             PlayerViewDirectionCheck();
         
             DashTick();

@@ -348,6 +348,11 @@ MonoBehaviour:
   playerInput: {x: 0, y: 0}
   uiManager: {fileID: 1973294517}
   playerHealth: 0
+  _camDashTiltTarget: {x: 0, y: 0, z: 0}
+  _tiltAcceleration: 0.414
+  _tiltResetAcceleration: 0
+  _dashTiltAmount: 10
+  dashSteps: 0
   ammunition: 0
   maxAmmunition: 1
   bullet: {fileID: 1479819105}
@@ -611,8 +616,8 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
+  far clip plane: 200
+  field of view: 90
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -638,7 +643,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.603, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -662,7 +667,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
