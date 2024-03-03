@@ -24,6 +24,9 @@ namespace AI
         [SerializeField] private float chargeWindupTime = 1;
         [SerializeField] private float chargeActiveTime = 0.5f;
         [SerializeField] private float chargeRecoverTime = 1;
+        [SerializeField] private float attackWindupTime = 0.75f;
+        [SerializeField] private float attackRecoveryTime = 1f;
+        [SerializeField] float attackRange = 3;
 
 
         private void ChargeCollisonCheck()
@@ -83,6 +86,9 @@ namespace AI
 
         }
 
+        /// <summary>
+        /// Gapclosing attack. Does not track player.
+        /// </summary>
         private void Charge()
         {
             if (_chargeIsActive)
@@ -95,13 +101,40 @@ namespace AI
                 StartCoroutine(Attack());
         }
 
+        /// <summary>
+        /// Standard melee attack. Tracks player.
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator Attack()
         {
+            Debug.Log("Attack was started!");
             _enemyIsBusy = true;
             _attackTicker = 0;
-        
-            yield return new WaitForEndOfFrame();
-        
+
+            // Phase 1: Windup
+
+            yield return new WaitForSeconds(attackWindupTime);
+            
+            // Phase 2: Attack
+
+            if (Physics.Raycast(transform.position, _playerDistance, attackRadius, 1 << 7))
+            {
+                Debug.Log("player has been hit!");
+                Debug.DrawLine(transform.position, 
+                        player.transform.position - transform.position * attackRange,
+                            Color.red);
+                _playerController.TakeDamage(25);
+            }
+            
+            // Phase 3: Recovery
+
+            _agent.isStopped = true;
+
+            yield return new WaitForSeconds(attackRecoveryTime);
+
+            // Phase 4: Resume default behaviour
+            
+            _agent.isStopped = false;
             _enemyIsBusy = false;
         }
 

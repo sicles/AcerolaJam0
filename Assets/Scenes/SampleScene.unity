@@ -257,7 +257,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 141584197}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 3
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -351,7 +351,7 @@ MonoBehaviour:
   _camDashTiltTarget: {x: 0, y: 0, z: 0}
   _tiltAcceleration: 0.144
   _tiltResetAccelerationAfterDash: 0.077
-  _dashTiltAmount: 10
+  _dashTiltAmount: 6
   dashSteps: 0
   ammunition: 0
   maxAmmunition: 1
@@ -793,7 +793,7 @@ PrefabInstance:
     - target: {fileID: 7920950204574336731, guid: 44425a36ed7ba9945b5176a820fcfecc,
         type: 3}
       propertyPath: m_Speed
-      value: 2.25
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7920950204574336731, guid: 44425a36ed7ba9945b5176a820fcfecc,
         type: 3}
@@ -813,7 +813,7 @@ PrefabInstance:
     - target: {fileID: 7920950204574336731, guid: 44425a36ed7ba9945b5176a820fcfecc,
         type: 3}
       propertyPath: m_StoppingDistance
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5907099166258268207, guid: 44425a36ed7ba9945b5176a820fcfecc, type: 3}
@@ -844,8 +844,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5989fceaa11961449a545f83734689d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chargeRadius: 3
-  attackRadius: 1
+  chargeRadius: 5
+  attackRadius: 2
   chargeSpeed: 12
   chargeCooldown: 8
   _chargeTicker: 0
@@ -854,6 +854,9 @@ MonoBehaviour:
   chargeWindupTime: 1.5
   chargeActiveTime: 0.5
   chargeRecoverTime: 0
+  attackWindupTime: 0.5
+  attackRecoveryTime: 1
+  attackRange: 0
   health: 100
   maxHealth: 100
   bloodGush: {fileID: 1282858200991441193, guid: 2312843041ab2224b8a2744cdcad0cbf,
@@ -1287,7 +1290,7 @@ PrefabInstance:
     - target: {fileID: 7920950204574336731, guid: 44425a36ed7ba9945b5176a820fcfecc,
         type: 3}
       propertyPath: m_Speed
-      value: 2.25
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7920950204574336731, guid: 44425a36ed7ba9945b5176a820fcfecc,
         type: 3}
@@ -1307,7 +1310,7 @@ PrefabInstance:
     - target: {fileID: 7920950204574336731, guid: 44425a36ed7ba9945b5176a820fcfecc,
         type: 3}
       propertyPath: m_StoppingDistance
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5907099166258268207, guid: 44425a36ed7ba9945b5176a820fcfecc, type: 3}
@@ -1338,8 +1341,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5989fceaa11961449a545f83734689d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chargeRadius: 3
-  attackRadius: 1
+  chargeRadius: 5
+  attackRadius: 2
   chargeSpeed: 12
   chargeCooldown: 8
   _chargeTicker: 0
@@ -1348,6 +1351,9 @@ MonoBehaviour:
   chargeWindupTime: 1.5
   chargeActiveTime: 0.5
   chargeRecoverTime: 0
+  attackWindupTime: 0.5
+  attackRecoveryTime: 1
+  attackRange: 0
   health: 100
   maxHealth: 100
   bloodGush: {fileID: 1282858200991441193, guid: 2312843041ab2224b8a2744cdcad0cbf,
@@ -2920,7 +2926,7 @@ PrefabInstance:
     - target: {fileID: 7920950204574336731, guid: 44425a36ed7ba9945b5176a820fcfecc,
         type: 3}
       propertyPath: m_Speed
-      value: 2.25
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7920950204574336731, guid: 44425a36ed7ba9945b5176a820fcfecc,
         type: 3}
@@ -2940,7 +2946,7 @@ PrefabInstance:
     - target: {fileID: 7920950204574336731, guid: 44425a36ed7ba9945b5176a820fcfecc,
         type: 3}
       propertyPath: m_StoppingDistance
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5907099166258268207, guid: 44425a36ed7ba9945b5176a820fcfecc, type: 3}
@@ -2971,8 +2977,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5989fceaa11961449a545f83734689d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chargeRadius: 3
-  attackRadius: 1
+  chargeRadius: 5
+  attackRadius: 2
   chargeSpeed: 12
   chargeCooldown: 8
   _chargeTicker: 0
@@ -2981,6 +2987,9 @@ MonoBehaviour:
   chargeWindupTime: 1.5
   chargeActiveTime: 0.5
   chargeRecoverTime: 0
+  attackWindupTime: 0.5
+  attackRecoveryTime: 1
+  attackRange: 0
   health: 100
   maxHealth: 100
   bloodGush: {fileID: 1282858200991441193, guid: 2312843041ab2224b8a2744cdcad0cbf,

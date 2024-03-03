@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -128,6 +129,57 @@ namespace PlayerScript
             transform.localRotation = Quaternion.Euler(new Vector3(xLerp, 
                                                                     transform.rotation.eulerAngles.y, // do not change y
                                                                     zLerp));
+        }
+
+        /// <summary>
+        /// Stops time for a given duration.
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <param name="duration"></param>
+        /// <returns></returns>
+        private IEnumerator HitStop(float duration)
+        {
+            yield return new WaitForSecondsRealtime(0.01f);   // let the cool stuff happen before freezing
+
+            float oldTimeScale = Time.timeScale;
+            
+            Time.timeScale = 0;
+            yield return new WaitForSeconds(duration);
+            Time.timeScale = oldTimeScale;
+        }
+
+        private IEnumerator SlowMotion(float duration, float amount)
+        {
+            float oldTimeScale = Time.timeScale;
+            
+            Time.timeScale = amount;
+            yield return new WaitForSeconds(duration);
+            Time.timeScale = oldTimeScale;        }
+        
+        /// <summary>
+        /// Shake camera by amount for a given duration.
+        /// </summary>
+        /// <param name="amount">Maximum amount of shake magnitude that will be possible.</param>
+        /// <param name="frames">Duration of shake in frames.</param>
+        private IEnumerator CameraShake(float amount, float frames)     
+        {
+            // this method is extremely hacky, shake amount+duration is frame dependent
+            
+            Vector3 originalLocalPosition = playerCamera.transform.localPosition;
+            
+            for (int i = 0; i < frames; i++)
+            {
+                float xShake = Random.Range(-amount, amount);
+                float yShake = Random.Range(-amount, amount);
+
+                playerCamera.transform.localPosition = new Vector3(originalLocalPosition.x + xShake, 
+                                                                    originalLocalPosition.y + yShake, 
+                                                                    0);     // don't change z (is forward)
+                
+                yield return new WaitForEndOfFrame();
+            }
+
+            playerCamera.transform.localPosition = originalLocalPosition;
         }
 
         private void RestorePlayerSpeed()

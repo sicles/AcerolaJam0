@@ -15,8 +15,9 @@ public class UIManager : MonoBehaviour
     {
         healthBar.localScale = new Vector3((playerController.GetPlayerHealth() / 100f), healthBar.localScale.y, healthBar.localScale.z);
         if (_healthlossbarUpdateIsRunning)  // fast forward update if additional damage happens
-            healthLossBar.localScale = new Vector3(playerController.GetPlayerHealth() / 100f, healthLossBar.localScale.y,
-                healthLossBar.localScale.z);
+            healthLossBar.localScale = new Vector3(playerController.GetPlayerHealth() / 100f, 
+                                                    healthLossBar.localScale.y,
+                                                    healthLossBar.localScale.z);
         
         StopAllCoroutines();
         StartCoroutine(UpdateHealthlossbar(lastHealth));
@@ -26,13 +27,14 @@ public class UIManager : MonoBehaviour
     {
         _healthlossbarUpdateIsRunning = true;
         yield return new WaitForSeconds(healthLossDelay);
-        
-        float healthStep = (damageAmount) / 100f / 100f ;   // first float for time taken, second is reduction to number between 0 and 1 (to fit scale dimension)
 
-        for (int i = 0; i < 100; i++)
+        float steps = 50;   // is float to avoid having to explicit cast, but must be int
+        float healthStep = (damageAmount / steps) * 0.01f ;   // first float for time taken, second is reduction to number between 0 and 1 (to fit scale dimension)
+
+        for (int i = 0; i < steps; i++)
         {
             healthLossBar.localScale = new Vector3(healthLossBar.localScale.x - healthStep, healthLossBar.localScale.y, healthLossBar.localScale.z);
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(1 / steps);
         }
         
         _healthlossbarUpdateIsRunning = false;

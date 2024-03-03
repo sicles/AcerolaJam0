@@ -13,7 +13,7 @@ namespace AI
         [SerializeField] private float dodgeDuration = 0.25f;
         private bool _dodgeIsActive;
         [SerializeField] float dodgeSpeed = 5;
-        private float _direction;
+        private float _dodgeDirection;
 
         /// <summary>
         /// Performs a dodge if player is currently aiming at this enemy
@@ -31,11 +31,8 @@ namespace AI
             {
                 if (Random.Range(0, 100) < dodgeChance)
                 {
-                    Debug.Log("wiggle wiggle");
                     StartCoroutine(DodgeRoutine());
                 }
-                else
-                    Debug.Log("no wiggle :(");
             }
             
             dodgeTicker = 0;
@@ -45,14 +42,14 @@ namespace AI
         {
             if (!_dodgeIsActive) return;
             
-            _agent.Move(_direction * transform.right * (dodgeSpeed * Time.deltaTime));
+            _agent.Move(_dodgeDirection * transform.right * (dodgeSpeed * Time.deltaTime));
         }
 
         private IEnumerator DodgeRoutine()
         {
             // decide dodge direction
-            _direction = Random.Range(-1f, 1f);
-            _direction = _direction < 1 ? -1 : 1;
+            _dodgeDirection = Random.Range(-1f, 1f);
+            _dodgeDirection = _dodgeDirection < 1 ? -1 : 1;
 
             _dodgeIsActive = true;
             _agent.isStopped = true;

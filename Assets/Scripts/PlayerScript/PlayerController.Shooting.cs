@@ -35,9 +35,10 @@ namespace PlayerScript
                 Debug.Log("Shoot attempt was made, but gun is not racked");
                 return;
             }
-
+            
             Ray ray = new Ray(playerCamera.transform.position + playerCamera.transform.forward, CalculateShotDirection());
-        
+            StartCoroutine(CameraShake(0.12f, 15f));
+
             if (Physics.Raycast(ray, out RaycastHit hit, _shootRange))
             {
                 bullet.GetComponent<BulletCollision>().LastEnemy = hit.transform.gameObject;
