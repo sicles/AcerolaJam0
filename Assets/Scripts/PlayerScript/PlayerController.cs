@@ -74,7 +74,6 @@ namespace PlayerScript
             
             MouseLook();
             PlayerTilt();
-            PlayerViewDirectionCheck();
         
             DashTick();
             CallDash();
@@ -104,16 +103,6 @@ namespace PlayerScript
                     transform.rotation = Quaternion.Euler(0, playerViewConstraints + 60, 0);
                 else if (transform.rotation.eulerAngles.y < playerViewConstraints - 60)
                     transform.rotation = Quaternion.Euler(0, playerViewConstraints - 60, 0);
-        }
-
-        private void PlayerViewDirectionCheck()
-        {
-            // Listen, if I can't return null, I'm making my own null with blackjack and hookers. Only god can judge me
-            
-            if (!Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out _viewDirection,
-                    100))
-                Physics.Raycast(controller.transform.position, -controller.transform.up,
-                    out _viewDirection, 100);
         }
 
         public RaycastHit GetPlayerViewDirection()

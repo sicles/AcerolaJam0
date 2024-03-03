@@ -83,7 +83,6 @@ namespace AI
             
             // Phase 5: enemy behaviour resets
             _agent.isStopped = false;
-
         }
 
         /// <summary>
@@ -119,7 +118,6 @@ namespace AI
 
             if (Physics.Raycast(transform.position, _playerDistance, attackRadius, 1 << 7))
             {
-                Debug.Log("player has been hit!");
                 Debug.DrawLine(transform.position, 
                         player.transform.position - transform.position * attackRange,
                             Color.red);

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace AI
 {
@@ -14,6 +16,17 @@ namespace AI
         private bool _dodgeIsActive;
         [SerializeField] float dodgeSpeed = 5;
         private float _dodgeDirection;
+        private bool _isLookedAt;
+
+        private void OnMouseEnter()
+        {
+            _isLookedAt = true;
+        }
+
+        private void OnMouseExit()
+        {
+            _isLookedAt = false;
+        }
 
         /// <summary>
         /// Performs a dodge if player is currently aiming at this enemy
@@ -27,7 +40,7 @@ namespace AI
                 return;
             }
 
-            if (_playerController.GetPlayerViewDirection().transform.gameObject == transform.gameObject && !_enemyIsBusy)
+            if (_isLookedAt && !_enemyIsBusy)
             {
                 if (Random.Range(0, 100) < dodgeChance)
                 {

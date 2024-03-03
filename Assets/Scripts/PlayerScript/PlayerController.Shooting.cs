@@ -149,7 +149,6 @@ namespace PlayerScript
         /// </summary>
         private void CatchBullet()
         {
-            Debug.Log("player caught bullet!");
             ammunition++;
             bullet.transform.SetParent(transform, true);
             bullet.transform.GetComponent<MeshRenderer>().enabled = false;

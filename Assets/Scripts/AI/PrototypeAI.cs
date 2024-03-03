@@ -1,6 +1,8 @@
+using System;
 using FMOD.Studio;
 using UnityEngine;
 using UnityEngine.AI;
+using Object = UnityEngine.Object;
 
 namespace AI
 {
