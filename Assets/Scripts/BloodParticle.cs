@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class ParticleKiller : MonoBehaviour
+public class BloodParticle : MonoBehaviour
 {
     [SerializeField] private float lifeTime;
+    [SerializeField] private GameObject bloodDecal;
     
     void Start()
     {

@@ -12,6 +12,8 @@ namespace AI
         [SerializeField] private int health = 100;
         [SerializeField] private int maxHealth = 100;
         [SerializeField] private ParticleSystem bloodGush;
+        [SerializeField] private GameObject bloodDecal;
+        private Camera _playerCamera;
         private int _gibThreshold;
 
         [SerializeField] private Transform player;
@@ -32,7 +34,8 @@ namespace AI
             _rigidbody = transform.GetComponent<Rigidbody>();
             _agent = GetComponent<NavMeshAgent>();
             _agent.isStopped = true;
-            _playerController = player.GetComponent<PlayerScript.PlayerController>();
+            _playerController = player.gameObject.GetComponent<PlayerScript.PlayerController>();
+            _playerCamera = player.GetComponentInChildren<Camera>();
         }
 
         private void Update()
@@ -109,7 +112,8 @@ namespace AI
                 Alert(true);
         
             health -= damage;
-            Object.Instantiate(bloodGush, position, Quaternion.LookRotation(rotation));    // i have no idea why this works for the rotation ¯\_(ツ)_/¯
+            Object.Instantiate(bloodGush, position, _playerCamera.transform.rotation);
+            CreateBloodDecal();
             CallHurtState();
         
             if (_alive && health <= 0)
@@ -117,6 +121,17 @@ namespace AI
         
             if (!_alive && health <= _gibThreshold)  // no else because overkills are possible 
                 Gib();
+        }
+
+        private void CreateBloodDecal()
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, _playerCamera.transform.forward, out hit, 50))
+            {
+                GameObject newDecal  = Instantiate(bloodDecal, 
+                                        hit.point + hit.normal * 0.01f,
+                                                     Quaternion.LookRotation(hit.normal));  // THIS IS WORKING FINE - if decals are rotated wrong, the prefab is at fault
+            }
         }
 
         private void Gib()
