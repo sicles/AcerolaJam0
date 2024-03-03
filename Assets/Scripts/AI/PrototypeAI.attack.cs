@@ -140,6 +140,8 @@ namespace AI
 
         private void CallHurtState()
         {
+            if (!_alive) return;
+            
             StopAllCoroutines();
             StartCoroutine(HurtState());
         }

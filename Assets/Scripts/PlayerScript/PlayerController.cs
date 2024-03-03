@@ -21,8 +21,7 @@ namespace PlayerScript
         [SerializeField] bool isGrounded;
         [SerializeField] Vector3 gravity;   // this needs to be vector3 to avoid a runtime cast
         private readonly float _gravityVelocityMax = 3f;
-        private readonly float _gravityAcceleration = 0.01f;
-        private readonly float _jumpForce = 1.2f;
+        [SerializeField] private float gravityAcceleration = 1f;
 
         [Header("Controls")]
         public KeyCode sprintKey = KeyCode.LeftShift;
@@ -70,8 +69,9 @@ namespace PlayerScript
             //PauseGame(); not yet implemented
 
             IsGroundedCheck();
+            SetGravity();
             BulletTravel();
-
+            
             MouseLook();
             PlayerTilt();
             PlayerViewDirectionCheck();
@@ -87,12 +87,6 @@ namespace PlayerScript
             RackGun();
             Reload();
             Shoot();
-        }
-
-        private void FixedUpdate()
-        {
-            if (!_overwriteInAction)
-                SetGravity();
         }
 
         private void MouseLook()
@@ -158,16 +152,8 @@ namespace PlayerScript
                 return;
             }
         
-            gravity.y -= _gravityAcceleration * Time.fixedTime;
+            gravity.y -= gravityAcceleration * Time.deltaTime;
             gravity.y = Mathf.Clamp(gravity.y, -_gravityVelocityMax, _jumpForce);
-        }
-
-        private void Jump()
-        {
-            if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-            {
-                gravity.y = _jumpForce;
-            }
         }
     
         /// <summary>

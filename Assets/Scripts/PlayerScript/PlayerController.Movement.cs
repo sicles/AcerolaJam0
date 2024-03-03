@@ -16,6 +16,8 @@ namespace PlayerScript
         private float _dashTicker = 1f;
         private float _dashCooldown = 1f;
         private readonly float _dizzyTime = 0.5f;
+        [SerializeField] private float _jumpForce = 1.2f;
+
         
         [FormerlySerializedAs("_camDashTiltDirection")]
         [Header("Camera tilt")]
@@ -33,6 +35,7 @@ namespace PlayerScript
         /// </summary>
         private void CallDash()
         {
+            if (!isGrounded) return;
             if (!Input.GetKeyDown(KeyCode.LeftShift)) return;
             if (_dashTicker < _dashCooldown) return;
             
@@ -206,6 +209,14 @@ namespace PlayerScript
 
             if (_dashTicker < _dashCooldown)
                 _dashTicker += Time.deltaTime;
+        }
+        
+        private void Jump()
+        {
+            if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !_isDashing)
+            {
+                gravity.y = _jumpForce;
+            }
         }
     }
 }
