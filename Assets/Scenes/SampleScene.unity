@@ -349,8 +349,8 @@ MonoBehaviour:
   uiManager: {fileID: 1973294517}
   playerHealth: 0
   _camDashTiltTarget: {x: 0, y: 0, z: 0}
-  _tiltAcceleration: 0.414
-  _tiltResetAcceleration: 0
+  _tiltAcceleration: 0.144
+  _tiltResetAccelerationAfterDash: 0.077
   _dashTiltAmount: 10
   dashSteps: 0
   ammunition: 0
@@ -360,7 +360,7 @@ MonoBehaviour:
   bulletTravelSpeed: 10
   _gunIsRacked: 0
   _rackCharge: 0
-  spreadAmount: 0.1
+  spreadAmount: 0.01
 --- !u!143 &141584203
 CharacterController:
   m_ObjectHideFlags: 0

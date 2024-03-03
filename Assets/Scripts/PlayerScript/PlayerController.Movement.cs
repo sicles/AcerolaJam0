@@ -20,11 +20,10 @@ namespace PlayerScript
         [Header("Camera tilt")]
         [SerializeField] Vector3 _camDashTiltTarget;
         [SerializeField, Range(0f, 1f)] private float _tiltAcceleration = 1f;
-        [SerializeField, Range(0f, 1f)]private  float _tiltResetAcceleration= 0.01f;
+        [FormerlySerializedAs("_tiltResetAcceleration")] [SerializeField, Range(0f, 1f)]private  float _tiltResetAccelerationAfterDash= 0.01f;
         [SerializeField] float _dashTiltAmount = 10f;
         [SerializeField] private float dashSteps;
-        private int _totalSteps = 100;
-        private int _currentSteps;
+        private bool _dashRecovery;
 
         /// <summary>
         /// 1. Player calls dash, correct vector is calculated.
@@ -84,24 +83,7 @@ namespace PlayerScript
                 _dashIsActive = true;
             }
 
-            _currentSteps = 0;
-            float cashedVerticalTilt = playerCamera.transform.localRotation.eulerAngles.x;
-            
             controller.Move(_dashDirection * (_dashForce * Time.deltaTime));
-            
-            Vector3 lerpCameraTilt = LerpCameraTilt();
-
-
-        }
-
-        private Vector3 LerpCameraTilt()
-        {
-            if (_currentSteps + 1 < _totalSteps)
-            {
-                _currentSteps++;
-            }
-            
-            return new Vector3(_camDashTiltTarget.x / _totalSteps, 0, _camDashTiltTarget.z / _totalSteps);
         }
 
         private void StopDash()
@@ -111,39 +93,47 @@ namespace PlayerScript
             _dashIsActive = false;
             _dashDirection = Vector3.zero;
             _camDashTiltTarget = Vector3.zero;
+            _dashRecovery = true;
             Invoke(nameof(RestorePlayerSpeed), _dizzyTime);
         }
 
         /// <summary>
         /// Set current player tilt corresponding to movement
         /// Note that this tilts the camera's parent to avoid race conditions with camera script
+        /// Dash tilt completely overrides normal movement tilt
         /// </summary>
         private void PlayerTilt()
         {
-
             float xLerp;
             float zLerp;
 
-            if (_camDashTiltTarget != Vector3.zero)
+            if (!_isDashing)
+            {
+                _camDashTiltTarget = new Vector3(Input.GetAxis("Vertical"),
+                                                0,
+                                                -Input.GetAxis("Horizontal"));
+            }
+            
+            if (_camDashTiltTarget != Vector3.zero && !_dashRecovery)
             {
                 xLerp = Mathf.LerpAngle(transform.rotation.eulerAngles.x, _camDashTiltTarget.x, _tiltAcceleration);
                 zLerp = Mathf.LerpAngle(transform.rotation.eulerAngles.z, _camDashTiltTarget.z, _tiltAcceleration);
             }
             else
             {
-                xLerp = Mathf.LerpAngle(transform.rotation.eulerAngles.x, _camDashTiltTarget.x, _tiltResetAcceleration);
-                zLerp = Mathf.LerpAngle(transform.rotation.eulerAngles.z, _camDashTiltTarget.z, _tiltResetAcceleration);
+                xLerp = Mathf.LerpAngle(transform.rotation.eulerAngles.x, _camDashTiltTarget.x, _tiltResetAccelerationAfterDash);
+                zLerp = Mathf.LerpAngle(transform.rotation.eulerAngles.z, _camDashTiltTarget.z, _tiltResetAccelerationAfterDash);
             }
            
             transform.localRotation = Quaternion.Euler(new Vector3(xLerp, 
                                                                     transform.rotation.eulerAngles.y, // do not change y
                                                                     zLerp));
-
         }
 
         private void RestorePlayerSpeed()
         {
             _playerAcceleration = defaultPlayerAcceleration;
+            _dashRecovery = false;
             // playerCamera.transform.localRotation = Quaternion.Euler(Vector3.zero);
         }
 
