@@ -13,6 +13,7 @@ namespace AI
         [SerializeField] private float attackRadius = 1f;
         private Vector3 _chargeDirection;
         private bool _chargeIsActive;
+        private bool _chargeHasHit;
         [SerializeField] private float chargeSpeed = 3f;
     
         [Header("Cooldowns")] 
@@ -27,9 +28,11 @@ namespace AI
 
         private void ChargeCollisonCheck()
         {
-            if (_chargeIsActive && _playerDistance.magnitude <= 1)
+            if (_chargeIsActive && _playerDistance.magnitude <= 1 && !_chargeHasHit)
             {
                 Debug.Log("charge collision happened!");
+                _chargeHasHit = true;
+                _playerController.TakeDamage(25);
             }
         }
     
@@ -51,6 +54,7 @@ namespace AI
         private IEnumerator ChargeRoutine()
         {
             // Phase 1: charge is charged (haha)
+            _chargeHasHit = false;
             _enemyIsBusy = true;
             _chargeTicker = 0;
             _chargeDirection = player.transform.position - transform.position;  // charge direction is decided at this point

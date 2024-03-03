@@ -61,7 +61,7 @@ namespace PlayerScript
             playerRadius = controller.radius;
             ePlayerState = PlayerState.CanMove;
             _playerAcceleration = defaultPlayerAcceleration;
-            _playerHealth = _playerMaxHealth;
+            playerHealth = _playerMaxHealth;
             Cursor.lockState = CursorLockMode.Locked;
         }
 
