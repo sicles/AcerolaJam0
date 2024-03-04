@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace PlayerScript
 {
@@ -18,27 +19,33 @@ namespace PlayerScript
         [SerializeField] private float _rackCharge;
         private bool _rackIsReady = true;
         [SerializeField] private float spreadAmount = 1;
+        private float _recallTicker;
+        private readonly float _recallCooldown = 0.75f; // set at same length of shooting animation
         public Vector3 BulletBackcallDirection { get; private set; }
     
-        partial void Shoot();
         partial void Reload();
         partial void AbortInput();  // not implemented
         partial void PauseGame();   // not checked in update **yet** because this is really annoying while editing
 
-        partial void Shoot()
+        private void Shoot()
         {
             if (ammunition == 0) return;
             if (!Input.GetKeyDown(KeyCode.Mouse0)) return;
             if (!_gunIsRacked)
             {
-                //TODO logic if gun fails to shoot
+                //TODO logic if gun fails to shoot (sounds mostly)
                 Debug.Log("Shoot attempt was made, but gun is not racked");
                 return;
             }
+
+            if (_reloadIsPlaying) return;
+
+            CallShootAnimation();
+            _recallTicker = 0;
             
             Ray ray = new Ray(playerCamera.transform.position + playerCamera.transform.forward, CalculateShotDirection());
             StartCoroutine(CameraShake(0.12f, 15f));
-
+            
             if (Physics.Raycast(ray, out RaycastHit hit, _shootRange))
             {
                 bullet.GetComponent<BulletCollision>().LastEnemy = hit.transform.gameObject;
@@ -90,17 +97,46 @@ namespace PlayerScript
             BulletRecall();
         }
 
+        private void TickRecallTicker()
+        {
+            if (_recallTicker <= _recallCooldown)
+                _recallTicker += Time.deltaTime;
+        }
+
+        private void ResetRackOnReload()
+        {
+            if (_reloadIsPlaying && !_gunIsRacked)
+            {
+                _rackCharge = 0;
+            }
+        }
+        
         private void RackGun()
         {
-            if (_gunIsRacked || !_rackIsReady) return;
+            if (_gunIsRacked)
+            {
+                StopRackAnimation();
+                return;
+            }
+            if (!_rackIsReady) return;
+            if (_recallTicker < _recallCooldown) return;
 
+            
             if (Input.GetKey(KeyCode.Mouse1))
+            {
                 _rackCharge += Time.deltaTime;
+                StartRackAnimation();
+            }
             else
+            {
+                StopRackAnimation();
                 _rackCharge = 0;    
-        
+            }
+
             if (_rackCharge >= _rackTargetCharge)
+            {
                 _gunIsRacked = true;
+            }
         }
 
         /// <summary>
@@ -119,6 +155,7 @@ namespace PlayerScript
         {
             bullet.transform.GetComponent<BulletCollision>().IsActive = true;
             bullet.transform.SetParent(null, true);
+            CallRecallAnimation();
             _bulletIsTraveling = true;
         }
 
@@ -149,6 +186,7 @@ namespace PlayerScript
         /// </summary>
         private void CatchBullet()
         {
+            StartCatchReloadAnimation();
             ammunition++;
             bullet.transform.SetParent(transform, true);
             bullet.transform.GetComponent<MeshRenderer>().enabled = false;

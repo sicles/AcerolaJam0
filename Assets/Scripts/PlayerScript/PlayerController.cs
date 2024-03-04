@@ -48,6 +48,7 @@ namespace PlayerScript
         Transform _transformCache;   // does this actually save performance? rider says so, and surely rider isn't lying
         private RaycastHit _viewDirection;
         private bool _thousandYardStare;
+        private bool _reloadIsPlaying;
 
         private void Awake()
         {
@@ -58,6 +59,7 @@ namespace PlayerScript
         {
             controller = this.GetComponent<CharacterController>();
             playerCamera = this.GetComponentInChildren<Camera>();
+            _animator = playerCamera.GetComponent<Animator>();
             playerRadius = controller.radius;
             ePlayerState = PlayerState.CanMove;
             _playerAcceleration = defaultPlayerAcceleration;
@@ -84,9 +86,19 @@ namespace PlayerScript
             Jump();
         
             LetGoOfRack();
-            RackGun();
-            Reload();
-            Shoot();
+            
+            ResetRackOnReload();
+            if (!_reloadIsPlaying)
+            {
+                RackGun();
+                Reload();
+                Shoot();
+            }
+            TickRecallTicker();
+            
+            // Animation logic
+            IsWalking();
+            SetGunRacked();
         }
 
         private void MouseLook()
