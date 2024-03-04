@@ -11,7 +11,7 @@ namespace PlayerScript
         [SerializeField] private float bulletBackcallThresholdDistance = 0.1f;
         [SerializeField] private float bulletTravelSpeed = 3;
         private bool _bulletIsTraveling;
-        private readonly float _bulletRotationSpeed = 1000;
+        private readonly float _bulletRotationSpeed = 2000;
     
         [SerializeField] private bool _gunIsRacked;
         private float _rackTargetCharge = 2f;
