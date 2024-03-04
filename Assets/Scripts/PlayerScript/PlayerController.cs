@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
+#pragma warning disable CS0414 // Field is assigned but its value is never used
 
 namespace PlayerScript
 {
