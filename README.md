@@ -6,7 +6,7 @@ used frameworks for this project are:
 unity 2022.3.1f1 (URP)  
 FMOD Studio and unity integration  
 blender for meshes  
-substance painter 2022 for textures + pixelator plugin by our queen ActionDawg
+substance painter 2022 for textures + pixelator plugin by our queen ActionDawg  
 fl studio and a metric ton of VSTs   
 
 if you have any additional questions about my workflows, feel free to contact me  
