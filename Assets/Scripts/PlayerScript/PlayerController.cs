@@ -65,6 +65,7 @@ namespace PlayerScript
             _playerAcceleration = defaultPlayerAcceleration;
             playerHealth = _playerMaxHealth;
             Cursor.lockState = CursorLockMode.Locked;
+            SetBulletReadyParticleState(false);
         }
 
         private void Update()

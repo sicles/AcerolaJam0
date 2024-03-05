@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
+using System.Numerics;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using Vector3 = UnityEngine.Vector3;
 
 namespace AI
 {
@@ -17,6 +19,7 @@ namespace AI
         [SerializeField] float dodgeSpeed = 5;
         private float _dodgeDirection;
         private bool _isLookedAt;
+        [SerializeField] private float dodgeRecovery = 0.1f;
 
         private void OnMouseEnter()
         {
@@ -40,7 +43,7 @@ namespace AI
                 return;
             }
 
-            if (_isLookedAt && !_enemyIsBusy)
+            if (_isLookedAt && !enemyIsBusy)
             {
                 if (Random.Range(0, 100) < dodgeChance)
                 {
@@ -54,22 +57,25 @@ namespace AI
         private void Dodge()
         {
             if (!_dodgeIsActive) return;
-            
-            _agent.Move(_dodgeDirection * transform.right * (dodgeSpeed * Time.deltaTime));
+
+            Debug.Log("is dodging");
+            _agent.Move(transform.right * (_dodgeDirection * (dodgeSpeed * Time.deltaTime)));
         }
 
         private IEnumerator DodgeRoutine()
         {
             // decide dodge direction
             _dodgeDirection = Random.Range(-1f, 1f);
-            _dodgeDirection = _dodgeDirection < 1 ? -1 : 1;
+            _dodgeDirection = _dodgeDirection < 0 ? -1 : 1;
 
             _dodgeIsActive = true;
+            enemyIsBusy = true;
             _agent.isStopped = true;
             
-            yield return new WaitForSeconds(dodgeDuration);
+            yield return new WaitForSeconds(dodgeDuration + dodgeRecovery);
 
             _dodgeIsActive = false;
+            enemyIsBusy = false;
             _agent.isStopped = false;
         }
 
@@ -86,11 +92,11 @@ namespace AI
 
         private IEnumerator Taunt()
         {
-            var accelerationBuffer = _agent.acceleration;
-            _agent.acceleration = 0;
-            Debug.Log("huge taunt!");
+            StartTauntingAnimation();
+            enemyIsBusy = true;
+
             yield return new WaitForSeconds(tauntDuration);
-            _agent.acceleration = accelerationBuffer;
+            enemyIsBusy = false;
         }
     }
 }

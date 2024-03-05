@@ -1,7 +1,9 @@
 using System;
+using FMOD;
 using FMOD.Studio;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 using Object = UnityEngine.Object;
 
 namespace AI
@@ -21,37 +23,42 @@ namespace AI
         private NavMeshAgent _agent;
         private Rigidbody _rigidbody;
 
-        private bool _isAlert;
-        private bool _alive = true;
+        [SerializeField] bool isAlert;
+        [SerializeField] private bool alive = true;
 
         [SerializeField] private float detectionRadius = 5f;
-        private Vector3 _playerDistance;
+        private Vector3 _playerDistanceRaw;
 
         private void Start()
         {
             health = maxHealth;
+            player = FindObjectOfType<CharacterController>().transform;
             _gibThreshold = (int)(-maxHealth * 1.5f);
             _rigidbody = transform.GetComponent<Rigidbody>();
             _agent = GetComponent<NavMeshAgent>();
             _agent.isStopped = true;
             _playerController = player.gameObject.GetComponent<PlayerScript.PlayerController>();
             _playerCamera = player.GetComponentInChildren<Camera>();
+            _animator = GetComponent<Animator>();
         }
 
         private void Update()
         {
-            if (_alive)
+            if (alive)
             {
                 NavMeshUpdates();
                 CooldownTick();
                 Seek();
+                IsWalking();
+                DecideIdleState();
                 
-                if (_isAlert)
+                if (isAlert)
                 {
                     ShouldDodge();
                     ShouldAttack();
                     ShouldCharge();
                     Charge();
+                    IsDodging();
                     Dodge();
                     ChargeCollisonCheck();
                 }
@@ -60,7 +67,7 @@ namespace AI
 
         private void NavMeshUpdates()
         {
-            _playerDistance = (player.position - transform.position);
+            _playerDistanceRaw = (player.position - transform.position);
             _agent.destination = player.position;
         }
 
@@ -70,29 +77,33 @@ namespace AI
         /// </summary>
         private void Seek()
         {
-            if (_isAlert) return;
+            if (isAlert) return;
 
-            if (_playerDistance.magnitude < detectionRadius)
+            if (_playerDistanceRaw.magnitude < detectionRadius)
             {
-                if (Physics.Raycast(transform.position, _playerDistance, detectionRadius, 1 << 7))
-                    Alert(true);
+                if (Physics.Raycast(transform.position, _playerDistanceRaw, detectionRadius, 1 << 7))
+                    SetAlert(true);
             }
         }
 
         /// <summary>
         /// Start chasing player
         /// </summary>
-        /// <param name="isAlert"></param>
-        private void Alert(bool isAlert)
+        /// <param name="param_isAlert">New alert state</param>
+        private void SetAlert(bool param_isAlert)
         {
-            _isAlert = isAlert;
-            _agent.isStopped = !isAlert;
+            this.isAlert = param_isAlert;
+            _agent.isStopped = !param_isAlert;
 
-            if (isAlert)
+            if (param_isAlert)
             {
                 EventInstance yodaAlert = FMODUnity.RuntimeManager.CreateInstance("event:/prototypeAlert");
                 yodaAlert.start();
-                ShouldTaunt();
+
+                if (!_animator.GetBool(IsHurt)) // getting logic from the animation logic is cringe but i forgive myself
+                    ShouldTaunt();
+                else
+                    enemyIsBusy = false;
             }
         }
 
@@ -108,19 +119,18 @@ namespace AI
         /// <param name="bulletDirection">Direction bullet was traveling at hit time.</param>
         public void TakeDamage(int damage, Vector3 position, Vector3 rotation, Vector3 bulletDirection)
         {
-            if (!_isAlert)
-                Alert(true);
-        
+            if (!isAlert)
+                SetAlert(true);
+
+            if (!alive) return;    // TODO remove the gib logic, is obsolete and not working with this new logic
+            
             health -= damage;
             Object.Instantiate(bloodGush, position, _playerCamera.transform.rotation);
             CreateBloodDecal();
             CallHurtState();
         
-            if (_alive && health <= 0)
+            if (health <= 0)
                 Die(bulletDirection);
-        
-            if (!_alive && health <= _gibThreshold)  // no else because overkills are possible 
-                Gib();
         }
 
         private void CreateBloodDecal()
@@ -134,20 +144,14 @@ namespace AI
             }
         }
 
-        private void Gib()
-        {
-            _playerController.SetBulletFree();
-     
-            // DO NOT DESTROY WITHOUT FREEING BULLET FIRST 
-            Object.Destroy(transform.gameObject);
-        }
-
         private void Die(Vector3 bulletDirection)
         {
-            _alive = false;
+            alive = false;
             // stop all current attacks
             StopAllCoroutines();
             _chargeIsActive = false;
+            
+            _playerController.CallHitStop(0.25f);
         
             EventInstance yodaDeath = FMODUnity.RuntimeManager.CreateInstance("event:/prototypeDeath");
             yodaDeath.start();

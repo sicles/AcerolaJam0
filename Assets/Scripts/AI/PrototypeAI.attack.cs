@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace AI
 {
@@ -7,8 +8,8 @@ namespace AI
     {
         [Header("Attacks")]
         private readonly bool _feelsPain = true;
-        private bool _enemyIsBusy;
-        private readonly float _hurtDuration = 0.5f;
+        [SerializeField] bool enemyIsBusy = false;
+        [SerializeField] private float hurtDuration = 0.5f;
         [SerializeField] private float chargeRadius = 3f;
         [SerializeField] private float attackRadius = 1f;
         private Vector3 _chargeDirection;
@@ -27,15 +28,18 @@ namespace AI
         [SerializeField] private float attackWindupTime = 0.75f;
         [SerializeField] private float attackRecoveryTime = 1f;
         [SerializeField] float attackRange = 3;
+        private readonly float _chargeCollisionRadius = 2;
+        private readonly float _chargeChance = 0.5f;
+        private static readonly int IsHurt = Animator.StringToHash("IsHurt");
 
 
         private void ChargeCollisonCheck()
         {
-            if (_chargeIsActive && _playerDistance.magnitude <= 1 && !_chargeHasHit)
+            if (_chargeIsActive && _playerDistanceRaw.magnitude <= _chargeCollisionRadius && !_chargeHasHit)
             {
-                Debug.Log("charge collision happened!");
                 _chargeHasHit = true;
                 _playerController.TakeDamage(25);
+                _playerController.CallCameraShake(0.2f, 30);
             }
         }
     
@@ -50,7 +54,12 @@ namespace AI
         
         private void ShouldCharge()
         {
-            if (_playerDistance.magnitude <= chargeRadius && !_enemyIsBusy && _chargeTicker >= chargeCooldown)
+            if (Random.Range(0f, 1f) < _chargeChance)
+                return;
+            
+            if (_playerDistanceRaw.magnitude <= chargeRadius 
+                && _playerDistanceRaw.magnitude >= attackRadius
+                && !enemyIsBusy && _chargeTicker >= chargeCooldown)
                 StartCoroutine(ChargeRoutine());
         }
 
@@ -58,12 +67,12 @@ namespace AI
         {
             // Phase 1: charge is charged (haha)
             _chargeHasHit = false;
-            _enemyIsBusy = true;
+            enemyIsBusy = true;
+            StartChargingAnimation();
             _chargeTicker = 0;
             _chargeDirection = player.transform.position - transform.position;  // charge direction is decided at this point
             
             _agent.isStopped = true;
-            Debug.Log("CHARGE STARTED");
             yield return new WaitForSeconds(chargeWindupTime);
         
             // Phase 2: charge is executed
@@ -73,15 +82,15 @@ namespace AI
             // Phase 3: enemy recovers from charge
         
             _chargeIsActive = false;
-            _enemyIsBusy = false;
 
         
             yield return new WaitForSeconds(chargeRecoverTime);
         
-            // Phase 4: enemy may taunt (RNG)
-            ShouldTaunt();
+            // Phase 4: enemy may taunt (RNG) OBSOLETE: taunting after charge is redundant (animation already includes a recovery)
+            // ShouldTaunt();
             
             // Phase 5: enemy behaviour resets
+            enemyIsBusy = false;
             _agent.isStopped = false;
         }
 
@@ -96,19 +105,20 @@ namespace AI
     
         private void ShouldAttack()
         {
-            if (_playerDistance.magnitude < attackRadius && !_enemyIsBusy && _attackTicker >= attackCooldown)
-                StartCoroutine(Attack());
+            if (_playerDistanceRaw.magnitude < attackRadius && !enemyIsBusy && _attackTicker >= attackCooldown)
+                StartCoroutine(AttackRoutine());
         }
 
         /// <summary>
         /// Standard melee attack. Tracks player.
         /// </summary>
         /// <returns></returns>
-        private IEnumerator Attack()
+        private IEnumerator AttackRoutine()
         {
             Debug.Log("Attack was started!");
-            _enemyIsBusy = true;
+            enemyIsBusy = true;
             _attackTicker = 0;
+            StartAttackAnimation();
 
             // Phase 1: Windup
 
@@ -116,7 +126,7 @@ namespace AI
             
             // Phase 2: Attack
 
-            if (Physics.Raycast(transform.position, _playerDistance, attackRadius, 1 << 7))
+            if (Physics.Raycast(transform.position, _playerDistanceRaw, attackRadius, 1 << 7))
             {
                 Debug.DrawLine(transform.position, 
                         player.transform.position - transform.position * attackRange,
@@ -133,13 +143,11 @@ namespace AI
             // Phase 4: Resume default behaviour
             
             _agent.isStopped = false;
-            _enemyIsBusy = false;
+            enemyIsBusy = false;
         }
 
         private void CallHurtState()
         {
-            if (!_alive) return;
-            
             StopAllCoroutines();
             StartCoroutine(HurtState());
         }
@@ -149,18 +157,21 @@ namespace AI
         /// </summary>
         private IEnumerator HurtState()
         {
+            ResetAllAnimationBools();
+            enemyIsBusy = true;
+            _agent.isStopped = true;
+
             yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame();
+            
+            _animator.SetBool(IsHurt, true);
 
-            if (_feelsPain)
-            {
-                _enemyIsBusy = true;
-                _agent.isStopped = true;
-        
-                yield return new WaitForSeconds(_hurtDuration);
+    
+            yield return new WaitForSeconds(hurtDuration);
 
-                _agent.isStopped = false;
-                _enemyIsBusy = false;
-            }
+            _animator.SetBool(IsHurt, false);
+            _agent.isStopped = false;
+            enemyIsBusy = false;
         }
     }
 }

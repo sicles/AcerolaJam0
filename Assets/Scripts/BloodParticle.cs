@@ -12,7 +12,6 @@ public class BloodParticle : MonoBehaviour
 
     void CleanUp()
     {
-        Debug.Log("Particle destroyed itself!");
         Destroy(this.transform.gameObject);
     }
 }

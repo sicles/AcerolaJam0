@@ -145,6 +145,11 @@ namespace PlayerScript
                                                                     zLerp));
         }
 
+        public void CallHitStop(float duration)
+        {
+            StartCoroutine(HitStop(duration));
+        }
+        
         /// <summary>
         /// Stops time for a given duration.
         /// </summary>
@@ -155,11 +160,11 @@ namespace PlayerScript
         {
             yield return new WaitForSecondsRealtime(0.01f);   // let the cool stuff happen before freezing
 
-            float oldTimeScale = Time.timeScale;
+            Time.timeScale = 0f;
+
+            yield return new WaitForSecondsRealtime(duration);
             
-            Time.timeScale = 0;
-            yield return new WaitForSeconds(duration);
-            Time.timeScale = oldTimeScale;
+            Time.timeScale = 1;     // careful: may introduce bugs if timescale is ever called for something else
         }
 
         private IEnumerator SlowMotion(float duration, float amount)
@@ -169,6 +174,11 @@ namespace PlayerScript
             Time.timeScale = amount;
             yield return new WaitForSeconds(duration);
             Time.timeScale = oldTimeScale;        }
+
+        public void CallCameraShake(float amount, float frames)
+        {
+            StartCoroutine(CameraShake(amount, frames));
+        }
         
         /// <summary>
         /// Shake camera by amount for a given duration.
@@ -177,7 +187,7 @@ namespace PlayerScript
         /// <param name="frames">Duration of shake in frames.</param>
         private IEnumerator CameraShake(float amount, float frames)     
         {
-            // this method is extremely hacky, shake amount+duration is frame dependent
+            // TODO this method is extremely hacky, shake amount+duration is frame dependent
             
             Vector3 originalLocalPosition = playerCamera.transform.localPosition;
             

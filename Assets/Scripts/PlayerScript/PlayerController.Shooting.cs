@@ -29,22 +29,30 @@ namespace PlayerScript
 
         private void Shoot()
         {
-            if (ammunition == 0) return;
             if (!Input.GetKeyDown(KeyCode.Mouse0)) return;
             if (!_gunIsRacked)
             {
-                //TODO logic if gun fails to shoot (sounds mostly)
+                //TODO logic if gun fails to shoot (sounds)
                 Debug.Log("Shoot attempt was made, but gun is not racked");
                 return;
             }
 
             if (_reloadIsPlaying) return;
 
+            SetBulletReadyParticleState(false);
             CallShootAnimation();
             _recallTicker = 0;
             
             Ray ray = new Ray(playerCamera.transform.position + playerCamera.transform.forward, CalculateShotDirection());
             StartCoroutine(CameraShake(0.12f, 15f));
+
+            if (ammunition == 0)
+            {
+                //TODO play failed shot animation (hammer only)
+                _gunIsRacked = false;
+                _rackCharge = 0;
+                return;
+            }
             
             if (Physics.Raycast(ray, out RaycastHit hit, _shootRange))
             {
@@ -52,11 +60,11 @@ namespace PlayerScript
             
                 bullet.transform.SetParent(null, true);
                 bullet.transform.GetComponent<MeshRenderer>().enabled = true;
-                ammunition--;
+                if (ammunition > 0) ammunition--;
                 _rackCharge = 0;
                 _rackIsReady = false;
                 _gunIsRacked = false;
-            
+                
                 AttachBullet(hit);
 
                 if (hit.collider.gameObject.TryGetComponent<AI.PrototypeAI>(out AI.PrototypeAI prototypeAI))

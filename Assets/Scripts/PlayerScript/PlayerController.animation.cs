@@ -14,7 +14,13 @@ namespace PlayerScript
         private static readonly int IsRacking = Animator.StringToHash("IsRacking");
         private static readonly int IsCatching = Animator.StringToHash("IsCatching");
         private static readonly int IsRacked = Animator.StringToHash("IsRacked");
+        [SerializeField] private ParticleSystem bulletReadyParticle;
 
+        private void SetBulletReadyParticleState(bool isActive)
+        {
+            bulletReadyParticle.gameObject.SetActive(isActive);
+        }
+        
         private void IsWalking()
         {
             if (Mathf.Abs(Input.GetAxis("Vertical")) > 0.1f || Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1f)
@@ -68,6 +74,7 @@ namespace PlayerScript
                 yield return new WaitForEndOfFrame();
             }
             _animator.SetBool(IsCatching, false);
+            SetBulletReadyParticleState(true);
             _reloadIsPlaying = false;
         }
 
