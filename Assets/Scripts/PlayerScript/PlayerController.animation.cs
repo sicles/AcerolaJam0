@@ -28,12 +28,12 @@ namespace PlayerScript
         
         private void IsWalking()
         {
-            if (Mathf.Abs(Input.GetAxis("Vertical")) > 0.1f || Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1f)
+            if ((Mathf.Abs(Input.GetAxis("Vertical")) > 0.1f || Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1f)
+                && !_dashIsActive)
             {
-                _animator.SetBool(Walking, true);
-                PlayFootsteps(true);
+                    _animator.SetBool(Walking, true);
+                    PlayFootsteps(true);
             }
-
             else
             {
                 _animator.SetBool(Walking, false);

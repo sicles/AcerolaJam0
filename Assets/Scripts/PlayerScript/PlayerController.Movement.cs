@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Threading.Tasks;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Vector3 = UnityEngine.Vector3;
@@ -11,8 +12,8 @@ namespace PlayerScript
         private Vector3 _dashDirection;
         private bool _isDashing;
         private bool _dashIsActive;
-        private float _dashForce = 10;
-        private readonly float _dashDuration = 0.25f;
+        [SerializeField] private float dashForce = 10;
+        [SerializeField] private float dashDuration = 0.25f;
         private float _dashTicker = 1f;
         private float _dashCooldown = 1f;
         private readonly float _dizzyTime = 0.5f;
@@ -24,7 +25,7 @@ namespace PlayerScript
         [SerializeField] Vector3 _camDashTiltTarget;
         [SerializeField, Range(0f, 1f)] private float _tiltAcceleration = 1f;
         [FormerlySerializedAs("_tiltResetAcceleration")] [SerializeField, Range(0f, 1f)]private  float _tiltResetAccelerationAfterDash= 0.01f;
-        [SerializeField] float _dashTiltAmount = 10f;
+        [SerializeField] float dashTiltAmount = 10f;
         [SerializeField] private float dashSteps;
         private bool _dashRecovery;
         [SerializeField] bool playerIsInvincible;
@@ -42,29 +43,29 @@ namespace PlayerScript
             if (Input.GetAxis("Vertical") > 0)   // TODO this should really take direct input instead of a velocity representation since this can lead to unresponsive dash directions
             {
                 _dashDirection += transform.forward;
-                _camDashTiltTarget += new Vector3(_dashTiltAmount, 0, 0);
+                _camDashTiltTarget += new Vector3(dashTiltAmount, 0, 0);
             }
             else if (Input.GetAxis("Vertical") < 0)
             {
                 _dashDirection += -transform.forward;
-                _camDashTiltTarget += new Vector3(-_dashTiltAmount, 0, 0);
+                _camDashTiltTarget += new Vector3(-dashTiltAmount, 0, 0);
             }
 
             if (Input.GetAxis("Horizontal") > 0)
             {
                 _dashDirection += transform.right;
-                _camDashTiltTarget += new Vector3(0, 0, -_dashTiltAmount);
+                _camDashTiltTarget += new Vector3(0, 0, -dashTiltAmount);
             }
             else if (Input.GetAxis("Horizontal") < 0)
             {
                 _dashDirection += -transform.right;
-                _camDashTiltTarget += new Vector3(0, 0, _dashTiltAmount);
+                _camDashTiltTarget += new Vector3(0, 0, dashTiltAmount);
             }
 
             if (_dashDirection == Vector3.zero)
             {
                 _dashDirection = transform.forward;
-                _camDashTiltTarget = new Vector3(_dashTiltAmount, 0, 0);
+                _camDashTiltTarget = new Vector3(dashTiltAmount, 0, 0);
             }
             else
                 _dashDirection = _dashDirection.normalized;
@@ -73,6 +74,7 @@ namespace PlayerScript
             StartCoroutine(PlayerIFrames(3));
             _dashTicker = 0;
             _isDashing = true;
+            RuntimeManager.PlayOneShot("event:/OnPlayerEvents/Dash");
             _playerAcceleration = 0.5f * defaultPlayerAcceleration;
         }
 
@@ -85,11 +87,11 @@ namespace PlayerScript
             if (!_isDashing) return;
             if (!_dashIsActive)
             {
-                Invoke(nameof(StopDash), _dashDuration);
+                Invoke(nameof(StopDash), dashDuration);
                 _dashIsActive = true;
             }
 
-            controller.Move(_dashDirection * (_dashForce * Time.deltaTime));
+            controller.Move(_dashDirection * (dashForce * Time.deltaTime));
         }
 
         private IEnumerator PlayerIFrames(int amount)

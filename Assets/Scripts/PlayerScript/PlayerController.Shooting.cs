@@ -1,6 +1,8 @@
 using FMOD.Studio;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.Serialization;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace PlayerScript
 {
@@ -160,6 +162,7 @@ namespace PlayerScript
             if (_rackCharge >= _rackTargetCharge)
             {
                 _gunIsRacked = true;
+                RuntimeManager.PlayOneShot("event:/OnPlayerEvents/RackFinish");
             }
         }
 

@@ -123,11 +123,38 @@ MonoBehaviour:
   Path: FMOD/Epiphany/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638453467816261816
+  lastModified: 638453511176323430
   FileSizes:
   - Name: Desktop
-    Value: 502880
+    Value: 663840
   Exists: 1
+--- !u!114 &-3787640174627300520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/OnPlayerEvents/RackFinish
+  m_EditorClassIdentifier: 
+  Path: event:/OnPlayerEvents/RackFinish
+  Guid:
+    Data1: -1989688929
+    Data2: 1212529179
+    Data3: 1942700700
+    Data4: 612349706
+  Banks:
+  - {fileID: -4153306486887348001}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2000
 --- !u!114 &-1994931059513889140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,12 +206,14 @@ MonoBehaviour:
   - {fileID: 9184050369320175615}
   - {fileID: -6155326929661831697}
   - {fileID: -5255814638063842995}
+  - {fileID: 6033567339166805161}
+  - {fileID: -3787640174627300520}
   EditorParameters: []
   MasterBanks:
   - {fileID: -4153306486887348001}
   StringsBanks:
   - {fileID: 7496632294980018557}
-  cacheTime: 638453467816276881
+  cacheTime: 638453511176343439
   cacheVersion: 131616
 --- !u!114 &787029085868486177
 MonoBehaviour:
@@ -213,6 +242,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2356
+--- !u!114 &6033567339166805161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/OnPlayerEvents/Dash
+  m_EditorClassIdentifier: 
+  Path: event:/OnPlayerEvents/Dash
+  Guid:
+    Data1: 75483928
+    Data2: 1079803673
+    Data3: 858023835
+    Data4: -474494117
+  Banks:
+  - {fileID: -4153306486887348001}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1500
 --- !u!114 &7496632294980018557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,10 +284,10 @@ MonoBehaviour:
   Path: FMOD/Epiphany/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638453467816276881
+  lastModified: 638453511176343439
   FileSizes:
   - Name: Desktop
-    Value: 1088
+    Value: 1172
   Exists: 1
 --- !u!114 &9158754920118481771
 MonoBehaviour:
