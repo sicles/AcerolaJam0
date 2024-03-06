@@ -1,5 +1,8 @@
 ﻿using System.Collections;
+using FMOD.Studio;
+using FMODUnity;
 using UnityEngine;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace PlayerScript
 {
@@ -14,6 +17,7 @@ namespace PlayerScript
         private static readonly int IsRacked = Animator.StringToHash("IsRacked");
         [SerializeField] private ParticleSystem bulletReadyParticle;
         private static readonly int Loaded = Animator.StringToHash("IsLoaded");
+        [SerializeField] private EventInstance _footsteps;
         private Coroutine _shootRoutine;
         private Coroutine _catchReloadCoroutine;
 
@@ -25,9 +29,16 @@ namespace PlayerScript
         private void IsWalking()
         {
             if (Mathf.Abs(Input.GetAxis("Vertical")) > 0.1f || Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1f)
+            {
                 _animator.SetBool(Walking, true);
+                PlayFootsteps(true);
+            }
+
             else
+            {
                 _animator.SetBool(Walking, false);
+                PlayFootsteps(false);
+            }
         }
 
         private void IsLoaded()
@@ -115,6 +126,25 @@ namespace PlayerScript
             else
                 _animator.SetBool(IsRacked, false);
         }
-        
+
+        private void PlayFootsteps(bool shouldPlay)
+        {
+            PLAYBACK_STATE footstepsArePlaying;
+            _footsteps.getPlaybackState(out footstepsArePlaying);
+            
+            if (shouldPlay)
+            {
+                if (footstepsArePlaying != PLAYBACK_STATE.PLAYING)
+                {
+                    _footsteps.setTimelinePosition(0);
+                    _footsteps.start();
+                }
+            }
+            else
+            {
+                if (footstepsArePlaying == PLAYBACK_STATE.PLAYING)
+                    _footsteps.stop(STOP_MODE.ALLOWFADEOUT);
+            }
+        }
     }
 }

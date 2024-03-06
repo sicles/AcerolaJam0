@@ -69,6 +69,7 @@ namespace PlayerScript
             Cursor.lockState = CursorLockMode.Locked;
             SetBulletReadyParticleState(false);
             _rackGunSound = FMODUnity.RuntimeManager.CreateInstance("event:/OnPlayerEvents/Racking");
+            _footsteps = FMODUnity.RuntimeManager.CreateInstance("event:/OnPlayerEvents/Footsteps");
         }
 
         private void Update()

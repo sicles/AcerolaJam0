@@ -81,6 +81,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1486
+--- !u!114 &-5255814638063842995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/OnPlayerEvents/Footsteps
+  m_EditorClassIdentifier: 
+  Path: event:/OnPlayerEvents/Footsteps
+  Guid:
+    Data1: -791009469
+    Data2: 1073828758
+    Data3: 2062150799
+    Data4: -1820160021
+  Banks:
+  - {fileID: -4153306486887348001}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
 --- !u!114 &-4153306486887348001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,10 +123,10 @@ MonoBehaviour:
   Path: FMOD/Epiphany/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638453422402869039
+  lastModified: 638453467816261816
   FileSizes:
   - Name: Desktop
-    Value: 461760
+    Value: 502880
   Exists: 1
 --- !u!114 &-1994931059513889140
 MonoBehaviour:
@@ -151,12 +178,13 @@ MonoBehaviour:
   - {fileID: 9158754920118481771}
   - {fileID: 9184050369320175615}
   - {fileID: -6155326929661831697}
+  - {fileID: -5255814638063842995}
   EditorParameters: []
   MasterBanks:
   - {fileID: -4153306486887348001}
   StringsBanks:
   - {fileID: 7496632294980018557}
-  cacheTime: 638453422402884075
+  cacheTime: 638453467816276881
   cacheVersion: 131616
 --- !u!114 &787029085868486177
 MonoBehaviour:
@@ -200,10 +228,10 @@ MonoBehaviour:
   Path: FMOD/Epiphany/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638453422402884075
+  lastModified: 638453467816276881
   FileSizes:
   - Name: Desktop
-    Value: 1048
+    Value: 1088
   Exists: 1
 --- !u!114 &9158754920118481771
 MonoBehaviour:
