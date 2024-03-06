@@ -26,7 +26,34 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 1000
+  Length: 4000
+--- !u!114 &-6155326929661831697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/OnPlayerEvents/UnloadedShoot
+  m_EditorClassIdentifier: 
+  Path: event:/OnPlayerEvents/UnloadedShoot
+  Guid:
+    Data1: 1660650049
+    Data2: 1301137734
+    Data3: -853706842
+    Data4: -506357040
+  Banks:
+  - {fileID: -4153306486887348001}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1500
 --- !u!114 &-5262494256318175019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,11 +96,38 @@ MonoBehaviour:
   Path: FMOD/Epiphany/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638452865677842285
+  lastModified: 638453422402869039
   FileSizes:
   - Name: Desktop
-    Value: 189952
+    Value: 461760
   Exists: 1
+--- !u!114 &-1994931059513889140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/OnPlayerEvents/Shoot
+  m_EditorClassIdentifier: 
+  Path: event:/OnPlayerEvents/Shoot
+  Guid:
+    Data1: -303528359
+    Data2: 1240697807
+    Data3: 1084979102
+    Data4: 737517589
+  Banks:
+  - {fileID: -4153306486887348001}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2000
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,12 +147,16 @@ MonoBehaviour:
   - {fileID: -5262494256318175019}
   - {fileID: 787029085868486177}
   - {fileID: -7257726296254382879}
+  - {fileID: -1994931059513889140}
+  - {fileID: 9158754920118481771}
+  - {fileID: 9184050369320175615}
+  - {fileID: -6155326929661831697}
   EditorParameters: []
   MasterBanks:
   - {fileID: -4153306486887348001}
   StringsBanks:
   - {fileID: 7496632294980018557}
-  cacheTime: 638452865677862399
+  cacheTime: 638453422402884075
   cacheVersion: 131616
 --- !u!114 &787029085868486177
 MonoBehaviour:
@@ -142,8 +200,62 @@ MonoBehaviour:
   Path: FMOD/Epiphany/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638452865677862399
+  lastModified: 638453422402884075
   FileSizes:
   - Name: Desktop
-    Value: 860
+    Value: 1048
   Exists: 1
+--- !u!114 &9158754920118481771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/BulletFlight
+  m_EditorClassIdentifier: 
+  Path: event:/BulletFlight
+  Guid:
+    Data1: 1280093973
+    Data2: 1338792672
+    Data3: 286247075
+    Data4: 634825931
+  Banks:
+  - {fileID: -4153306486887348001}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 3908
+--- !u!114 &9184050369320175615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/OnPlayerEvents/Racking
+  m_EditorClassIdentifier: 
+  Path: event:/OnPlayerEvents/Racking
+  Guid:
+    Data1: 470327387
+    Data2: 1208636885
+    Data3: 1892464270
+    Data4: 935585548
+  Banks:
+  - {fileID: -4153306486887348001}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2000

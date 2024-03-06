@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         _messageBoard = GetComponentInChildren<TextMeshProUGUI>();
-        CallSendMessage();
+        // CallSendMessage();
     }
 
     public void UpdateHealthbar(int lastHealth)

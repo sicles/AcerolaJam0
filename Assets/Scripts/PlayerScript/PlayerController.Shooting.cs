@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -21,7 +22,6 @@ namespace PlayerScript
         [SerializeField] private float spreadAmount = 1;
         private float _recallTicker;
         private readonly float _recallCooldown = 0.75f; // set at same length of shooting animation
-        private bool _gunIsBeingRacked;
         public Vector3 BulletBackcallDirection { get; private set; }
     
         partial void AbortInput();  // not implemented
@@ -44,7 +44,7 @@ namespace PlayerScript
             
             if (ammunition == 0)
             {
-                //TODO play failed shot animation (hammer only)
+                FMODUnity.RuntimeManager.PlayOneShot("event:/OnPlayerEvents/UnloadedShoot");
                 _gunIsRacked = false;
                 return;
             }
@@ -53,9 +53,11 @@ namespace PlayerScript
             SetBulletReadyParticleState(false);
             StartCoroutine(CameraShake(0.12f, 15f));
             
+            FMODUnity.RuntimeManager.PlayOneShot("event:/OnPlayerEvents/Shoot");
+            
             if (Physics.Raycast(ray, out RaycastHit hit, _shootRange))
             {
-                bullet.GetComponent<BulletCollision>().LastEnemy = hit.transform.gameObject;
+                bullet.GetComponent<Bullet>().LastEnemy = hit.transform.gameObject;
             
                 bullet.transform.SetParent(null, true);
                 bullet.transform.GetComponent<MeshRenderer>().enabled = true;
@@ -128,17 +130,31 @@ namespace PlayerScript
             if (_reloadIsPlaying) return;
             if (_recallTicker < _recallCooldown) return;
 
+            PLAYBACK_STATE rackGunSoundPlaybackState;
+            
             if (Input.GetKey(KeyCode.Mouse1))
             {
+                _rackGunSound.getPlaybackState(out rackGunSoundPlaybackState);
+
+                if (rackGunSoundPlaybackState != PLAYBACK_STATE.PLAYING)
+                {
+                    _rackGunSound.setTimelinePosition(0);
+                    _rackGunSound.start();
+                }
+                
                 _rackCharge += Time.deltaTime;
-                _gunIsBeingRacked = true;
                 StartRackAnimation();
             }
             else
             {
-                _gunIsBeingRacked = false;
+                _rackGunSound.getPlaybackState(out rackGunSoundPlaybackState);
+                if (rackGunSoundPlaybackState == PLAYBACK_STATE.PLAYING)
+                {
+                    _rackGunSound.stop(STOP_MODE.ALLOWFADEOUT);
+                }
+
+                _rackCharge = 0;
                 StopRackAnimation();
-                _rackCharge = 0;    
             }
 
             if (_rackCharge >= _rackTargetCharge)
@@ -161,7 +177,7 @@ namespace PlayerScript
         /// </summary>
         private void BulletRecall()
         {
-            bullet.transform.GetComponent<BulletCollision>().IsActive = true;
+            bullet.transform.GetComponent<Bullet>().IsActive = true;
             bullet.transform.SetParent(null, true);
             CallRecallAnimation();
             _bulletIsTraveling = true;
@@ -172,7 +188,15 @@ namespace PlayerScript
         /// </summary>
         private void BulletTravel()
         {
-            if (!_bulletIsTraveling) return;
+            if (!_bulletIsTraveling)
+            {
+                if (bullet.GetComponent<Bullet>().BulletFlight.IsPlaying())
+                    bullet.GetComponent<Bullet>().SetFlightSound(false);
+                return;
+            }
+
+            if (!bullet.GetComponent<Bullet>().BulletFlight.IsPlaying())
+                bullet.GetComponent<Bullet>().SetFlightSound(true);
 
             BulletBackcallDirection = -(bullet.transform.position - playerCamera.transform.position);
             if (BulletBackcallDirection.magnitude < bulletBackcallThresholdDistance)
@@ -197,7 +221,7 @@ namespace PlayerScript
             StartCatchReloadAnimation();
             bullet.transform.SetParent(transform, true);
             bullet.transform.GetComponent<MeshRenderer>().enabled = false;
-            bullet.transform.GetComponent<BulletCollision>().IsActive = false;
+            bullet.transform.GetComponent<Bullet>().IsActive = false;
         }
 
         /// <summary>

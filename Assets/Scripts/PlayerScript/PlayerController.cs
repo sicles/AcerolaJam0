@@ -1,4 +1,5 @@
 using System.Collections;
+using FMOD.Studio;
 using UnityEngine;
 using UnityEngine.Serialization;
 #pragma warning disable CS0414 // Field is assigned but its value is never used
@@ -49,6 +50,7 @@ namespace PlayerScript
         private RaycastHit _viewDirection;
         private bool _thousandYardStare;
         private bool _reloadIsPlaying;
+        private EventInstance _rackGunSound;
 
         private void Awake()
         {
@@ -66,6 +68,7 @@ namespace PlayerScript
             playerHealth = _playerMaxHealth;
             Cursor.lockState = CursorLockMode.Locked;
             SetBulletReadyParticleState(false);
+            _rackGunSound = FMODUnity.RuntimeManager.CreateInstance("event:/OnPlayerEvents/Racking");
         }
 
         private void Update()

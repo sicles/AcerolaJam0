@@ -9,7 +9,6 @@ namespace PlayerScript
         private static readonly int Walking = Animator.StringToHash("IsWalking");
         private static readonly int IsShooting = Animator.StringToHash("IsShooting");
         private static readonly int IsRecalling = Animator.StringToHash("IsRecalling");
-        private bool _RecallAnimationIsPlaying;
         private static readonly int IsRacking = Animator.StringToHash("IsRacking");
         private static readonly int IsCatching = Animator.StringToHash("IsCatching");
         private static readonly int IsRacked = Animator.StringToHash("IsRacked");
@@ -61,12 +60,10 @@ namespace PlayerScript
         
         private IEnumerator RecallAnimationRoutine()
         {
-            _RecallAnimationIsPlaying = true;
             _animator.SetBool(IsRecalling, true);
             yield return new WaitForEndOfFrame();
             yield return new WaitForEndOfFrame();
             _animator.SetBool(IsRecalling, false);
-            _RecallAnimationIsPlaying = false;
         }
 
         private void StartCatchReloadAnimation()
