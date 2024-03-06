@@ -9,12 +9,14 @@ namespace PlayerScript
         private static readonly int Walking = Animator.StringToHash("IsWalking");
         private static readonly int IsShooting = Animator.StringToHash("IsShooting");
         private static readonly int IsRecalling = Animator.StringToHash("IsRecalling");
-        private static readonly int IsReloading = Animator.StringToHash("IsReloading");
         private bool _RecallAnimationIsPlaying;
         private static readonly int IsRacking = Animator.StringToHash("IsRacking");
         private static readonly int IsCatching = Animator.StringToHash("IsCatching");
         private static readonly int IsRacked = Animator.StringToHash("IsRacked");
         [SerializeField] private ParticleSystem bulletReadyParticle;
+        private static readonly int Loaded = Animator.StringToHash("IsLoaded");
+        private Coroutine _shootRoutine;
+        private Coroutine _catchReloadCoroutine;
 
         private void SetBulletReadyParticleState(bool isActive)
         {
@@ -29,6 +31,14 @@ namespace PlayerScript
                 _animator.SetBool(Walking, false);
         }
 
+        private void IsLoaded()
+        {
+            if (ammunition > 0)
+                _animator.SetBool(Loaded, true);
+            else
+                _animator.SetBool(Loaded, false);
+        }
+
         private void CallShootAnimation()
         {
             StartCoroutine(nameof(ShootAnimationRoutine));
@@ -40,6 +50,8 @@ namespace PlayerScript
             yield return new WaitForEndOfFrame();
             yield return new WaitForEndOfFrame();
             _animator.SetBool(IsShooting, false);
+            if (ammunition > 0) ammunition--;
+            _gunIsRacked = false;
         }
 
         private void CallRecallAnimation()
@@ -59,7 +71,15 @@ namespace PlayerScript
 
         private void StartCatchReloadAnimation()
         {
-            StartCoroutine(CatchReloadAnimationRoutine(90));
+            if (_catchReloadCoroutine == null)
+            {
+                _catchReloadCoroutine = StartCoroutine(CatchReloadAnimationRoutine(90));
+            }
+        }
+
+        private void CheckIfReloading()
+        {
+            _reloadIsPlaying = (_catchReloadCoroutine != null);
         }
         
         private IEnumerator CatchReloadAnimationRoutine(int frames)     // set to animation frame amounts
@@ -68,14 +88,17 @@ namespace PlayerScript
             _rackIsReady = false;
             _animator.SetBool(IsCatching, true);
             
-            _reloadIsPlaying = true;
             for (int i = 0; i < frames; i++)
             {
                 yield return new WaitForEndOfFrame();
             }
             _animator.SetBool(IsCatching, false);
             SetBulletReadyParticleState(true);
-            _reloadIsPlaying = false;
+
+            yield return new WaitForSeconds(0.25f);
+            
+            _catchReloadCoroutine = null;
+            ammunition++;
         }
 
         private void StartRackAnimation()

@@ -21,38 +21,37 @@ namespace PlayerScript
         [SerializeField] private float spreadAmount = 1;
         private float _recallTicker;
         private readonly float _recallCooldown = 0.75f; // set at same length of shooting animation
+        private bool _gunIsBeingRacked;
         public Vector3 BulletBackcallDirection { get; private set; }
     
-        partial void Reload();
         partial void AbortInput();  // not implemented
         partial void PauseGame();   // not checked in update **yet** because this is really annoying while editing
 
         private void Shoot()
         {
             if (!Input.GetKeyDown(KeyCode.Mouse0)) return;
-            if (!_gunIsRacked)
-            {
-                //TODO logic if gun fails to shoot (sounds)
-                Debug.Log("Shoot attempt was made, but gun is not racked");
-                return;
-            }
-
             if (_reloadIsPlaying) return;
 
-            SetBulletReadyParticleState(false);
-            CallShootAnimation();
             _recallTicker = 0;
-            
-            Ray ray = new Ray(playerCamera.transform.position + playerCamera.transform.forward, CalculateShotDirection());
-            StartCoroutine(CameraShake(0.12f, 15f));
+            _rackCharge = 0;
+            _rackIsReady = false;
+            StopRackAnimation();
 
+            if (!_gunIsRacked)
+                return;
+            
+            CallShootAnimation();
+            
             if (ammunition == 0)
             {
                 //TODO play failed shot animation (hammer only)
                 _gunIsRacked = false;
-                _rackCharge = 0;
                 return;
             }
+            
+            Ray ray = new Ray(playerCamera.transform.position + playerCamera.transform.forward, CalculateShotDirection());
+            SetBulletReadyParticleState(false);
+            StartCoroutine(CameraShake(0.12f, 15f));
             
             if (Physics.Raycast(ray, out RaycastHit hit, _shootRange))
             {
@@ -60,8 +59,6 @@ namespace PlayerScript
             
                 bullet.transform.SetParent(null, true);
                 bullet.transform.GetComponent<MeshRenderer>().enabled = true;
-                if (ammunition > 0) ammunition--;
-                _rackCharge = 0;
                 _rackIsReady = false;
                 _gunIsRacked = false;
                 
@@ -97,10 +94,11 @@ namespace PlayerScript
             bullet.transform.position = hit.point;
         }
 
-        partial void Reload()
+        private void Reload()
         {
             if (ammunition >= maxAmmunition) return;
             if (!Input.GetKeyDown(KeyCode.R)) return;
+            if (_reloadIsPlaying) return;
 
             BulletRecall();
         }
@@ -127,16 +125,18 @@ namespace PlayerScript
                 return;
             }
             if (!_rackIsReady) return;
+            if (_reloadIsPlaying) return;
             if (_recallTicker < _recallCooldown) return;
 
-            
             if (Input.GetKey(KeyCode.Mouse1))
             {
                 _rackCharge += Time.deltaTime;
+                _gunIsBeingRacked = true;
                 StartRackAnimation();
             }
             else
             {
+                _gunIsBeingRacked = false;
                 StopRackAnimation();
                 _rackCharge = 0;    
             }
@@ -195,7 +195,6 @@ namespace PlayerScript
         private void CatchBullet()
         {
             StartCatchReloadAnimation();
-            ammunition++;
             bullet.transform.SetParent(transform, true);
             bullet.transform.GetComponent<MeshRenderer>().enabled = false;
             bullet.transform.GetComponent<BulletCollision>().IsActive = false;

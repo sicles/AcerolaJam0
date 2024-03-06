@@ -72,6 +72,8 @@ namespace PlayerScript
         {
             //PauseGame(); not yet implemented
 
+            CheckIfReloading();
+            
             IsGroundedCheck();
             SetGravity();
             BulletTravel();
@@ -87,14 +89,14 @@ namespace PlayerScript
             Jump();
         
             LetGoOfRack();
+            IsLoaded();
+
             
             ResetRackOnReload();
-            if (!_reloadIsPlaying)
-            {
-                RackGun();
-                Reload();
-                Shoot();
-            }
+            Shoot();
+            RackGun();
+            Reload();
+
             TickRecallTicker();
             
             // Animation logic

@@ -7,7 +7,6 @@ namespace AI
     public partial class PrototypeAI
     {
         [Header("Attacks")]
-        private readonly bool _feelsPain = true;
         [SerializeField] bool enemyIsBusy = false;
         [SerializeField] private float hurtDuration = 0.5f;
         [SerializeField] private float chargeRadius = 3f;
