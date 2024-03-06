@@ -160,7 +160,7 @@ namespace PlayerScript
         /// <returns></returns>
         private IEnumerator HitStop(float duration)
         {
-            yield return new WaitForSecondsRealtime(0.01f);   // let the cool stuff happen before freezing
+            yield return new WaitForSecondsRealtime(0.02f);   // let the cool stuff happen before freezing
 
             Time.timeScale = 0f;
 

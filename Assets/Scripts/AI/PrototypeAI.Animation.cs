@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using FMOD.Studio;
 using UnityEngine;
 
 namespace AI
@@ -38,6 +39,32 @@ namespace AI
             // TODO it's overkill to call this every frame
             int newState = Random.Range(0, 100);
             _animator.SetInteger(IdleState, newState);
+        }
+
+        private void DecideIdleSound()
+        {
+            if (!alive)
+            {
+                idleAlertSound.Stop();
+                idleUnalertSound.Stop();
+                return;
+            }
+            
+            if (isAlert)
+            {
+                if (!idleAlertSound.IsPlaying())
+                    idleAlertSound.Play();
+                else if (enemyIsBusy)
+                    idleAlertSound.Stop();
+                
+            }
+            else
+            {
+                if (!idleUnalertSound.IsPlaying())
+                    idleUnalertSound.Play();
+                else if (enemyIsBusy)
+                    idleUnalertSound.Stop();
+            }
         }
 
         private void StartAttackAnimation()

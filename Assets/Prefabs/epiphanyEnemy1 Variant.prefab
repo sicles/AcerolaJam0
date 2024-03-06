@@ -410,6 +410,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5174689026697278605}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4f063cfc5ac97e945a7bbcf1ae4fe7b1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5123148724807278333}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4f063cfc5ac97e945a7bbcf1ae4fe7b1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7166227446183325376}
   m_SourcePrefab: {fileID: 100100000, guid: 4f063cfc5ac97e945a7bbcf1ae4fe7b1, type: 3}
 --- !u!4 &276733098009360121 stripped
 Transform:
@@ -459,6 +467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5989fceaa11961449a545f83734689d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyIsBusy: 0
   hurtDuration: 0.5
   chargeRadius: 8
   attackRadius: 2
@@ -480,6 +489,8 @@ MonoBehaviour:
   bloodDecal: {fileID: 5419687557172745875, guid: f407d944219ef324191a9561a760b30a,
     type: 3}
   player: {fileID: 0}
+  isAlert: 0
+  alive: 1
   detectionRadius: 8
   dodgeCooldown: 1
   dodgeChance: 30
@@ -705,6 +716,68 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.23595771, y: 0.26704907, z: 0.25505325}
   m_Center: {x: -0.019459017, y: 1.5441042, z: -0.011537336}
+--- !u!114 &5123148724807278333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109168785270739779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 346177813
+      Data2: 1278671531
+      Data3: 1614623625
+      Data4: 1408611014
+    Path: event:/OnEnemyEvents/IdleAlert
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &7166227446183325376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109168785270739779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -851220573
+      Data2: 1185975968
+      Data3: 884242604
+      Data4: -598668540
+    Path: event:/OnEnemyEvents/IdleUnalert
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!4 &2512025592920130541 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3699898355520597503, guid: 4f063cfc5ac97e945a7bbcf1ae4fe7b1,

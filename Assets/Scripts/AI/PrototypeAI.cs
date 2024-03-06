@@ -1,6 +1,7 @@
 using System;
 using FMOD;
 using FMOD.Studio;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
@@ -29,6 +30,9 @@ namespace AI
         [SerializeField] private float detectionRadius = 5f;
         private Vector3 _playerDistanceRaw;
 
+        [SerializeField] private StudioEventEmitter idleUnalertSound;
+        [SerializeField] private StudioEventEmitter idleAlertSound;
+
         private void Start()
         {
             health = maxHealth;
@@ -40,10 +44,14 @@ namespace AI
             _playerController = player.gameObject.GetComponent<PlayerScript.PlayerController>();
             _playerCamera = player.GetComponentInChildren<Camera>();
             _animator = GetComponent<Animator>();
+            idleAlertSound = GetComponents<StudioEventEmitter>()[0];  // yes this means the components' order is important
+            idleUnalertSound = GetComponents<StudioEventEmitter>()[1];
         }
 
         private void Update()
         {
+            DecideIdleSound();
+
             if (alive)
             {
                 NavMeshUpdates();
@@ -97,8 +105,7 @@ namespace AI
 
             if (param_isAlert)
             {
-                EventInstance yodaAlert = FMODUnity.RuntimeManager.CreateInstance("event:/prototypeAlert");
-                yodaAlert.start();
+                RuntimeManager.PlayOneShotAttached("event:/OnEnemyEvents/Alerted", transform.gameObject);
 
                 if (!_animator.GetBool(IsHurt)) // getting logic from the animation logic is cringe but i forgive myself
                     ShouldTaunt();
@@ -153,8 +160,7 @@ namespace AI
             
             _playerController.CallHitStop(0.25f);
         
-            EventInstance yodaDeath = FMODUnity.RuntimeManager.CreateInstance("event:/prototypeDeath");
-            yodaDeath.start();
+            RuntimeManager.PlayOneShotAttached("event:/OnEnemyEvents/Death", gameObject);
         
             _rigidbody.isKinematic = false;
             _rigidbody.AddForce(bulletDirection * 100);

@@ -1,4 +1,5 @@
 using System.Collections;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -65,6 +66,7 @@ namespace AI
         private IEnumerator ChargeRoutine()
         {
             // Phase 1: charge is charged (haha)
+            RuntimeManager.PlayOneShotAttached("event:/OnEnemyEvents/Charge", gameObject);
             _chargeHasHit = false;
             enemyIsBusy = true;
             StartChargingAnimation();
@@ -114,7 +116,7 @@ namespace AI
         /// <returns></returns>
         private IEnumerator AttackRoutine()
         {
-            Debug.Log("Attack was started!");
+            RuntimeManager.PlayOneShotAttached("event:/OnEnemyEvents/Attack", gameObject);
             enemyIsBusy = true;
             _attackTicker = 0;
             StartAttackAnimation();
@@ -157,6 +159,7 @@ namespace AI
         private IEnumerator HurtState()
         {
             ResetAllAnimationBools();
+            RuntimeManager.PlayOneShotAttached("event:/OnEnemyEvents/Hurt", transform.gameObject);
             enemyIsBusy = true;
             _agent.isStopped = true;
 
