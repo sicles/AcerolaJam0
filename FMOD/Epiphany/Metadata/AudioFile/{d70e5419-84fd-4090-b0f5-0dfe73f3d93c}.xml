@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{d70e5419-84fd-4090-b0f5-0dfe73f3d93c}">
+		<property name="assetPath">
+			<value>Revolver/Recall01.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.8509523809523809</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{d28682da-5472-47df-98b8-19164b24f0fc}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -123,10 +123,10 @@ MonoBehaviour:
   Path: FMOD/Epiphany/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638453511176323430
+  lastModified: 638453554007642291
   FileSizes:
   - Name: Desktop
-    Value: 663840
+    Value: 799392
   Exists: 1
 --- !u!114 &-3787640174627300520
 MonoBehaviour:
@@ -146,6 +146,33 @@ MonoBehaviour:
     Data2: 1212529179
     Data3: 1942700700
     Data4: 612349706
+  Banks:
+  - {fileID: -4153306486887348001}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2000
+--- !u!114 &-2458132442932604050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/OnPlayerEvents/CatchReload
+  m_EditorClassIdentifier: 
+  Path: event:/OnPlayerEvents/CatchReload
+  Guid:
+    Data1: -147513644
+    Data2: 1301462278
+    Data3: 242904197
+    Data4: 542793037
   Banks:
   - {fileID: -4153306486887348001}
   IsStream: 0
@@ -182,6 +209,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2000
+--- !u!114 &-944346381476525344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/OnPlayerEvents/Recall
+  m_EditorClassIdentifier: 
+  Path: event:/OnPlayerEvents/Recall
+  Guid:
+    Data1: 1850990983
+    Data2: 1299115445
+    Data3: 1563506316
+    Data4: -1797309021
+  Banks:
+  - {fileID: -4153306486887348001}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2000
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,12 +262,14 @@ MonoBehaviour:
   - {fileID: -5255814638063842995}
   - {fileID: 6033567339166805161}
   - {fileID: -3787640174627300520}
+  - {fileID: -2458132442932604050}
+  - {fileID: -944346381476525344}
   EditorParameters: []
   MasterBanks:
   - {fileID: -4153306486887348001}
   StringsBanks:
   - {fileID: 7496632294980018557}
-  cacheTime: 638453511176343439
+  cacheTime: 638453554007657323
   cacheVersion: 131616
 --- !u!114 &787029085868486177
 MonoBehaviour:
@@ -284,10 +340,10 @@ MonoBehaviour:
   Path: FMOD/Epiphany/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638453511176343439
+  lastModified: 638453554007657323
   FileSizes:
   - Name: Desktop
-    Value: 1172
+    Value: 1262
   Exists: 1
 --- !u!114 &9158754920118481771
 MonoBehaviour:

@@ -182,6 +182,7 @@ namespace PlayerScript
         {
             bullet.transform.GetComponent<Bullet>().IsActive = true;
             bullet.transform.SetParent(null, true);
+            RuntimeManager.PlayOneShot("event:/OnPlayerEvents/Recall");
             CallRecallAnimation();
             _bulletIsTraveling = true;
         }
@@ -222,6 +223,7 @@ namespace PlayerScript
         private void CatchBullet()
         {
             StartCatchReloadAnimation();
+            RuntimeManager.PlayOneShot("event:/OnPlayerEvents/CatchReload");
             bullet.transform.SetParent(transform, true);
             bullet.transform.GetComponent<MeshRenderer>().enabled = false;
             bullet.transform.GetComponent<Bullet>().IsActive = false;
