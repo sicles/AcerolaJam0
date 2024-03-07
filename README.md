@@ -17,4 +17,4 @@ ADDITIONAL CREDITS:
 both the mesh for player arms and the enemy1 is based on thomas potter's low poly assets. please check out his channel on youtube, he does great tutorials on topology and is way underrated! https://www.youtube.com/@ThomasPotter   
 
 
-unity crashes occurred during the making of this: 1  
+unity crashes occurred during the making of this: 2  
