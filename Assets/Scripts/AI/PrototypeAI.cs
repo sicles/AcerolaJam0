@@ -1,10 +1,6 @@
-using System;
-using FMOD;
-using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
 using Object = UnityEngine.Object;
 
 namespace AI
@@ -51,7 +47,7 @@ namespace AI
         private void Update()
         {
             DecideIdleSound();
-
+            
             if (alive)
             {
                 NavMeshUpdates();
@@ -139,6 +135,7 @@ namespace AI
             if (health <= 0)
                 Die(bulletDirection);
         }
+
 
         private void CreateBloodDecal()
         {

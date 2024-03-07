@@ -492,6 +492,9 @@ MonoBehaviour:
   isAlert: 0
   alive: 1
   detectionRadius: 8
+  idleUnalertSound: {fileID: 0}
+  idleAlertSound: {fileID: 0}
+  pushForce: 500000
   dodgeCooldown: 1
   dodgeChance: 30
   dodgeTicker: 0

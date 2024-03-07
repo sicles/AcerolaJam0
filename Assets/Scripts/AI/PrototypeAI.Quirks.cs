@@ -58,7 +58,6 @@ namespace AI
         {
             if (!_dodgeIsActive) return;
 
-            Debug.Log("is dodging");
             _agent.Move(transform.right * (_dodgeDirection * (dodgeSpeed * Time.deltaTime)));
         }
 
