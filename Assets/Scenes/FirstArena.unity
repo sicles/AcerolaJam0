@@ -316,8 +316,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 25.2
-  m_Range: 15
+  m_Intensity: 103.3
+  m_Range: 24.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -2335,7 +2335,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 141584197}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.2, y: -18.44, z: 88.1}
+  m_LocalPosition: {x: -0.48, y: -18.44, z: 103}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3018,37 +3018,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1323828001}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &173967952
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 173967953}
-  m_Layer: 0
-  m_Name: Entrance (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &173967953
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 173967952}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.115062825, y: 3.836903, z: -38.100002}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &177492357
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4607,7 +4576,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 307830789}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce2cd742b8a037841990d1217827a192, type: 3}
+  m_Script: {fileID: 11500000, guid: fc9e8b7b35384013aabdd254f1db99d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemiesToActivate:
@@ -4616,6 +4585,20 @@ MonoBehaviour:
   entranceAnimator: {fileID: 812585337}
   exitAnimator: {fileID: 1075358437}
   oldGeometry: {fileID: 1512602570}
+  waterMaterial: {fileID: 2100000, guid: d22d6a5f053afe645a2076d1c4572f51, type: 2}
+  startColor: {r: 0.2235293, g: 0.5372549, b: 0.7254902, a: 0.6470588}
+  targetColor: {r: 0.4823529, g: 0.05490194, b: 0.01176471, a: 0.6470588}
+  startMetallic: 0.3
+  targetMetallic: 0.9
+  riverLights:
+  - {fileID: 859672046}
+  - {fileID: 750484350}
+  - {fileID: 1417360486}
+  - {fileID: 413154111}
+  - {fileID: 1746919185}
+  - {fileID: 1114850712}
+  - {fileID: 7432108}
+  - {fileID: 742100618}
 --- !u!1001 &311516858
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5407,7 +5390,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &335765299
 PrefabInstance:
@@ -6749,8 +6732,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 25.2
-  m_Range: 15
+  m_Intensity: 103.3
+  m_Range: 24.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -11266,8 +11249,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 25.2
-  m_Range: 15
+  m_Intensity: 103.3
+  m_Range: 24.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -11384,8 +11367,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 25.2
-  m_Range: 15
+  m_Intensity: 103.3
+  m_Range: 24.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -12835,8 +12818,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 25.2
-  m_Range: 15
+  m_Intensity: 103.3
+  m_Range: 24.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -16432,8 +16415,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 25.2
-  m_Range: 15
+  m_Intensity: 103.3
+  m_Range: 24.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -18184,7 +18167,7 @@ Transform:
   - {fileID: 1668578378}
   - {fileID: 325540783}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1228516606
 PrefabInstance:
@@ -20086,8 +20069,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 25.2
-  m_Range: 15
+  m_Intensity: 103.3
+  m_Range: 24.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -24126,8 +24109,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 25.2
-  m_Range: 15
+  m_Intensity: 103.3
+  m_Range: 24.9
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -27640,7 +27623,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2040130145
 GameObject:
