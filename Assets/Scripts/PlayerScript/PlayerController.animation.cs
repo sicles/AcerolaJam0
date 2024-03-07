@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
@@ -15,7 +16,7 @@ namespace PlayerScript
         private static readonly int IsRacking = Animator.StringToHash("IsRacking");
         private static readonly int IsCatching = Animator.StringToHash("IsCatching");
         private static readonly int IsRacked = Animator.StringToHash("IsRacked");
-        [SerializeField] private ParticleSystem bulletReadyParticle;
+        [SerializeField] private List<GameObject> bulletReadyVFX;
         private static readonly int Loaded = Animator.StringToHash("IsLoaded");
         [SerializeField] private EventInstance _footsteps;
         private Coroutine _shootRoutine;
@@ -23,7 +24,10 @@ namespace PlayerScript
 
         private void SetBulletReadyParticleState(bool isActive)
         {
-            bulletReadyParticle.gameObject.SetActive(isActive);
+            foreach (var effect in bulletReadyVFX)
+            {
+                effect.SetActive(isActive);
+            }
         }
         
         private void IsWalking()

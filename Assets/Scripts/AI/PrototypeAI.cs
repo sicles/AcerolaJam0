@@ -1,7 +1,7 @@
+using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
 using UnityEngine.AI;
-using Object = UnityEngine.Object;
 
 namespace AI
 {
@@ -13,46 +13,48 @@ namespace AI
         [SerializeField] private ParticleSystem bloodGush;
         [SerializeField] private GameObject bloodDecal;
         private Camera _playerCamera;
-        private int _gibThreshold;
 
         [SerializeField] private Transform player;
         private PlayerScript.PlayerController _playerController;
         private NavMeshAgent _agent;
         private Rigidbody _rigidbody;
 
-        [SerializeField] bool isAlert;
+        [SerializeField] private bool isAlert;
+        [SerializeField] private bool manualAlert;
         [SerializeField] private bool alive = true;
 
         [SerializeField] private float detectionRadius = 5f;
         private Vector3 _playerDistanceRaw;
 
-        [SerializeField] private StudioEventEmitter idleUnalertSound;
-        [SerializeField] private StudioEventEmitter idleAlertSound;
+        [SerializeField] private EventInstance idleUnalertSound;
+        [SerializeField] private EventInstance idleAlertSound;
+
+        public bool Alive => alive;
 
         private void Start()
         {
             health = maxHealth;
             player = FindObjectOfType<CharacterController>().transform;
-            _gibThreshold = (int)(-maxHealth * 1.5f);
             _rigidbody = transform.GetComponent<Rigidbody>();
             _agent = GetComponent<NavMeshAgent>();
             _agent.isStopped = true;
             _playerController = player.gameObject.GetComponent<PlayerScript.PlayerController>();
             _playerCamera = player.GetComponentInChildren<Camera>();
             _animator = GetComponent<Animator>();
-            idleAlertSound = GetComponents<StudioEventEmitter>()[0];  // yes this means the components' order is important
-            idleUnalertSound = GetComponents<StudioEventEmitter>()[1];
+            InitiateSoundEvents();
         }
 
         private void Update()
         {
             DecideIdleSound();
             
-            if (alive)
+            if (Alive)
             {
                 NavMeshUpdates();
                 CooldownTick();
-                Seek();
+                if (!manualAlert)
+                    Seek();
+                
                 IsWalking();
                 DecideIdleState();
                 
@@ -68,11 +70,19 @@ namespace AI
                 }
             }
         }
-
+        
         private void NavMeshUpdates()
         {
             _playerDistanceRaw = (player.position - transform.position);
             _agent.destination = player.position;
+        }
+        
+        private void InitiateSoundEvents()
+        {
+            idleAlertSound = RuntimeManager.CreateInstance("event:/OnEnemyEvents/IdleAlert");
+            idleUnalertSound = RuntimeManager.CreateInstance("event:/OnEnemyEvents/IdleUnalert");
+            RuntimeManager.AttachInstanceToGameObject(idleAlertSound,  transform);
+            RuntimeManager.AttachInstanceToGameObject(idleUnalertSound,  transform);
         }
 
         /// <summary>
@@ -93,13 +103,15 @@ namespace AI
         /// <summary>
         /// Start chasing player
         /// </summary>
-        /// <param name="param_isAlert">New alert state</param>
-        private void SetAlert(bool param_isAlert)
+        /// <param name="paramIsAlert">New alert state</param>
+        public void SetAlert(bool paramIsAlert)
         {
-            this.isAlert = param_isAlert;
-            _agent.isStopped = !param_isAlert;
+            this.isAlert = paramIsAlert;
+            _agent.isStopped = !paramIsAlert;
 
-            if (param_isAlert)
+            _chargeTicker = chargeReadyOnAlert ? chargeCooldown : 0;
+            
+            if (paramIsAlert)
             {
                 RuntimeManager.PlayOneShotAttached("event:/OnEnemyEvents/Alerted", transform.gameObject);
 
@@ -125,7 +137,7 @@ namespace AI
             if (!isAlert)
                 SetAlert(true);
 
-            if (!alive) return;    // TODO remove the gib logic, is obsolete and not working with this new logic
+            if (!Alive) return;    // TODO remove the gib logic, is obsolete and not working with this new logic
             
             health -= damage;
             Object.Instantiate(bloodGush, position, _playerCamera.transform.rotation);

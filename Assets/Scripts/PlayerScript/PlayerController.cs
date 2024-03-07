@@ -22,7 +22,7 @@ namespace PlayerScript
         [Header("Physics")]
         [SerializeField] bool isGrounded;
         [SerializeField] Vector3 gravity;   // this needs to be vector3 to avoid a runtime cast
-        private readonly float _gravityVelocityMax = 3f;
+        private readonly float _gravityVelocityMax = 6f;
         [SerializeField] private float gravityAcceleration = 1f;
 
         [Header("Controls")]
@@ -107,7 +107,7 @@ namespace PlayerScript
             IsWalking();
             SetGunRacked();
         }
-
+        
         private void MouseLook()
         {
             _xRotation -= Input.GetAxis("Mouse Y") * mouseSensitivity;

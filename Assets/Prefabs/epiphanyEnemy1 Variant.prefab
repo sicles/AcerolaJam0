@@ -21,7 +21,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4f063cfc5ac97e945a7bbcf1ae4fe7b1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4f063cfc5ac97e945a7bbcf1ae4fe7b1,
         type: 3}
@@ -41,22 +41,22 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4f063cfc5ac97e945a7bbcf1ae4fe7b1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.8785186
+      value: 28.985996
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4f063cfc5ac97e945a7bbcf1ae4fe7b1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.2399993
+      value: -30.795595
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4f063cfc5ac97e945a7bbcf1ae4fe7b1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.30783463
+      value: -3.1135254
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4f063cfc5ac97e945a7bbcf1ae4fe7b1,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.19909588
+      value: 0.7491384
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4f063cfc5ac97e945a7bbcf1ae4fe7b1,
         type: 3}
@@ -66,7 +66,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4f063cfc5ac97e945a7bbcf1ae4fe7b1,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.9799801
+      value: -0.66241354
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4f063cfc5ac97e945a7bbcf1ae4fe7b1,
         type: 3}
@@ -81,7 +81,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4f063cfc5ac97e945a7bbcf1ae4fe7b1,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -202.968
+      value: -82.968
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4f063cfc5ac97e945a7bbcf1ae4fe7b1,
         type: 3}
@@ -469,9 +469,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyIsBusy: 0
   hurtDuration: 0.5
-  chargeRadius: 8
+  chargeRadius: 10
   attackRadius: 2
-  chargeSpeed: 20
+  chargeSpeed: 22
   chargeCooldown: 10
   _chargeTicker: 0
   attackCooldown: 2
@@ -482,6 +482,7 @@ MonoBehaviour:
   attackWindupTime: 0.5
   attackRecoveryTime: 0.5
   attackRange: 2
+  chargeReadyOnAlert: 0
   health: 100
   maxHealth: 100
   bloodGush: {fileID: 1282858200991441193, guid: 2312843041ab2224b8a2744cdcad0cbf,
@@ -490,11 +491,9 @@ MonoBehaviour:
     type: 3}
   player: {fileID: 0}
   isAlert: 0
+  manualAlert: 0
   alive: 1
-  detectionRadius: 8
-  idleUnalertSound: {fileID: 0}
-  idleAlertSound: {fileID: 0}
-  pushForce: 500000
+  detectionRadius: 20
   dodgeCooldown: 1
   dodgeChance: 30
   dodgeTicker: 0
@@ -513,8 +512,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 2.4
-  m_Acceleration: 3
+  m_Speed: 4.8
+  m_Acceleration: 3.8
   avoidancePriority: 50
   m_AngularSpeed: 180
   m_StoppingDistance: 1.5

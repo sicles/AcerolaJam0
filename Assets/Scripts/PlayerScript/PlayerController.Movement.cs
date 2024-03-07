@@ -29,7 +29,8 @@ namespace PlayerScript
         [SerializeField] private float dashSteps;
         private bool _dashRecovery;
         [SerializeField] bool playerIsInvincible;
-
+        private float _chargeChance;
+        
         /// <summary>
         /// 1. Player calls dash, correct vector is calculated.
         /// 2. Dash is executed in Update().
@@ -71,7 +72,7 @@ namespace PlayerScript
                 _dashDirection = _dashDirection.normalized;
 
 
-            StartCoroutine(PlayerIFrames(3));
+            CallPlayerIFrames(3);
             _dashTicker = 0;
             _isDashing = true;
             RuntimeManager.PlayOneShot("event:/OnPlayerEvents/Dash");
@@ -94,6 +95,11 @@ namespace PlayerScript
             controller.Move(_dashDirection * (dashForce * Time.deltaTime));
         }
 
+        private void CallPlayerIFrames(int amount)
+        {
+            StartCoroutine(PlayerIFrames(amount));
+        }
+        
         private IEnumerator PlayerIFrames(int amount)
         {
             playerIsInvincible = true;
@@ -207,6 +213,7 @@ namespace PlayerScript
 
             playerCamera.transform.localPosition = originalLocalPosition;
         }
+
 
         private void RestorePlayerSpeed()
         {

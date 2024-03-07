@@ -20,6 +20,7 @@ namespace PlayerScript
             if (_playerIsDead) return;
             
             playerHealth -= amount;
+            CallPlayerIFrames(15);   // give player some time to breath
 
             uiManager.UpdateHealthbar(amount);
 

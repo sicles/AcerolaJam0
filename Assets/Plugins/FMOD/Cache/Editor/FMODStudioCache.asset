@@ -155,7 +155,7 @@ MonoBehaviour:
     Data4: 1408611014
   Banks:
   - {fileID: -4153306486887348001}
-  IsStream: 1
+  IsStream: 0
   Is3D: 1
   IsOneShot: 0
   Parameters: []
@@ -177,10 +177,10 @@ MonoBehaviour:
   Path: FMOD/Epiphany/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638453662335903892
+  lastModified: 638454418090556396
   FileSizes:
   - Name: Desktop
-    Value: 2515488
+    Value: 2050528
   Exists: 1
 --- !u!114 &-3914798416766589998
 MonoBehaviour:
@@ -411,7 +411,7 @@ MonoBehaviour:
   - {fileID: -4153306486887348001}
   StringsBanks:
   - {fileID: 7496632294980018557}
-  cacheTime: 638453662335934007
+  cacheTime: 638454418090576571
   cacheVersion: 131616
 --- !u!114 &787029085868486177
 MonoBehaviour:
@@ -509,7 +509,7 @@ MonoBehaviour:
   Path: FMOD/Epiphany/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638453662335934007
+  lastModified: 638454418090576571
   FileSizes:
   - Name: Desktop
     Value: 1582

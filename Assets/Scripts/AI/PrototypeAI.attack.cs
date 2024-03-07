@@ -1,7 +1,6 @@
 using System.Collections;
 using FMODUnity;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace AI
 {
@@ -28,8 +27,9 @@ namespace AI
         [SerializeField] private float attackWindupTime = 0.75f;
         [SerializeField] private float attackRecoveryTime = 1f;
         [SerializeField] float attackRange = 3;
+        [SerializeField] private bool chargeReadyOnAlert;
         private readonly float _chargeCollisionRadius = 2;
-        private readonly float _chargeChance = 0.5f;
+        private float _chargeChance;
         private static readonly int IsHurt = Animator.StringToHash("IsHurt");
 
 
@@ -52,9 +52,19 @@ namespace AI
                 _attackTicker += Time.deltaTime;
         }
         
+        private void FixedUpdate()
+        {
+            CalculateChargeChance();
+        }
+        
+        private void CalculateChargeChance()
+        {
+            _chargeChance = Random.Range(0f, 1f);
+        }
+        
         private void ShouldCharge()
         {
-            if (Random.Range(0f, 1f) < _chargeChance)
+            if (_chargeChance > 0.01f)   // TODO chance is frame dependent, cringe
                 return;
             
             if (_playerDistanceRaw.magnitude <= chargeRadius 
@@ -133,6 +143,7 @@ namespace AI
                         player.transform.position - transform.position * attackRange,
                             Color.red);
                 _playerController.TakeDamage(25);
+                _playerController.CallCameraShake(0.2f, 20);
             }
             
             // Phase 3: Recovery

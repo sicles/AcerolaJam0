@@ -14,7 +14,9 @@ namespace AI
         private static readonly int IdleState = Animator.StringToHash("IdleState");
         private static readonly int Dodging = Animator.StringToHash("IsDodging");
         private static readonly int DodgeDirection = Animator.StringToHash("DodgeDirection");
-
+        private int _lastPositionIdleAlertSound;
+        private int _lastPositionIdleUnalertSound1;
+        
         private void IsWalking()
         {
             if (_agent.velocity.magnitude > 0)
@@ -43,27 +45,56 @@ namespace AI
 
         private void DecideIdleSound()
         {
-            if (!alive)
+            if (!Alive)
             {
-                idleAlertSound.Stop();
-                idleUnalertSound.Stop();
+                idleAlertSound.stop(STOP_MODE.ALLOWFADEOUT);    // not checking for playstate might lead to bugs if enemy is never alive
+                idleUnalertSound.stop(STOP_MODE.ALLOWFADEOUT);
                 return;
             }
             
             if (isAlert)
             {
-                if (!idleAlertSound.IsPlaying())
-                    idleAlertSound.Play();
+                idleAlertSound.getPaused(out var idleAlertSoundisPaused);
+                idleAlertSound.getPlaybackState(out var idleAlertPlaybackState);
+                if (idleAlertPlaybackState != PLAYBACK_STATE.PLAYING)
+                {
+                    idleAlertSound.start();
+                }
+                
+                if (!idleAlertSoundisPaused)
+                {
+                    idleAlertSound.setTimelinePosition(_lastPositionIdleAlertSound);
+
+                    idleAlertSound.setPaused(false);
+                }
+
                 else if (enemyIsBusy)
-                    idleAlertSound.Stop();
+                {
+                    idleAlertSound.getTimelinePosition(out _lastPositionIdleAlertSound);
+
+                    idleAlertSound.setPaused(true);
+                }
                 
             }
             else
             {
-                if (!idleUnalertSound.IsPlaying())
-                    idleUnalertSound.Play();
+                idleUnalertSound.getPaused(out var idleUnalertSoundisPaused);
+                idleUnalertSound.getPlaybackState(out var idleUnalertPlaybackState);
+                if (idleUnalertPlaybackState != PLAYBACK_STATE.PLAYING)
+                    idleUnalertSound.start();
+
+                if (!idleUnalertSoundisPaused)
+                {
+                    idleUnalertSound.setTimelinePosition(_lastPositionIdleAlertSound);
+
+                    idleUnalertSound.setPaused(false);
+                }
                 else if (enemyIsBusy)
-                    idleUnalertSound.Stop();
+                {
+                    idleUnalertSound.getTimelinePosition(out _lastPositionIdleAlertSound);
+
+                    idleUnalertSound.setPaused(true);
+                }
             }
         }
 

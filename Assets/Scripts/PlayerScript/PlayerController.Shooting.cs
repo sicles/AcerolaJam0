@@ -8,7 +8,7 @@ namespace PlayerScript
 {
     public partial class PlayerController
     {
-        private readonly float _shootRange = 50;
+        private readonly float _shootRange = 100;
         [SerializeField] private int ammunition;
         [SerializeField] private int maxAmmunition = 1;
         [SerializeField] private GameObject bullet;
@@ -46,7 +46,7 @@ namespace PlayerScript
             
             if (ammunition == 0)
             {
-                FMODUnity.RuntimeManager.PlayOneShot("event:/OnPlayerEvents/UnloadedShoot");
+                RuntimeManager.PlayOneShot("event:/OnPlayerEvents/UnloadedShoot");
                 _gunIsRacked = false;
                 return;
             }
@@ -55,7 +55,7 @@ namespace PlayerScript
             SetBulletReadyParticleState(false);
             StartCoroutine(CameraShake(0.12f, 15f));
             
-            FMODUnity.RuntimeManager.PlayOneShot("event:/OnPlayerEvents/Shoot");
+            RuntimeManager.PlayOneShot("event:/OnPlayerEvents/Shoot");
             
             if (Physics.Raycast(ray, out RaycastHit hit, _shootRange))
             {
