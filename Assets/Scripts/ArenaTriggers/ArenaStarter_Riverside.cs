@@ -11,6 +11,7 @@ namespace ArenaTriggers
     {
         [SerializeField] private List<PrototypeAI> enemiesToActivate;
         [SerializeField] private Animator entranceAnimator;
+        [SerializeField] private LevelStateMachine levelStateMachine;
         [SerializeField] private Animator exitAnimator;
         [SerializeField] private GameObject oldGeometry;
         [SerializeField] private Material waterMaterial;
@@ -19,6 +20,8 @@ namespace ArenaTriggers
         [SerializeField] private float startMetallic = 0.3f;
         [SerializeField] private float targetMetallic = 0.95f;
         [SerializeField] private List<Light> riverLights;
+        [SerializeField] private GameObject arenaGeometry;
+        [SerializeField] private bool arenaActiveOnStart;
         private bool _hasEntered;
         private static readonly int IsTriggered = Animator.StringToHash("IsTriggered");
         private bool _fightIsOver;
@@ -28,6 +31,7 @@ namespace ArenaTriggers
 
         private void Start()
         {
+            arenaGeometry.gameObject.SetActive(arenaActiveOnStart);
             waterMaterial.SetColor(WaterColor, new Color(0.2235293f, 0.5372549f, 0.7254902f, 0.6470588f));
         }
 
@@ -72,6 +76,7 @@ namespace ArenaTriggers
         
             entranceAnimator.SetBool(IsTriggered, true);
             Invoke(nameof(DeactivateOldGeometry), 1f);
+            levelStateMachine.RiversideArenaQuip();
             ThrowTheTea();
 
             _hasEntered = true;

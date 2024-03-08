@@ -51,11 +51,11 @@ public class UIManager : MonoBehaviour
         _healthlossbarUpdateIsRunning = false;
     }
 
-    private void CallSendMessage()
+    public void CallSendMessage(string message, float lifetime)
     {
         if (_currentSendMessage != null)
             StopCoroutine(_currentSendMessage);     // don't use without safety
-        _currentSendMessage = StartCoroutine(SendMessageRoutine("You are the poopy.", 5f));
+        _currentSendMessage = StartCoroutine(SendMessageRoutine(message, lifetime));
     }
 
     private IEnumerator SendMessageRoutine(string message, float lifetime)
@@ -64,7 +64,7 @@ public class UIManager : MonoBehaviour
         
         // set this more elegantly when method is done
         const int shuffleFrames = 5;
-        const float shuffleTimePer = 0.05f;
+        const float shuffleTimePer = 0.02f;
         EventInstance shuffleSound = FMODUnity.RuntimeManager.CreateInstance("event:/scroll");
         
         for (int i = 0; i < message.Length; i++)

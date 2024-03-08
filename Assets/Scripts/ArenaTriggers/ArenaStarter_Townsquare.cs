@@ -1,20 +1,31 @@
+using System;
 using System.Collections.Generic;
 using AI;
 using PlayerScript;
 using UnityEngine;
 
+// listen i know i shouldn't just have copypasted this script instead of inheritance, mistakes were made
+
 namespace ArenaTriggers
 {
-    public class ArenaStarter : MonoBehaviour
+    public class ArenaStarter_Townsquare : MonoBehaviour
     {
         [SerializeField] private List<PrototypeAI> enemiesToActivate;
         [SerializeField] private Animator entranceAnimator;
         [SerializeField] private Animator exitAnimator;
+        [SerializeField] private LevelStateMachine levelStateMachine; 
         [SerializeField] private GameObject oldGeometry;
+        [SerializeField] private GameObject arenaGeometry;
+        [SerializeField] private GameObject newGeometry;
+        [SerializeField] private bool arenaGeometryActiveOnStart;
         private bool _hasEntered;
         private static readonly int IsTriggered = Animator.StringToHash("IsTriggered");
         private bool _fightIsOver;
 
+        private void Start()
+        {
+            arenaGeometry.SetActive(arenaGeometryActiveOnStart);
+        }
 
         private void FixedUpdate()
         {
@@ -38,6 +49,8 @@ namespace ArenaTriggers
         private void ReleaseArena()
         {
             exitAnimator.SetBool(IsTriggered, true);
+            if (newGeometry != null)
+                newGeometry.SetActive(true);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -48,6 +61,8 @@ namespace ArenaTriggers
         
             entranceAnimator.SetBool(IsTriggered, true);
             Invoke(nameof(DeactivateOldGeometry), 1f);
+            
+            levelStateMachine.TownSquareArenaQuip();;
         
             foreach (var enemy in enemiesToActivate)
             {

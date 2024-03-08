@@ -90,7 +90,7 @@ namespace PlayerScript
             Dash();
         
             WasdGetSet();
-            Jump();
+            // Jump();  obsolete; honestly there is little reason for this game to have a jump
         
             LetGoOfRack();
             IsLoaded();
