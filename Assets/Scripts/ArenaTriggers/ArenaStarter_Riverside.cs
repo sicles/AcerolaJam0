@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using AI;
+using LevelStateMachines;
 using PlayerScript;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ArenaTriggers
 {
@@ -11,7 +13,7 @@ namespace ArenaTriggers
     {
         [SerializeField] private List<PrototypeAI> enemiesToActivate;
         [SerializeField] private Animator entranceAnimator;
-        [SerializeField] private LevelStateMachine levelStateMachine;
+        [FormerlySerializedAs("levelStateMachine")] [SerializeField] private LevelStateMachine_Paris levelStateMachineParis;
         [SerializeField] private Animator exitAnimator;
         [SerializeField] private GameObject oldGeometry;
         [SerializeField] private Material waterMaterial;
@@ -76,7 +78,7 @@ namespace ArenaTriggers
         
             entranceAnimator.SetBool(IsTriggered, true);
             Invoke(nameof(DeactivateOldGeometry), 1f);
-            levelStateMachine.RiversideArenaQuip();
+            levelStateMachineParis.RiversideArenaQuip();
             ThrowTheTea();
 
             _hasEntered = true;

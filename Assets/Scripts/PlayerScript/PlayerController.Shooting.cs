@@ -236,6 +236,14 @@ namespace PlayerScript
         {
             bullet.transform.parent = null;
         }
+
+        public void ActivateGun(bool isActive)
+        {
+            foreach (var obj in firstPersonMeshes)
+            {
+                obj.SetActive(isActive);
+            }
+        }
     }
 }
 

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using FMOD.Studio;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -11,13 +12,15 @@ namespace PlayerScript
         [SerializeField] private CharacterController controller;
         [SerializeField] private Camera playerCamera;
         [SerializeField] float playerRadius;
-
+        [SerializeField] private List<GameObject> firstPersonMeshes;
+        
         public enum PlayerState { CanMove, CannotMove };
         public enum PlayerView { Freelook, Constrained };
         [Header("PlayerState")]
         [SerializeField] private PlayerState ePlayerState;
         [SerializeField] private PlayerView ePlayerView;
         [SerializeField] private float playerViewConstraints;
+        [SerializeField] private bool isArmed = true;
 
         [Header("Physics")]
         [SerializeField] bool isGrounded;
@@ -59,6 +62,7 @@ namespace PlayerScript
 
         void Start()
         {
+            ActivateGun(isArmed);
             controller = this.GetComponent<CharacterController>();
             playerCamera = this.GetComponentInChildren<Camera>();
             _animator = playerCamera.GetComponent<Animator>();
@@ -75,8 +79,6 @@ namespace PlayerScript
         private void Update()
         {
             //PauseGame(); not yet implemented
-
-            CheckIfReloading();
             
             IsGroundedCheck();
             SetGravity();
@@ -91,17 +93,20 @@ namespace PlayerScript
         
             WasdGetSet();
             // Jump();  obsolete; honestly there is little reason for this game to have a jump
-        
-            LetGoOfRack();
-            IsLoaded();
+            if (isArmed)
+            {
+                CheckIfReloading();
+                LetGoOfRack();
+                IsLoaded();
 
             
-            ResetRackOnReload();
-            Shoot();
-            RackGun();
-            Reload();
+                ResetRackOnReload();
+                Shoot();
+                RackGun();
+                Reload();
 
-            TickRecallTicker();
+                TickRecallTicker();
+            }
             
             // Animation logic
             IsWalking();

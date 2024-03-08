@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using AI;
+using LevelStateMachines;
 using PlayerScript;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 // listen i know i shouldn't just have copypasted this script instead of inheritance, mistakes were made
 
@@ -13,7 +15,7 @@ namespace ArenaTriggers
         [SerializeField] private List<PrototypeAI> enemiesToActivate;
         [SerializeField] private Animator entranceAnimator;
         [SerializeField] private Animator exitAnimator;
-        [SerializeField] private LevelStateMachine levelStateMachine; 
+        [FormerlySerializedAs("levelStateMachine")] [SerializeField] private LevelStateMachine_Paris levelStateMachineParis; 
         [SerializeField] private GameObject oldGeometry;
         [SerializeField] private GameObject arenaGeometry;
         [SerializeField] private GameObject newGeometry;
@@ -62,7 +64,7 @@ namespace ArenaTriggers
             entranceAnimator.SetBool(IsTriggered, true);
             Invoke(nameof(DeactivateOldGeometry), 1f);
             
-            levelStateMachine.TownSquareArenaQuip();;
+            levelStateMachineParis.TownSquareArenaQuip();;
         
             foreach (var enemy in enemiesToActivate)
             {
