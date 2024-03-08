@@ -47,7 +47,7 @@ namespace PlayerScript
 
         private void IsLoaded()
         {
-            if (ammunition > 0)
+            if (Ammunition > 0)
                 _animator.SetBool(Loaded, true);
             else
                 _animator.SetBool(Loaded, false);
@@ -64,7 +64,7 @@ namespace PlayerScript
             yield return new WaitForEndOfFrame();
             yield return new WaitForEndOfFrame();
             _animator.SetBool(IsShooting, false);
-            if (ammunition > 0) ammunition--;
+            if (Ammunition > 0) ammunition = Ammunition - 1;
             _gunIsRacked = false;
         }
 
@@ -110,7 +110,7 @@ namespace PlayerScript
             yield return new WaitForSeconds(0.25f);
             
             _catchReloadCoroutine = null;
-            ammunition++;
+            ammunition = Ammunition + 1;
         }
 
         private void StartRackAnimation()
@@ -125,7 +125,7 @@ namespace PlayerScript
 
         private void SetGunRacked()
         {
-            if (_gunIsRacked)
+            if (GunIsRacked)
                 _animator.SetBool(IsRacked, true);
             else
                 _animator.SetBool(IsRacked, false);

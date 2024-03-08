@@ -25,7 +25,11 @@ namespace PlayerScript
         private float _recallTicker;
         private readonly float _recallCooldown = 0.75f; // set at same length of shooting animation
         public Vector3 BulletBackcallDirection { get; private set; }
-    
+
+        public int Ammunition => ammunition;
+
+        public bool GunIsRacked => _gunIsRacked;
+
         partial void AbortInput();  // not implemented
         partial void PauseGame();   // not checked in update **yet** because this is really annoying while editing
 
@@ -39,12 +43,12 @@ namespace PlayerScript
             _rackIsReady = false;
             StopRackAnimation();
 
-            if (!_gunIsRacked)
+            if (!GunIsRacked)
                 return;
             
             CallShootAnimation();
             
-            if (ammunition == 0)
+            if (Ammunition == 0)
             {
                 RuntimeManager.PlayOneShot("event:/OnPlayerEvents/UnloadedShoot");
                 _gunIsRacked = false;
@@ -70,6 +74,8 @@ namespace PlayerScript
 
                 if (hit.collider.gameObject.TryGetComponent<AI.PrototypeAI>(out AI.PrototypeAI prototypeAI))
                     prototypeAI.TakeDamage(50, hit.transform.position, hit.normal, playerCamera.transform.forward);
+                else if (hit.collider.gameObject.TryGetComponent<Destructible>(out Destructible destructible))
+                    destructible.DestroyAnimation();
             }
         }
 
@@ -100,7 +106,7 @@ namespace PlayerScript
 
         private void Reload()
         {
-            if (ammunition >= maxAmmunition) return;
+            if (Ammunition >= maxAmmunition) return;
             if (!Input.GetKeyDown(KeyCode.R)) return;
             if (_reloadIsPlaying) return;
 
@@ -115,7 +121,7 @@ namespace PlayerScript
 
         private void ResetRackOnReload()
         {
-            if (_reloadIsPlaying && !_gunIsRacked)
+            if (_reloadIsPlaying && !GunIsRacked)
             {
                 _rackCharge = 0;
             }
@@ -123,7 +129,7 @@ namespace PlayerScript
         
         private void RackGun()
         {
-            if (_gunIsRacked)
+            if (GunIsRacked)
             {
                 StopRackAnimation();
                 return;
@@ -239,6 +245,8 @@ namespace PlayerScript
 
         public void ActivateGun(bool isActive)
         {
+            isArmed = isActive; 
+            
             foreach (var obj in firstPersonMeshes)
             {
                 obj.SetActive(isActive);

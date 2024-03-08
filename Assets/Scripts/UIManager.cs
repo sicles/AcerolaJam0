@@ -13,12 +13,13 @@ public class UIManager : MonoBehaviour
     private bool _healthlossbarUpdateIsRunning;
     private Coroutine _currentHealthlossBarUpdate;
     private Coroutine _currentSendMessage;
-    private TextMeshProUGUI _messageBoard;
+    [SerializeField] private TextMeshProUGUI _messageBoard;
+    [SerializeField] private TextMeshProUGUI _tutorialBoard;
 
     private void Start()
     {
-        _messageBoard = GetComponentInChildren<TextMeshProUGUI>();
-        // CallSendMessage();
+        _messageBoard.text = "";
+        _tutorialBoard.text = "";
     }
 
     public void UpdateHealthbar(int lastHealth)
@@ -49,6 +50,16 @@ public class UIManager : MonoBehaviour
         }
         
         _healthlossbarUpdateIsRunning = false;
+    }
+
+    public void CallSendTutorial(string tutorialMessage)
+    {
+        _tutorialBoard.text = tutorialMessage;
+    }
+
+    public void ClearTutorial()
+    {
+        _tutorialBoard.text = "";
     }
 
     public void CallSendMessage(string message, float lifetime)
