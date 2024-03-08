@@ -1,3 +1,4 @@
+using System.Collections;
 using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
@@ -28,6 +29,8 @@ namespace AI
 
         [SerializeField] private EventInstance idleUnalertSound;
         [SerializeField] private EventInstance idleAlertSound;
+        private Coroutine _walkToRoutine1;
+        private bool _isOrderedToWalk;
 
         public bool Alive => alive;
 
@@ -46,10 +49,10 @@ namespace AI
 
         private void Update()
         {
-            DecideIdleSound();
-            
-            if (Alive)
+            if (Alive && !_isOrderedToWalk)
             {
+                DecideIdleSound();
+
                 NavMeshUpdates();
                 CooldownTick();
                 if (!manualAlert)
@@ -180,6 +183,33 @@ namespace AI
         private void DeactivateEnemy()
         {
             _agent.enabled = false;
+        }
+
+        public void CallWalkTo(Vector3 position, bool destroyOnArrival)
+        {
+            if (_walkToRoutine1 != null)
+                StopCoroutine(_walkToRoutine1);
+
+            _walkToRoutine1 = StartCoroutine(WalkToRoutine(position, destroyOnArrival));
+        }
+
+        private IEnumerator WalkToRoutine(Vector3 position, bool destroyOnArrival)
+        {
+            _animator.SetBool(Walking, true);
+            _isOrderedToWalk = true;
+            isAlert = false;
+            _agent.isStopped = false;
+            _agent.destination = position;
+            yield return new WaitUntil(() => CheckWalkToDistance(position));
+            _agent.isStopped = true;
+            _isOrderedToWalk = false;
+            _animator.SetBool(Walking, false);
+            if (destroyOnArrival) Destroy(this.gameObject);
+        }
+
+        private bool CheckWalkToDistance(Vector3 targetPosition)
+        {
+            return ((transform.position - targetPosition).magnitude < 0.5f);
         }
     }
 }
