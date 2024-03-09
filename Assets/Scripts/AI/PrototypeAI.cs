@@ -27,7 +27,7 @@ namespace AI
 
         [SerializeField] private float detectionRadius = 5f;
         private Vector3 _playerDistanceRaw;
-        [SerializeField] private TrailRenderer chargeTrailRenderer;
+        [SerializeField] private LineRenderer chargeTrailRenderer;
 
         [SerializeField] private EventInstance idleUnalertSound;
         [SerializeField] private EventInstance idleAlertSound;

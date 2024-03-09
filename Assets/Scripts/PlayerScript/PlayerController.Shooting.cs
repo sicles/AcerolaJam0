@@ -1,8 +1,13 @@
+using System.Collections;
+using System.Numerics;
 using FMOD.Studio;
 using FMODUnity;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Quaternion = UnityEngine.Quaternion;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
+using Vector3 = UnityEngine.Vector3;
 
 namespace PlayerScript
 {
@@ -25,6 +30,8 @@ namespace PlayerScript
         private float _recallTicker;
         private readonly float _recallCooldown = 0.75f; // set at same length of shooting animation
         public Vector3 BulletBackcallDirection { get; private set; }
+        [SerializeField] private LineRenderer gunshotLineRenderer;
+        [SerializeField] private Transform gunTip;
 
         public int Ammunition => ammunition;
 
@@ -56,13 +63,21 @@ namespace PlayerScript
             }
             
             Ray ray = new Ray(playerCamera.transform.position + playerCamera.transform.forward, CalculateShotDirection());
+            
             SetBulletReadyParticleState(false);
             StartCoroutine(CameraShake(0.12f, 15f));
             
+            //FX
             RuntimeManager.PlayOneShot("event:/OnPlayerEvents/Shoot");
+            LayerMask layerMask = LayerMask.GetMask("Blood",
+                                                                        "Default",
+                                                                        "Enemy",
+                                                                        "Water");
             
             if (Physics.Raycast(ray, out RaycastHit hit, _shootRange))
             {
+                CastGunshotLine(hit);
+
                 bullet.GetComponent<Bullet>().LastEnemy = hit.transform.gameObject;
                 bullet.GetComponent<MeshRenderer>().enabled = true;
                 bullet.transform.GetChild(0).gameObject.SetActive(true);
@@ -79,6 +94,22 @@ namespace PlayerScript
                 else if (hit.collider.gameObject.TryGetComponent<Destructible>(out Destructible destructible))
                     destructible.DestroyAnimation();
             }
+        }
+
+        void CastGunshotLine(RaycastHit hit)
+        {
+            LineRenderer newGunshotLineRenderer = Instantiate(gunshotLineRenderer, Vector3.zero, Quaternion.identity);
+            newGunshotLineRenderer.transform.parent = gunTip.transform;
+            newGunshotLineRenderer.transform.localPosition = Vector3.zero;
+            newGunshotLineRenderer.transform.localRotation = Quaternion.identity;
+            StartCoroutine(DeactivateGunTrail(newGunshotLineRenderer));
+        }
+        
+        private IEnumerator DeactivateGunTrail(LineRenderer lineRenderer)
+        {
+            yield return new WaitForSeconds(0.03f);
+            if (lineRenderer.gameObject != null)
+                Destroy(lineRenderer.gameObject);
         }
 
         /// <summary>
