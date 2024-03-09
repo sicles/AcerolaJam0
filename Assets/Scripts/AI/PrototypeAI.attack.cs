@@ -88,11 +88,13 @@ namespace AI
             yield return new WaitForSeconds(chargeWindupTime);
         
             // Phase 2: charge is executed
+            chargeTrailRenderer.gameObject.SetActive(true);
             _chargeIsActive = true;
             yield return new WaitForSeconds(chargeActiveTime);
 
             // Phase 3: enemy recovers from charge
         
+            chargeTrailRenderer.gameObject.SetActive(false);
             _chargeIsActive = false;
 
         

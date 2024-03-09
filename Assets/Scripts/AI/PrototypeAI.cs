@@ -3,6 +3,7 @@ using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 namespace AI
 {
@@ -26,6 +27,7 @@ namespace AI
 
         [SerializeField] private float detectionRadius = 5f;
         private Vector3 _playerDistanceRaw;
+        [SerializeField] private TrailRenderer chargeTrailRenderer;
 
         [SerializeField] private EventInstance idleUnalertSound;
         [SerializeField] private EventInstance idleAlertSound;
