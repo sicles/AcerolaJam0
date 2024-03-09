@@ -15,6 +15,8 @@ if you have any additional questions about my workflows, feel free to contact me
 ADDITIONAL CREDITS:  
 
 both the mesh for player arms and the enemy1 is based on thomas potter's low poly assets. please check out his channel on youtube, he does great tutorials on topology and is way underrated! https://www.youtube.com/@ThomasPotter   
+pixelizer and sharpen shader and honestly any unity shader i make is possible because of stuff i learned watching ben cloward's tutorials: https://www.youtube.com/@BenCloward  
+water shader in its entirety built following instructions by MichaelsGameLab's helpful video on youtube: https://www.youtube.com/watch?v=8TO5Q-rwHLs  
 
 
 unity crashes occurred during the making of this: 3  
