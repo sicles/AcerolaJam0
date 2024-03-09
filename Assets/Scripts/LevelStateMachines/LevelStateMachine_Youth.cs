@@ -62,5 +62,37 @@ namespace LevelStateMachines
             yield return new WaitUntil(() => playerController.Ammunition == 0);
             uiManager.ClearTutorial();
         }
+
+        public void CallClassroomMemory()
+        {
+            uiManager.CallSendMessage("I remember the first time you smiled at me.", 5f);
+        }
+
+        public void CallClassroomMemory2()
+        {
+            uiManager.CallSendMessage("I said something stupid, you turned around - and there it was.", 5f);
+        }
+        
+        public void CallGalleryMemory()
+        {
+            uiManager.CallSendMessage("Beauty... well, I can't exactly say I get it.", 5f);
+        }
+        
+        public void CallGalleryMemory2()
+        {
+            uiManager.CallSendMessage("But I know it when I see it.", 5f);
+        }
+
+        public void CallDashTutorial()
+        {
+            StartCoroutine(DashTutorialRoutine());
+        }
+
+        private IEnumerator DashTutorialRoutine()
+        {
+            uiManager.CallSendTutorial("Press 'Left Shift' to dash in any direction.");
+            yield return new WaitUntil(() => playerController.DashIsActive);
+            uiManager.ClearTutorial();
+        }
     }
 }

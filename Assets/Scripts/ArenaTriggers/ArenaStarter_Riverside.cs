@@ -22,6 +22,7 @@ namespace ArenaTriggers
         [SerializeField] private float startMetallic = 0.3f;
         [SerializeField] private float targetMetallic = 0.95f;
         [SerializeField] private List<Light> riverLights;
+        [SerializeField] private List<Light> exitLights;
         [SerializeField] private GameObject arenaGeometry;
         [SerializeField] private bool arenaActiveOnStart;
         private bool _hasEntered;
@@ -62,6 +63,11 @@ namespace ArenaTriggers
             {
                 lighty.color = Color.white;
             }
+
+            foreach (var shiny in exitLights)
+            {
+                shiny.gameObject.SetActive(true);
+            }
             
             waterMaterial.SetColor(WaterColor, startColor);
             waterMaterial.SetFloat(Metallic, 0.3f);
@@ -88,7 +94,7 @@ namespace ArenaTriggers
         {
             foreach (var enemy in enemiesToActivate)
             {
-                enemy.SetAlert(true);
+                enemy.SetAlert();
             }
         }
         

@@ -3,6 +3,7 @@ using FMOD.Studio;
 using PlayerScript;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class UIManager : MonoBehaviour
     private Coroutine _currentSendMessage;
     [SerializeField] private TextMeshProUGUI _messageBoard;
     [SerializeField] private TextMeshProUGUI _tutorialBoard;
+    [SerializeField] private RawImage _blackoutRawImage;
 
     private void Start()
     {
@@ -104,5 +106,35 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(lifetime);
         _messageBoard.text = "";
         _currentSendMessage = null;
+    }
+
+    public void Blackout()
+    {
+        _blackoutRawImage.gameObject.SetActive(true);
+    }
+
+    /// <summary>
+    /// Slow blackout with a buildup in seconds
+    /// </summary>
+    public void SlowBlackout(float duration)
+    {
+        StartCoroutine(SlowBlackoutRoutine(duration));
+    }
+
+    private IEnumerator SlowBlackoutRoutine(float duration)
+    {
+        float _currentAlpha = 0;
+        _blackoutRawImage.color =
+            new Color(_blackoutRawImage.color.r, _blackoutRawImage.color.r, _blackoutRawImage.color.r, 0);
+
+        _blackoutRawImage.gameObject.SetActive(true);
+
+        for (int i = 0; i < 99; i++)
+        {
+            _blackoutRawImage.color = new Color(_blackoutRawImage.color.r, _blackoutRawImage.color.r,
+                _blackoutRawImage.color.r, _currentAlpha);
+            _currentAlpha += 0.011f;
+            yield return new WaitForSeconds(duration / 100f);
+        }
     }
 }

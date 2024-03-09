@@ -30,7 +30,9 @@ namespace PlayerScript
         private bool _dashRecovery;
         [SerializeField] bool playerIsInvincible;
         private float _chargeChance;
-        
+
+        public bool DashIsActive => _dashIsActive;
+
         /// <summary>
         /// 1. Player calls dash, correct vector is calculated.
         /// 2. Dash is executed in Update().
@@ -86,7 +88,7 @@ namespace PlayerScript
         private void Dash()
         {
             if (!_isDashing) return;
-            if (!_dashIsActive)
+            if (!DashIsActive)
             {
                 Invoke(nameof(StopDash), dashDuration);
                 _dashIsActive = true;
@@ -130,11 +132,16 @@ namespace PlayerScript
             float xLerp;
             float zLerp;
 
-            if (!_isDashing)
+            if (!_isDashing && !_playerIsDead)
             {
                 _camDashTiltTarget = new Vector3(Input.GetAxis("Vertical"),
                                                 0,
                                                 -Input.GetAxis("Horizontal"));
+            }
+
+            if (_playerIsDead)
+            {
+                _camDashTiltTarget = new Vector3(-90, 0, 0);
             }
             
             if (_camDashTiltTarget != Vector3.zero && !_dashRecovery)
@@ -224,7 +231,7 @@ namespace PlayerScript
 
         private void DashTick()
         {
-            if (_dashIsActive) return;
+            if (DashIsActive) return;
 
             if (_dashTicker < _dashCooldown)
                 _dashTicker += Time.deltaTime;

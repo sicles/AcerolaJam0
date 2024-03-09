@@ -33,7 +33,8 @@ namespace PlayerScript
         private void IsWalking()
         {
             if ((Mathf.Abs(Input.GetAxis("Vertical")) > 0.1f || Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1f)
-                && !_dashIsActive)
+                && !DashIsActive
+                && isGrounded)
             {
                     _animator.SetBool(Walking, true);
                     PlayFootsteps(true);

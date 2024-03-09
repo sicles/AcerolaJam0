@@ -89,12 +89,15 @@ namespace PlayerScript
                 
                 AttachBullet(hit);
 
+                // this code isn't terrible if i don't look at it :)
                 if (hit.collider.gameObject.TryGetComponent<AI.PrototypeAI>(out AI.PrototypeAI prototypeAI))
                     prototypeAI.TakeDamage(50, hit.transform.position, hit.normal, playerCamera.transform.forward);
                 else if (hit.collider.gameObject.TryGetComponent<Destructible>(out Destructible destructible))
                     destructible.DestroyAnimation();
                 else if (hit.collider.gameObject.TryGetComponent<BedroomDoor>(out BedroomDoor bedroomDoor))
                     bedroomDoor.DestroyAnimation();
+                else if (hit.collider.gameObject.TryGetComponent<Lover>(out Lover lover))
+                    lover.End();
             }
         }
 
@@ -219,7 +222,7 @@ namespace PlayerScript
         /// <summary>
         /// Called once to start bullet travel back to player.
         /// </summary>
-        private void BulletRecall()
+        public void BulletRecall()
         {
             bullet.transform.GetComponent<Bullet>().IsActive = true;
             bullet.transform.SetParent(null, true);

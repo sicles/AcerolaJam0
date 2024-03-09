@@ -61,14 +61,14 @@ namespace ArenaTriggers
             if (other.gameObject.GetComponent<PlayerController>() == null)
                 return;
         
+            levelStateMachineYouth.CallGalleryMemory2();
+            
             entranceAnimator.SetBool(IsTriggered, true);
             Invoke(nameof(DeactivateOldGeometry), 1f);
             
-            // levelStateMachineParis.TownSquareArenaQuip();;
-        
             foreach (var enemy in enemiesToActivate)
             {
-                enemy.SetAlert(true);
+                enemy.SetAlert();
             }
 
             _hasEntered = true;

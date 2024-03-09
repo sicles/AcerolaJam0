@@ -58,7 +58,7 @@ namespace ArenaTriggers
         {
             foreach (var enemy in enemiesToActivate)
             {
-                enemy.SetAlert(true);
+                enemy.SetAlert();
             }
         }
     }

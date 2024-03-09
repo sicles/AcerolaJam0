@@ -35,7 +35,7 @@ namespace LevelStateMachines
             uiManager.CallSendMessage("And then, it was something else", 3f);
             yield return new WaitForSeconds(5f);
             _arenaStarterApartment.ActivateHomeArena();
-        }
+            }
 
         private IEnumerator LightSwitch()
         {
@@ -69,6 +69,7 @@ namespace LevelStateMachines
 
         public void CallEndQuip()
         {
+            StopAllCoroutines();
             StartCoroutine(EndQuip());
         }
 
@@ -76,9 +77,11 @@ namespace LevelStateMachines
         {
             uiManager.CallSendMessage("You can scratch, kick, and bite all you want.", 5f);
             yield return new WaitForSeconds(5f);
-            uiManager.CallSendMessage("I am a part of you now and forever.", 5f);
+            if (!playerController.IsEnd)    // ifs in case the player goes in guns blazing
+                uiManager.CallSendMessage("I am a part of you now and forever.", 5f);
             yield return new WaitForSeconds(5f);
-            uiManager.CallSendMessage("You will never be alone again.", 5f);
+            if (!playerController.IsEnd)
+                uiManager.CallSendMessage("You will never be alone again.", 5f);
         }
     }
 }

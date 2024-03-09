@@ -54,6 +54,13 @@ namespace PlayerScript
         private bool _thousandYardStare;
         private bool _reloadIsPlaying;
         private EventInstance _rackGunSound;
+        private bool isEnd;
+
+        public bool IsEnd
+        {
+            get => isEnd;
+            set => isEnd = value;
+        }
 
         private void Awake()
         {
@@ -83,34 +90,45 @@ namespace PlayerScript
             IsGroundedCheck();
             SetGravity();
             BulletTravel();
-            
-            MouseLook();
-            PlayerTilt();
-        
-            DashTick();
-            CallDash();
-            Dash();
-        
-            WasdGetSet();
-            // Jump();  obsolete; honestly there is little reason for this game to have a jump
-            if (isArmed)
+
+            PlayerTilt();   // calling that one even when dead because of death tilt
+
+            if (!PlayerIsDead)
             {
-                CheckIfReloading();
-                LetGoOfRack();
-                IsLoaded();
+                MouseLook();
+
+                if (!isEnd)
+                {
+                    DashTick();
+                    CallDash();
+                    Dash();                    
+                }
+
+        
+                WasdGetSet();
+                // Jump();  obsolete; honestly there is little reason for this game to have a jump
+                if (isArmed && !isEnd)
+                {
+                    CheckIfReloading();
+                    LetGoOfRack();
+                    IsLoaded();
 
             
-                ResetRackOnReload();
-                Shoot();
-                RackGun();
-                Reload();
+                    ResetRackOnReload();
+                    Shoot();
+                    RackGun();
+                    Reload();
 
-                TickRecallTicker();
+                    TickRecallTicker();
+                }
+
+                if (!isEnd)
+                {
+                    // Animation logic
+                    IsWalking();
+                    SetGunRacked();
+                }
             }
-            
-            // Animation logic
-            IsWalking();
-            SetGunRacked();
         }
         
         private void MouseLook()
@@ -138,7 +156,7 @@ namespace PlayerScript
         private void WasdGetSet()
         {
             if (ePlayerState != PlayerState.CanMove) return;
-            if (_dashIsActive) return;
+            if (DashIsActive) return;
         
             playerInput.x = Input.GetAxis("Horizontal");
             playerInput.y = Input.GetAxis("Vertical");

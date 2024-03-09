@@ -23,7 +23,10 @@ namespace AI
 
         [SerializeField] private bool isAlert;
         [SerializeField] private bool manualAlert;
+        [FormerlySerializedAs("isSubmerged")] [SerializeField] private bool isSubmergedAtStart = true;
         [SerializeField] private bool alive = true;
+        [SerializeField] private SkinnedMeshRenderer thisSkinnedMeshRenderer;
+        [SerializeField] private BoxCollider thisBoxCollider;
 
         [SerializeField] private float detectionRadius = 5f;
         private Vector3 _playerDistanceRaw;
@@ -33,11 +36,14 @@ namespace AI
         [SerializeField] private EventInstance idleAlertSound;
         private Coroutine _walkToRoutine1;
         private bool _isOrderedToWalk;
+        private static readonly int IsClimbing = Animator.StringToHash("IsClimbing");
 
         public bool Alive => alive;
 
         private void Start()
         {
+            if (isSubmergedAtStart)
+                Submerge(true);
             health = maxHealth;
             player = FindObjectOfType<CharacterController>().transform;
             _rigidbody = transform.GetComponent<Rigidbody>();
@@ -47,6 +53,12 @@ namespace AI
             _playerCamera = player.GetComponentInChildren<Camera>();
             _animator = GetComponent<Animator>();
             InitiateSoundEvents();
+        }
+
+        private void Submerge(bool isSubmerged)
+        {
+            thisSkinnedMeshRenderer.enabled = !isSubmerged;
+            thisBoxCollider.enabled = !isSubmerged;
         }
 
         private void Update()
@@ -101,7 +113,7 @@ namespace AI
             if (_playerDistanceRaw.magnitude < detectionRadius)
             {
                 if (Physics.Raycast(transform.position, _playerDistanceRaw, detectionRadius, 1 << 7))
-                    SetAlert(true);
+                    SetAlert();
             }
         }
 
@@ -109,22 +121,41 @@ namespace AI
         /// Start chasing player
         /// </summary>
         /// <param name="paramIsAlert">New alert state</param>
-        public void SetAlert(bool paramIsAlert)
+        public void SetAlert()
         {
-            this.isAlert = paramIsAlert;
-            _agent.isStopped = !paramIsAlert;
+            if (isAlert) return;
+            
+            Submerge(false);
+            this.isAlert = false;
+            _agent.isStopped = true;
+            RuntimeManager.PlayOneShotAttached("event:/OnEnemyEvents/Alerted", transform.gameObject);
+
+            _animator.SetBool(IsClimbing, true);
+            
+            StartCoroutine(AlertRoutine());
+
+        }
+
+        private IEnumerator AlertRoutine()
+        {
+            yield return new WaitForEndOfFrame(); 
+            yield return new WaitForEndOfFrame(); 
+            
+            _animator.SetBool(IsClimbing, false);
+
+            yield return new WaitForSeconds(5f);    // as long as climbing anim takes
+
+            if (!_animator.GetBool(IsHurt)) // getting logic from the animation logic is cringe but i forgive myself
+                ShouldTaunt();
+            else
+                enemyIsBusy = false;
+            
+            // all of this should happen after delay
+            
+            this.isAlert = true;
+            _agent.isStopped = false;
 
             _chargeTicker = chargeReadyOnAlert ? chargeCooldown : 0;
-            
-            if (paramIsAlert)
-            {
-                RuntimeManager.PlayOneShotAttached("event:/OnEnemyEvents/Alerted", transform.gameObject);
-
-                if (!_animator.GetBool(IsHurt)) // getting logic from the animation logic is cringe but i forgive myself
-                    ShouldTaunt();
-                else
-                    enemyIsBusy = false;
-            }
         }
 
         /// <summary>
@@ -140,7 +171,7 @@ namespace AI
         public void TakeDamage(int damage, Vector3 position, Vector3 rotation, Vector3 bulletDirection)
         {
             if (!isAlert)
-                SetAlert(true);
+                SetAlert();
 
             if (!Alive) return;    // TODO remove the gib logic, is obsolete and not working with this new logic
             
@@ -191,7 +222,7 @@ namespace AI
         {
             if (_walkToRoutine1 != null)
                 StopCoroutine(_walkToRoutine1);
-
+            
             _walkToRoutine1 = StartCoroutine(WalkToRoutine(position, destroyOnArrival));
         }
 

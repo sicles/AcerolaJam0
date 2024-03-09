@@ -60,6 +60,8 @@ namespace ArenaTriggers
             if (_hasEntered) return;
             if (other.gameObject.GetComponent<PlayerController>() == null)
                 return;
+            
+            levelStateMachineYouth.CallClassroomMemory2();
         
             entranceAnimator.SetBool(IsTriggered, true);
             Invoke(nameof(DeactivateOldGeometry), 1f);
@@ -68,7 +70,7 @@ namespace ArenaTriggers
         
             foreach (var enemy in enemiesToActivate)
             {
-                enemy.SetAlert(true);
+                enemy.SetAlert();
             }
 
             _hasEntered = true;

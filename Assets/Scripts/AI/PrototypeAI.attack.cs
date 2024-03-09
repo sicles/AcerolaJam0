@@ -66,6 +66,8 @@ namespace AI
         {
             if (_chargeChance > 0.01f)   // TODO chance is frame dependent, cringe
                 return;
+
+            if (_playerController.PlayerIsDead) return;
             
             if (_playerDistanceRaw.magnitude <= chargeRadius 
                 && _playerDistanceRaw.magnitude >= attackRadius
@@ -119,6 +121,8 @@ namespace AI
     
         private void ShouldAttack()
         {
+            if (_playerController.PlayerIsDead) return;
+            
             if (_playerDistanceRaw.magnitude < attackRadius && !enemyIsBusy && _attackTicker >= attackCooldown)
                 StartCoroutine(AttackRoutine());
         }
