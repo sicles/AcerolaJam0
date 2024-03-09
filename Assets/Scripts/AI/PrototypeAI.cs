@@ -201,6 +201,7 @@ namespace AI
             _agent.isStopped = false;
             _agent.destination = position;
             yield return new WaitUntil(() => CheckWalkToDistance(position));
+            Debug.Log("agent has reached destination");
             _agent.isStopped = true;
             _isOrderedToWalk = false;
             _animator.SetBool(Walking, false);

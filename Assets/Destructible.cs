@@ -10,6 +10,6 @@ public class Destructible : MonoBehaviour
     /// </summary>
     public void DestroyAnimation()
     {
-        transform.position += transform.forward * 5;    // this is just for testing
+        transform.position += transform.right * 5;    // this is just for testing
     }
 }

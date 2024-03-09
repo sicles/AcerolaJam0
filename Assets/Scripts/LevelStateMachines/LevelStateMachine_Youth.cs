@@ -11,6 +11,8 @@ namespace LevelStateMachines
         [SerializeField] private UIManager uiManager;
         [SerializeField] private List<GameObject> hatch;
         [SerializeField] private PlayerController playerController;
+
+        [SerializeField] private Light tutorialDoorLight;
         
         private void Start()
         {
@@ -56,6 +58,7 @@ namespace LevelStateMachines
         private IEnumerator ShootTutorialRoutine()
         {
             uiManager.CallSendTutorial("Press 'Left Mouse' to fire.");
+            tutorialDoorLight.gameObject.SetActive(true);
             yield return new WaitUntil(() => playerController.Ammunition == 0);
             uiManager.ClearTutorial();
         }

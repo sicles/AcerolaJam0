@@ -6,6 +6,8 @@ public class Altar : MonoBehaviour
 {
     [SerializeField] private PlayerController playerController;
     [SerializeField] private LevelStateMachine_Youth _levelStateMachineYouth;
+    [SerializeField] private GameObject detachedGun;
+    [SerializeField] private Light altarLight;
     private bool _hasBeenTriggered;
 
     private void OnTriggerEnter(Collider other)
@@ -15,6 +17,9 @@ public class Altar : MonoBehaviour
         _hasBeenTriggered = true;
         
         playerController.ActivateGun(true);
+        detachedGun.SetActive(false);
+        altarLight.gameObject.SetActive(false);
+        
         // TODO add an animation where you grab the gun and it looks very very cool
         
         // start tutorial 

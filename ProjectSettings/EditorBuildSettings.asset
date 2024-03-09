@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Paris.unity
     guid: 33dd58804568e9047844b827da39bf09
+  - enabled: 1
+    path: Assets/Scenes/Home.unity
+    guid: a3474fbb845bc8f4685c64ff8c640459
   m_configObjects: {}
