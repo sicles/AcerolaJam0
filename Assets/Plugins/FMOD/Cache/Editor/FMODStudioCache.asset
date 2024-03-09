@@ -155,13 +155,13 @@ MonoBehaviour:
     Data4: 1408611014
   Banks:
   - {fileID: -4153306486887348001}
-  IsStream: 0
+  IsStream: 1
   Is3D: 1
   IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 38788
+  Length: 38791
 --- !u!114 &-4153306486887348001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,10 +177,10 @@ MonoBehaviour:
   Path: FMOD/Epiphany/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638454418090556396
+  lastModified: 638455866609316178
   FileSizes:
   - Name: Desktop
-    Value: 2050528
+    Value: 2733664
   Exists: 1
 --- !u!114 &-3914798416766589998
 MonoBehaviour:
@@ -317,6 +317,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2000
+--- !u!114 &-1910234442409458911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/OnEnemyEvents/HitConfirm
+  m_EditorClassIdentifier: 
+  Path: event:/OnEnemyEvents/HitConfirm
+  Guid:
+    Data1: -1619430992
+    Data2: 1164923188
+    Data3: -917764700
+    Data4: 1927846905
+  Banks:
+  - {fileID: -4153306486887348001}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
 --- !u!114 &-1804582524560588681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,6 +398,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2000
+--- !u!114 &-58406497961586697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/OnEnemyEvents/ChargeTell
+  m_EditorClassIdentifier: 
+  Path: event:/OnEnemyEvents/ChargeTell
+  Guid:
+    Data1: -294465932
+    Data2: 1231581271
+    Data3: -118858583
+    Data4: 1385284503
+  Banks:
+  - {fileID: -4153306486887348001}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2005
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,12 +460,17 @@ MonoBehaviour:
   - {fileID: 1039063973876396610}
   - {fileID: -3914798416766589998}
   - {fileID: -1804582524560588681}
+  - {fileID: 4080369298651575718}
+  - {fileID: -58406497961586697}
+  - {fileID: 9149846088126229269}
+  - {fileID: -1910234442409458911}
+  - {fileID: 1300862503862608409}
   EditorParameters: []
   MasterBanks:
   - {fileID: -4153306486887348001}
   StringsBanks:
   - {fileID: 7496632294980018557}
-  cacheTime: 638454418090576571
+  cacheTime: 638455866609351239
   cacheVersion: 131616
 --- !u!114 &787029085868486177
 MonoBehaviour:
@@ -467,6 +526,60 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 4550
+--- !u!114 &1300862503862608409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/OnPlayerEvents/Death
+  m_EditorClassIdentifier: 
+  Path: event:/OnPlayerEvents/Death
+  Guid:
+    Data1: 1321776840
+    Data2: 1218002794
+    Data3: 330145448
+    Data4: -1418516488
+  Banks:
+  - {fileID: -4153306486887348001}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 7235
+--- !u!114 &4080369298651575718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/OnPlayerEvents/Hurt
+  m_EditorClassIdentifier: 
+  Path: event:/OnPlayerEvents/Hurt
+  Guid:
+    Data1: -1160682647
+    Data2: 1187280225
+    Data3: -1947981671
+    Data4: 49025526
+  Banks:
+  - {fileID: -4153306486887348001}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
 --- !u!114 &6033567339166805161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -509,10 +622,10 @@ MonoBehaviour:
   Path: FMOD/Epiphany/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638454418090576571
+  lastModified: 638455866609351239
   FileSizes:
   - Name: Desktop
-    Value: 1582
+    Value: 1808
   Exists: 1
 --- !u!114 &8140345641202422398
 MonoBehaviour:
@@ -541,6 +654,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2000
+--- !u!114 &9149846088126229269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/OnEnemyEvents/AttackTell
+  m_EditorClassIdentifier: 
+  Path: event:/OnEnemyEvents/AttackTell
+  Guid:
+    Data1: 1012404600
+    Data2: 1230940602
+    Data3: 116097427
+    Data4: 754516075
+  Banks:
+  - {fileID: -4153306486887348001}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
 --- !u!114 &9158754920118481771
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -64,7 +64,9 @@ namespace PlayerScript
             if (Physics.Raycast(ray, out RaycastHit hit, _shootRange))
             {
                 bullet.GetComponent<Bullet>().LastEnemy = hit.transform.gameObject;
-            
+                bullet.GetComponent<MeshRenderer>().enabled = true;
+                bullet.transform.GetChild(0).gameObject.SetActive(true);
+                
                 bullet.transform.SetParent(null, true);
                 bullet.transform.GetComponent<MeshRenderer>().enabled = true;
                 _rackIsReady = false;
@@ -228,6 +230,8 @@ namespace PlayerScript
         /// </summary>
         private void CatchBullet()
         {
+            bullet.GetComponent<MeshRenderer>().enabled = false;
+            bullet.transform.GetChild(0).gameObject.SetActive(false);
             StartCatchReloadAnimation();
             RuntimeManager.PlayOneShot("event:/OnPlayerEvents/CatchReload");
             bullet.transform.SetParent(transform, true);

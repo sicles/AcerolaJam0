@@ -39,7 +39,7 @@ namespace AI
             {
                 _chargeHasHit = true;
                 _playerController.TakeDamage(25);
-                _playerController.CallCameraShake(0.2f, 30);
+                RuntimeManager.PlayOneShot("event:/OnEnemyEvents/HitConfirm");
             }
         }
     
@@ -77,6 +77,7 @@ namespace AI
         {
             // Phase 1: charge is charged (haha)
             RuntimeManager.PlayOneShotAttached("event:/OnEnemyEvents/Charge", gameObject);
+            RuntimeManager.PlayOneShotAttached("event:/OnEnemyEvents/ChargeTell", gameObject);
             _chargeHasHit = false;
             enemyIsBusy = true;
             StartChargingAnimation();
@@ -127,6 +128,7 @@ namespace AI
         private IEnumerator AttackRoutine()
         {
             RuntimeManager.PlayOneShotAttached("event:/OnEnemyEvents/Attack", gameObject);
+            RuntimeManager.PlayOneShotAttached("event:/OnEnemyEvents/AttackTell", gameObject);
             enemyIsBusy = true;
             _attackTicker = 0;
             StartAttackAnimation();
@@ -143,7 +145,7 @@ namespace AI
                         player.transform.position - transform.position * attackRange,
                             Color.red);
                 _playerController.TakeDamage(25);
-                _playerController.CallCameraShake(0.2f, 20);
+                RuntimeManager.PlayOneShot("event:/OnEnemyEvents/HitConfirm");
             }
             
             // Phase 3: Recovery

@@ -5,7 +5,7 @@
 			<value>IdleAlert</value>
 		</property>
 		<property name="outputFormat">
-			<value>0</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{97fe9f8d-573b-4a20-9b81-c18abceca53d}</destination>
@@ -38,6 +38,9 @@
 		</relationship>
 	</object>
 	<object class="MasterTrack" id="{0dfd9467-5381-4dfc-8fc9-c65289acc732}">
+		<relationship name="modules">
+			<destination>{11938a35-c463-4cac-b177-e5e7fa9dbc16}</destination>
+		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{0410455e-7973-43ef-a224-afb36a16d4b7}</destination>
 		</relationship>
@@ -56,6 +59,9 @@
 	<object class="EventAutomatableProperties" id="{5de94aa6-8264-4cb2-94f5-90efa79464ed}" />
 	<object class="MarkerTrack" id="{8f1a6961-3509-4854-8648-092ebb05d3fa}" />
 	<object class="Timeline" id="{0cd23659-6296-4dfd-b633-6efe141f877a}">
+		<relationship name="modules">
+			<destination>{11938a35-c463-4cac-b177-e5e7fa9dbc16}</destination>
+		</relationship>
 		<relationship name="markers">
 			<destination>{fae9cc6c-2ccc-4fc0-baa4-70cbd6ff8877}</destination>
 		</relationship>
@@ -69,6 +75,14 @@
 		</relationship>
 		<relationship name="mixer">
 			<destination>{d50b7b0b-2d66-4c98-b02f-3cd8f9770bcd}</destination>
+		</relationship>
+	</object>
+	<object class="SingleSound" id="{11938a35-c463-4cac-b177-e5e7fa9dbc16}">
+		<property name="length">
+			<value>38.791836734693881</value>
+		</property>
+		<relationship name="audioFile">
+			<destination>{eb464a98-45d3-4192-b44c-3d354a4291ae}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{c04f1d91-8c68-45b5-b735-990136c5996f}">
