@@ -73,7 +73,7 @@ public class UIManager : MonoBehaviour
     {
         _messageBoard.text = "";
         
-        // set this more elegantly when method is done
+        // TODO set this more elegantly when method is done
         const int shuffleFrames = 5;
         const float shuffleTimePer = 0.02f;
         EventInstance shuffleSound = FMODUnity.RuntimeManager.CreateInstance("event:/scroll");
@@ -103,5 +103,6 @@ public class UIManager : MonoBehaviour
 
         yield return new WaitForSeconds(lifetime);
         _messageBoard.text = "";
+        _currentSendMessage = null;
     }
 }

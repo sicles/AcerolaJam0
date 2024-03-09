@@ -93,6 +93,8 @@ namespace PlayerScript
                     prototypeAI.TakeDamage(50, hit.transform.position, hit.normal, playerCamera.transform.forward);
                 else if (hit.collider.gameObject.TryGetComponent<Destructible>(out Destructible destructible))
                     destructible.DestroyAnimation();
+                else if (hit.collider.gameObject.TryGetComponent<BedroomDoor>(out BedroomDoor bedroomDoor))
+                    bedroomDoor.DestroyAnimation();
             }
         }
 

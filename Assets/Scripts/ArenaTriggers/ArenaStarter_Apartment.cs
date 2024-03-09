@@ -4,7 +4,6 @@ using AI;
 using LevelStateMachines;
 using PlayerScript;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 // listen i know i shouldn't just have copypasted this script instead of inheritance, mistakes were made
 
@@ -13,10 +12,8 @@ namespace ArenaTriggers
     public class ArenaStarter_Apartment : MonoBehaviour
     {
         [SerializeField] private List<PrototypeAI> enemiesToActivate;
-        [SerializeField] private Animator entranceAnimator;
         [SerializeField] private Animator exitAnimator;
         [SerializeField] private LevelStateMachine_Home levelStateMachineHome; 
-        [SerializeField] private GameObject oldGeometry;
         [SerializeField] private GameObject arenaGeometry;
         [SerializeField] private GameObject newGeometry;
         [SerializeField] private bool arenaGeometryActiveOnStart;
@@ -53,28 +50,16 @@ namespace ArenaTriggers
             exitAnimator.SetBool(IsTriggered, true);
             if (newGeometry != null)
                 newGeometry.SetActive(true);
+            
+            // levelStateMachineHome.CallArenaEndQuip();
         }
 
-        private void OnTriggerEnter(Collider other)
+        public void ActivateHomeArena()
         {
-            if (_hasEntered) return;
-            if (other.gameObject.GetComponent<PlayerController>() == null)
-                return;
-        
-            entranceAnimator.SetBool(IsTriggered, true);
-            Invoke(nameof(DeactivateOldGeometry), 1f);
-            
             foreach (var enemy in enemiesToActivate)
             {
                 enemy.SetAlert(true);
             }
-
-            _hasEntered = true;
-        }
-
-        private void DeactivateOldGeometry()
-        {
-            oldGeometry.SetActive(false);
         }
     }
 }
