@@ -112,6 +112,31 @@ public class UIManager : MonoBehaviour
     {
         _blackoutRawImage.gameObject.SetActive(true);
     }
+    
+    public void Unblackout(float duration)
+    {
+        StartCoroutine(UnblackoutRoutine(duration));
+    }
+
+    private IEnumerator UnblackoutRoutine(float duration)
+    {
+        float currentAlpha = 1;
+        _blackoutRawImage.color =
+            new Color(_blackoutRawImage.color.r, _blackoutRawImage.color.r, _blackoutRawImage.color.r, 1);
+
+        _blackoutRawImage.gameObject.SetActive(true);
+
+        for (int i = 0; i < 99; i++)
+        {
+            _blackoutRawImage.color = new Color(_blackoutRawImage.color.r, _blackoutRawImage.color.r,
+                _blackoutRawImage.color.r, currentAlpha);
+            currentAlpha -= 0.010f;
+            yield return new WaitForSeconds(duration / 100f);
+        }
+        
+        _blackoutRawImage.color = new Color(_blackoutRawImage.color.r, _blackoutRawImage.color.r,
+            _blackoutRawImage.color.r, 0);
+    }
 
     /// <summary>
     /// Slow blackout with a buildup in seconds
@@ -123,7 +148,7 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator SlowBlackoutRoutine(float duration)
     {
-        float _currentAlpha = 0;
+        float currentAlpha = 0;
         _blackoutRawImage.color =
             new Color(_blackoutRawImage.color.r, _blackoutRawImage.color.r, _blackoutRawImage.color.r, 0);
 
@@ -132,8 +157,8 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < 99; i++)
         {
             _blackoutRawImage.color = new Color(_blackoutRawImage.color.r, _blackoutRawImage.color.r,
-                _blackoutRawImage.color.r, _currentAlpha);
-            _currentAlpha += 0.011f;
+                _blackoutRawImage.color.r, currentAlpha);
+            currentAlpha += 0.011f;
             yield return new WaitForSeconds(duration / 100f);
         }
     }

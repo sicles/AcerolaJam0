@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using PlayerScript;
+using TMPro;
 using UnityEngine;
 
 namespace LevelStateMachines
@@ -11,9 +12,12 @@ namespace LevelStateMachines
         [SerializeField] private UIManager uiManager;
         [SerializeField] private List<GameObject> hatch;
         [SerializeField] private PlayerController playerController;
+        [SerializeField] private Animator bedroomDoor;
+        [SerializeField] private TextMeshProUGUI creditsTMP;
 
         [SerializeField] private Light tutorialDoorLight;
-        
+        private static readonly int IsBroken = Animator.StringToHash("IsBroken");
+
         private void Start()
         {
             StartCoroutine(OpeningSequence());
@@ -21,7 +25,23 @@ namespace LevelStateMachines
 
         private IEnumerator OpeningSequence()
         {
+            uiManager.Blackout();
+
             yield return new WaitForSeconds(3f);
+
+            uiManager.Unblackout(3f);
+            
+            yield return new WaitForSeconds(3f);
+            
+            creditsTMP.gameObject.SetActive(true);
+
+            yield return new WaitForSeconds(5f);
+            
+            creditsTMP.gameObject.SetActive(false);
+            bedroomDoor.SetBool(IsBroken, true);
+            
+            yield return new WaitForSeconds(4f);
+            
             foreach (var hatchpart in hatch)
             {
                 hatchpart.SetActive(false);
