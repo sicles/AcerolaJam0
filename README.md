@@ -20,4 +20,16 @@ water shader in its entirety built following instructions by MichaelsGameLab's h
 
 additional fonts from https://fonts.google.com/  
 
-unity crashes occurred during the making of this: 3  
+credits for public domain pictures used in the gallery level:  
+(this site is beyond amazing btw)    
+https://publicdomainreview.org/collection/madame-b-album/  
+https://publicdomainreview.org/collection/ikkyu-in-hell/  
+https://publicdomainreview.org/collection/the-sorceress-jan-van-de-velde/  https://publicdomainreview.org/collection/night-parade-of-one-hundred-demons/  
+https://publicdomainreview.org/collection/hokusai-s-ghost-stories-ca-1830/  
+https://publicdomainreview.org/collection/the-salad-oil-style-of-jan-toorop/  
+https://publicdomainreview.org/collection/flemish-mask-designs-in-the-grotesque-style-1555/  
+https://publicdomainreview.org/collection/selection-from-wellcome-library-s-release-of-100k-openly-licensed-images/  
+
+
+
+unity crashes occurred during the making of this: 4  
