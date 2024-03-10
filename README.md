@@ -18,5 +18,6 @@ both the mesh for player arms and the enemy1 is based on thomas potter's low pol
 pixelizer and sharpen shader and honestly any unity shader i make is possible because of stuff i learned watching ben cloward's tutorials: https://www.youtube.com/@BenCloward  
 water shader in its entirety built following instructions by MichaelsGameLab's helpful video on youtube: https://www.youtube.com/watch?v=8TO5Q-rwHLs  
 
+additional fonts from https://fonts.google.com/  
 
 unity crashes occurred during the making of this: 3  
