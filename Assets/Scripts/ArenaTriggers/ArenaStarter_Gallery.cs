@@ -20,6 +20,10 @@ namespace ArenaTriggers
         [SerializeField] private GameObject arenaGeometry;
         [SerializeField] private GameObject newGeometry;
         [SerializeField] private bool arenaGeometryActiveOnStart;
+        
+        [SerializeField] private GameObject paintingExit;
+        [SerializeField] private GameObject paintingRamp;
+        
         private bool _hasEntered;
         private static readonly int IsTriggered = Animator.StringToHash("IsTriggered");
         private bool _fightIsOver;
@@ -50,9 +54,12 @@ namespace ArenaTriggers
 
         private void ReleaseArena()
         {
-            exitAnimator.SetBool(IsTriggered, true);
+            // exitAnimator.SetBool(IsTriggered, true);
             if (newGeometry != null)
                 newGeometry.SetActive(true);
+            
+            paintingExit.SetActive(false);
+            paintingRamp.SetActive(true);
         }
 
         private void OnTriggerEnter(Collider other)

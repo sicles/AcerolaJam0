@@ -8,18 +8,14 @@ using UnityEngine;
 public class KillBox : MonoBehaviour
 {
     [SerializeField] private PlayerController player;
+    
+    // TODO this will literally destroy the player
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<PlayerController>() == null)
-        {
-            if (other.GetComponent<PrototypeAI>() != null)    // recall bullet so it doesn't get destroyed with object
-                player.BulletRecall();
-            
-            Destroy(other);
-            Debug.Log(other + " has been destroyed due to ooob");
-            return;
-        }
+        player.BulletRecall();
         
-        Debug.Log("Wait, you're not supposed to be down here.");
+        Destroy(other);
+        Debug.Log(other + " has been destroyed due to ooob");
+        return;
     }
 }

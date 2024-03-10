@@ -62,7 +62,7 @@ namespace PlayerScript
                 return;
             }
             
-            Ray ray = new Ray(playerCamera.transform.position + playerCamera.transform.forward, CalculateShotDirection());
+            Ray ray = new Ray(playerCamera.transform.position, CalculateShotDirection());
             
             SetBulletReadyParticleState(false);
             StartCoroutine(CameraShake(0.12f, 15f));

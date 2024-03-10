@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using AI;
 using LevelStateMachines;
@@ -70,13 +71,12 @@ namespace ArenaTriggers
             if (other.gameObject.GetComponent<PlayerController>() == null)
                 return;
             
-            leftBlackboard.material = leftWarningMat;
-            rightBlackboard.material = rightWarningMat;
-            
             levelStateMachineYouth.CallClassroomMemory2();
         
             entranceAnimator.SetBool(IsTriggered, true);
             Invoke(nameof(DeactivateOldGeometry), 1f);
+
+            StartCoroutine(BlackboardFlicker());
             
             foreach (var enemy in enemiesToActivate)
             {
@@ -84,6 +84,22 @@ namespace ArenaTriggers
             }
 
             _hasEntered = true;
+        }
+
+        private IEnumerator BlackboardFlicker()
+        {
+            yield return new WaitForSeconds(2f);
+            
+            for (int i = 0; i < 40; i++)
+            {
+                leftBlackboard.material = leftWarningMat;
+                rightBlackboard.material = rightWarningMat;
+                
+                yield return new WaitForSeconds(0.1f);
+                
+                leftBlackboard.material = cleanMat;
+                rightBlackboard.material = cleanMat;
+            }
         }
 
         private void DeactivateOldGeometry()

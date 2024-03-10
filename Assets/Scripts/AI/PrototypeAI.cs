@@ -86,6 +86,8 @@ namespace AI
                     ChargeCollisonCheck();
                 }
             }
+            
+            KillTrigger();
         }
         
         private void NavMeshUpdates()
@@ -224,6 +226,17 @@ namespace AI
                 StopCoroutine(_walkToRoutine1);
             
             _walkToRoutine1 = StartCoroutine(WalkToRoutine(position, destroyOnArrival));
+        }
+
+        private void KillTrigger()
+        {
+            if (transform.position.y < -1000)
+            {
+                if (_playerController.Ammunition == 0)
+                    _playerController.BulletRecall();
+                Debug.Log(this.gameObject + " has been destroyed via KillTrigger()");
+                Destroy(this.gameObject);
+            }
         }
 
         private IEnumerator WalkToRoutine(Vector3 position, bool destroyOnArrival)

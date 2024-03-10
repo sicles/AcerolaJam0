@@ -39,7 +39,7 @@ namespace PlayerScript
 
         private void PlayerDeath()
         {
-            Debug.Log("You are dead. This is not poggers :(");
+            PlayFootsteps(false);
             
             RuntimeManager.PlayOneShot("event:/OnPlayerEvents/Death");
             
@@ -56,6 +56,8 @@ namespace PlayerScript
             {
                 mesh.SetActive(false);
             }
+            
+            
             uiManager.SlowBlackout(3f);
             yield return new WaitForSeconds(6f);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
