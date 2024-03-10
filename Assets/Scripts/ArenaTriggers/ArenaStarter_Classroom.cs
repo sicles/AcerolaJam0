@@ -24,9 +24,18 @@ namespace ArenaTriggers
         private static readonly int IsTriggered = Animator.StringToHash("IsTriggered");
         private bool _fightIsOver;
 
+        [SerializeField] private Material cleanMat;
+        [SerializeField] private Material leftWarningMat;
+        [SerializeField] private Material rightWarningMat;
+        [SerializeField] private MeshRenderer leftBlackboard;
+        [SerializeField] private MeshRenderer rightBlackboard;
+        
+
         private void Start()
         {
             arenaGeometry.SetActive(arenaGeometryActiveOnStart);
+            leftBlackboard.material = cleanMat;
+            rightBlackboard.material = cleanMat;
         }
 
         private void FixedUpdate()
@@ -61,13 +70,14 @@ namespace ArenaTriggers
             if (other.gameObject.GetComponent<PlayerController>() == null)
                 return;
             
+            leftBlackboard.material = leftWarningMat;
+            rightBlackboard.material = rightWarningMat;
+            
             levelStateMachineYouth.CallClassroomMemory2();
         
             entranceAnimator.SetBool(IsTriggered, true);
             Invoke(nameof(DeactivateOldGeometry), 1f);
             
-            // levelStateMachineParis.TownSquareArenaQuip();;
-        
             foreach (var enemy in enemiesToActivate)
             {
                 enemy.SetAlert();

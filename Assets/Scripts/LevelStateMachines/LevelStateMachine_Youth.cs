@@ -37,7 +37,6 @@ namespace LevelStateMachines
 
             yield return new WaitForSeconds(5f);
             
-            creditsTMP.gameObject.SetActive(false);
             bedroomDoor.SetBool(IsBroken, true);
             
             yield return new WaitForSeconds(4f);
@@ -46,12 +45,21 @@ namespace LevelStateMachines
             {
                 hatchpart.SetActive(false);
             }
+            
+            creditsTMP.gameObject.SetActive(false);
+
             Invoke(nameof(DropSequence), 2f);
         }
 
         private void DropSequence()
         {
+        }
+
+        private IEnumerator DropSequenceRoutine()
+        {
             uiManager.CallSendMessage("You are not alone anymore.", 3f);
+            yield return new WaitForSeconds(5f);
+            uiManager.CallSendMessage("And no one will hurt you ever again.", 3f);
         }
 
         public void CallGunTutorial()

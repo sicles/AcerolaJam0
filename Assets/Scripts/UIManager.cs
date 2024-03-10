@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using FMOD.Studio;
 using PlayerScript;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class UIManager : MonoBehaviour
 {
@@ -17,11 +19,19 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _messageBoard;
     [SerializeField] private TextMeshProUGUI _tutorialBoard;
     [SerializeField] private RawImage _blackoutRawImage;
+    private static readonly int UnderlayOffsetX = Shader.PropertyToID("_UnderlayOffsetX");
+    private static readonly int UnderlayOffsetY = Shader.PropertyToID("_UnderlayOffsetY");
 
     private void Start()
     {
         _messageBoard.text = "";
         _tutorialBoard.text = "";
+    }
+
+    private void FixedUpdate()
+    {
+        // _messageBoard.GetComponent<Material>().SetFloat(UnderlayOffsetX, Random.Range(-1f, 1f));
+        // _messageBoard.GetComponent<Material>().SetFloat(UnderlayOffsetY, Random.Range(-1f, 1f));
     }
 
     public void UpdateHealthbar(int lastHealth)

@@ -98,6 +98,8 @@ namespace PlayerScript
                     bedroomDoor.DestroyAnimation();
                 else if (hit.collider.gameObject.TryGetComponent<Lover>(out Lover lover))
                     lover.End();
+                else if (hit.collider.gameObject.TryGetComponent<NotaryDoor>(out NotaryDoor notaryDoor))
+                    notaryDoor.OpenDoor();
             }
         }
 
