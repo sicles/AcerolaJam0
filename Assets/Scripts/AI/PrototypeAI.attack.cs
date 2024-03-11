@@ -82,15 +82,22 @@ namespace AI
             RuntimeManager.PlayOneShotAttached("event:/OnEnemyEvents/ChargeTell", gameObject);
             _chargeHasHit = false;
             enemyIsBusy = true;
-            StartChargingAnimation();
             _chargeTicker = 0;
             _chargeDirection = player.transform.position - transform.position;  // charge direction is decided at this point
-            
+
+            float oldAngularSpeed = _agent.angularSpeed;
+            _agent.angularSpeed = 1080000;
             _agent.isStopped = true;
+            yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame();
+            StartChargingAnimation();
+
             yield return new WaitForSeconds(chargeWindupTime);
         
             // Phase 2: charge is executed
             chargeTrailRenderer.gameObject.SetActive(true);
+            _agent.angularSpeed = oldAngularSpeed;
             _chargeIsActive = true;
             yield return new WaitForSeconds(chargeActiveTime);
 

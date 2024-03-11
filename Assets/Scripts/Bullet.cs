@@ -9,7 +9,6 @@ public class Bullet : MonoBehaviour
     private PlayerScript.PlayerController _playerController;
     private PLAYBACK_STATE _bulletFlightPlaybackState;
     [SerializeField] private StudioEventEmitter bulletFlight;
-    [SerializeField] private int testField;
     public bool IsActive { get; set; }
 
     public GameObject LastEnemy { get; set; }

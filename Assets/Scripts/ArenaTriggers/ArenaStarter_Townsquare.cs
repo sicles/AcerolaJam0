@@ -15,6 +15,7 @@ namespace ArenaTriggers
         [SerializeField] private List<PrototypeAI> enemiesToActivate;
         [SerializeField] private Animator entranceAnimator;
         [SerializeField] private Animator exitAnimator;
+        [SerializeField] private GameObject exitLight;
         [FormerlySerializedAs("levelStateMachine")] [SerializeField] private LevelStateMachine_Paris levelStateMachineParis; 
         [SerializeField] private GameObject oldGeometry;
         [SerializeField] private GameObject arenaGeometry;
@@ -53,6 +54,8 @@ namespace ArenaTriggers
             exitAnimator.SetBool(IsTriggered, true);
             if (newGeometry != null)
                 newGeometry.SetActive(true);
+            
+            exitLight.SetActive(true);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -76,7 +79,8 @@ namespace ArenaTriggers
 
         private void DeactivateOldGeometry()
         {
-            oldGeometry.SetActive(false);
+            if (oldGeometry != null)
+                oldGeometry.SetActive(false);
         }
     }
 }

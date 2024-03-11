@@ -29,7 +29,7 @@ namespace PlayerScript
             callOfDuty.FlashScreen();
             CallCameraShake(0.2f, amount);
             RuntimeManager.PlayOneShot("event:/OnPlayerEvents/Hurt");
-            CallPlayerIFrames(15);   // give player some time to breath
+            CallPlayerIFrames(60);   // give player some time to breath
 
             uiManager.UpdateHealthbar(amount);
 

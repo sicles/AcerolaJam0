@@ -15,7 +15,7 @@ namespace ArenaTriggers
         [SerializeField] private Animator entranceAnimator;
         [FormerlySerializedAs("levelStateMachine")] [SerializeField] private LevelStateMachine_Paris levelStateMachineParis;
         [SerializeField] private Animator exitAnimator;
-        [SerializeField] private GameObject oldGeometry;
+        [SerializeField] private List<GameObject> oldGeometry;
         [SerializeField] private Material waterMaterial;
         [SerializeField] private Color startColor = new Color(0.2235293f, 0.5372549f, 0.7254902f, 0.6470588f);
         [SerializeField] private Color targetColor = new Color(0.4823529f, 0.05490194f, 0.01176471f, 0.6470588f);
@@ -133,7 +133,10 @@ namespace ArenaTriggers
 
         private void DeactivateOldGeometry()
         {
-            oldGeometry.SetActive(false);
+            foreach (var mesh in oldGeometry)
+            {
+                mesh.SetActive(false);
+            }
         }
     }
 }
