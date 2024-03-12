@@ -1,5 +1,6 @@
 # AcerolaJam0
-I FEEL MOST ALIVE WHEN RAPIDLY APPROACHING MY DEATH
+SYMBIOSIS by simon 'wavewire' clemens  
+for the acerola gamejam 0
 
 
 used frameworks for this project are:  
@@ -9,7 +10,7 @@ blender for meshes
 substance painter 2022 for textures + pixelator plugin by our queen ActionDawg  
 fl studio and a metric ton of VSTs   
 
-if you have any additional questions about my workflows, feel free to contact me  
+if you have any additional questions, feel free to contact me via my discord tag 'tripwire' or via this github  
 
 
 ADDITIONAL CREDITS:  
