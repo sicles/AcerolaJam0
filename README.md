@@ -1,5 +1,6 @@
 # AcerolaJam0
-SYMBIOSIS by simon 'wavewire' clemens
+SYMBIOSIS by simon 'wavewire' clemens  
+for the acerola gamejam 0
 
 
 used frameworks for this project are:  
