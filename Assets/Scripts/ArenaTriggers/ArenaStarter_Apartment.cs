@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using AI;
 using LevelStateMachines;
@@ -56,9 +57,15 @@ namespace ArenaTriggers
 
         public void ActivateHomeArena()
         {
+            StartCoroutine(ActivateHomeArenaRoutine());
+        }
+
+        private IEnumerator ActivateHomeArenaRoutine()
+        {
             foreach (var enemy in enemiesToActivate)
             {
                 enemy.SetAlert();
+                yield return new WaitForSeconds(6f);
             }
         }
     }

@@ -6,7 +6,8 @@ using UnityEngine;
 public class BedroomDoor : MonoBehaviour
 {
     [SerializeField] private LevelStateMachine_Home levelStateMachineHome;
-    
+    private static readonly int IsBroken = Animator.StringToHash("IsBroken");
+
     // good old copypasting scripts that should be interfaces, good job simon
     
     /// <summary>
@@ -15,7 +16,7 @@ public class BedroomDoor : MonoBehaviour
     /// </summary>
     public void DestroyAnimation()
     {
-        transform.position += transform.right * 5;    // this is just for testing
+        GetComponent<Animator>().SetBool(IsBroken, true);    // this is just for testing
         levelStateMachineHome.CallEndQuip();
     }
 }

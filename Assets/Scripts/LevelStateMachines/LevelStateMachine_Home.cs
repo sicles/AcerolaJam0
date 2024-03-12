@@ -15,7 +15,7 @@ namespace LevelStateMachines
         [SerializeField] private ArenaStarter_Apartment _arenaStarterApartment;
 
         [SerializeField] private List<Light> lightsToSwitchOff;
-        [SerializeField] private List<Light> lightsToSwitchOn;
+        [SerializeField] private List<GameObject> lightsToSwitchOn;
         
         private void Start()
         {
@@ -51,8 +51,8 @@ namespace LevelStateMachines
 
             foreach (var lightOn in lightsToSwitchOn)
             {
-                lightOn.gameObject.SetActive(true);
-                yield return new WaitForSeconds(0.25f);
+                lightOn.SetActive(true);
+                yield return new WaitForSeconds(0.15f);
             }
         }
 
