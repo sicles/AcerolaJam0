@@ -33,6 +33,7 @@ namespace PlayerScript
         [SerializeField] private LineRenderer gunshotLineRenderer;
         [SerializeField] private Transform gunTip;
         [SerializeField] private ParticleSystem _shotParticle;
+        [SerializeField] GameObject _bulletTrail;
 
         public int Ammunition => ammunition;
 
@@ -239,6 +240,7 @@ namespace PlayerScript
         {
             bullet.transform.GetComponent<Bullet>().IsActive = true;
             bullet.transform.SetParent(null, true);
+            _bulletTrail.gameObject.SetActive(true);
             RuntimeManager.PlayOneShot("event:/OnPlayerEvents/Recall");
             CallRecallAnimation();
             _bulletIsTraveling = true;
@@ -280,12 +282,13 @@ namespace PlayerScript
         private void CatchBullet()
         {
             bullet.GetComponent<MeshRenderer>().enabled = false;
-            bullet.transform.GetChild(0).gameObject.SetActive(false);
+            bullet.transform.GetChild(0).gameObject.SetActive(false);   // TODO what the heck is this
             StartCatchReloadAnimation();
             RuntimeManager.PlayOneShot("event:/OnPlayerEvents/CatchReload");
             bullet.transform.SetParent(transform, true);
             bullet.transform.GetComponent<MeshRenderer>().enabled = false;
             bullet.transform.GetComponent<Bullet>().IsActive = false;
+            _bulletTrail.gameObject.SetActive(false);
         }
 
         /// <summary>

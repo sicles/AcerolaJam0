@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace LevelStateMachines
@@ -14,12 +15,19 @@ namespace LevelStateMachines
         private void Start()
         {
             Invoke(nameof(Greeting), 3f);
+            FadeIn();
         }
 
         private void Greeting()
         {
             uiManager.CallSendMessage("The music... the wine... the dancing...", 3f);
 
+        }
+
+        private void FadeIn()
+        {
+            uiManager.Blackout();
+            uiManager.Unblackout(5f);
         }
 
         public void TownSquareMemory()

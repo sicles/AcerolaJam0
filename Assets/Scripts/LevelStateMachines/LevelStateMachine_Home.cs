@@ -23,6 +23,13 @@ namespace LevelStateMachines
         private void Start()
         {
             StartCoroutine(OpeningSequence());
+            FadeIn();
+        }
+        
+        private void FadeIn()
+        {
+            uiManager.Blackout();
+            uiManager.Unblackout(5f);
         }
 
         private IEnumerator OpeningSequence()

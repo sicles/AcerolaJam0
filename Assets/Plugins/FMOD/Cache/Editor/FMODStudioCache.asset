@@ -204,10 +204,10 @@ MonoBehaviour:
   Path: FMOD/Epiphany/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638458579330623314
+  lastModified: 638458619079396356
   FileSizes:
   - Name: Desktop
-    Value: 3146304
+    Value: 3171904
   Exists: 1
 --- !u!114 &-3914798416766589998
 MonoBehaviour:
@@ -494,12 +494,13 @@ MonoBehaviour:
   - {fileID: 4020769357102857717}
   - {fileID: -8737861059227165543}
   - {fileID: 6029384405973557376}
+  - {fileID: 6837482743879473085}
   EditorParameters: []
   MasterBanks:
   - {fileID: -4153306486887348001}
   StringsBanks:
   - {fileID: 7496632294980018557}
-  cacheTime: 638458579330643347
+  cacheTime: 638458619079431453
   cacheVersion: 131616
 --- !u!114 &1039063973876396610
 MonoBehaviour:
@@ -663,6 +664,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1500
+--- !u!114 &6837482743879473085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/OnPlayerEvents/HitMark
+  m_EditorClassIdentifier: 
+  Path: event:/OnPlayerEvents/HitMark
+  Guid:
+    Data1: -560269946
+    Data2: 1195516617
+    Data3: -295628412
+    Data4: 1232263388
+  Banks:
+  - {fileID: -4153306486887348001}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2000
 --- !u!114 &7496632294980018557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -678,10 +706,10 @@ MonoBehaviour:
   Path: FMOD/Epiphany/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638458579330643347
+  lastModified: 638458619079431453
   FileSizes:
   - Name: Desktop
-    Value: 1884
+    Value: 1932
   Exists: 1
 --- !u!114 &8140345641202422398
 MonoBehaviour:

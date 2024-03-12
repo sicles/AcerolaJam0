@@ -709,6 +709,11 @@ PrefabInstance:
       objectReference: {fileID: 1743861036}
     - target: {fileID: 3487701668120240390, guid: dad39a0fda8779045b727a74f3fe3941,
         type: 3}
+      propertyPath: _shotParticle
+      value: 
+      objectReference: {fileID: 253848015}
+    - target: {fileID: 3487701668120240390, guid: dad39a0fda8779045b727a74f3fe3941,
+        type: 3}
       propertyPath: gameplayCanvas
       value: 
       objectReference: {fileID: 1061058013651479358}
@@ -726,6 +731,12 @@ PrefabInstance:
       addedObject: {fileID: 460804998}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dad39a0fda8779045b727a74f3fe3941, type: 3}
+--- !u!198 &253848015 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3657726599812521115, guid: dad39a0fda8779045b727a74f3fe3941,
+    type: 3}
+  m_PrefabInstance: {fileID: 253848014}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &273853522
 GameObject:
   m_ObjectHideFlags: 0
@@ -2399,6 +2410,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 519017892}
     m_Modifications:
+    - target: {fileID: 1857526282083616579, guid: 1f543b0073df6864290daf09c22d727c,
+        type: 3}
+      propertyPath: bulletFlight
+      value: 
+      objectReference: {fileID: 1241021055}
     - target: {fileID: 8603771114398264274, guid: 1f543b0073df6864290daf09c22d727c,
         type: 3}
       propertyPath: m_RootOrder
@@ -2459,11 +2475,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bullet Variant
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1857526282083616579, guid: 1f543b0073df6864290daf09c22d727c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8947927413015834984, guid: 1f543b0073df6864290daf09c22d727c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1241021056}
   m_SourcePrefab: {fileID: 100100000, guid: 1f543b0073df6864290daf09c22d727c, type: 3}
+--- !u!114 &1241021055 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1376647624801237319, guid: 1f543b0073df6864290daf09c22d727c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1241021054}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460804997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1241021056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 460804997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d7e7444616ebad4da0bc3b628196ce8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletFlight: {fileID: 1241021055}
 --- !u!4 &1252647898 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8496636061695134538, guid: c40d8417eb3b6584fbfc39bcd9e53df3,

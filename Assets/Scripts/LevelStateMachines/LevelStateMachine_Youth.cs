@@ -87,7 +87,7 @@ namespace LevelStateMachines
         {
             uiManager.CallSendMessage("You are not alone anymore.", 3f);
             yield return new WaitForSeconds(5f);
-            uiManager.CallSendMessage("And no one will hurt you ever again.", 3f);
+            uiManager.CallSendMessage("And will never need to be again.", 3f);
         }
 
         public void CallGunTutorial()
@@ -117,6 +117,12 @@ namespace LevelStateMachines
             tutorialDoorLight.gameObject.SetActive(true);
             yield return new WaitUntil(() => playerController.Ammunition == 0);
             uiManager.ClearTutorial();
+            
+            uiManager.CallSendTutorial("Press 'R' to recall your bullet whenever you fired it.");
+            yield return new WaitUntil(() => playerController.Ammunition == 1);
+            uiManager.ClearTutorial();
+            
+            uiManager.CallSendMessage("A single bullet, yes... but not just any bullet.", 3f);
         }
 
         public void CallClassroomMemory()

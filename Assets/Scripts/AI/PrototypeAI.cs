@@ -185,6 +185,8 @@ namespace AI
             if (!Alive) return;    // TODO remove the gib logic, is obsolete and not working with this new logic
             
             health -= damage;
+            RuntimeManager.PlayOneShotAttached("event:/OnEnemyEvents/Hurt", transform.gameObject);
+            RuntimeManager.PlayOneShot("event:/OnPlayerEvents/HitMark");
             Object.Instantiate(bloodGush, position, _playerCamera.transform.rotation);
             CreateBloodDecal();
             CallHurtState();

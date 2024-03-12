@@ -4733,15 +4733,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8647555808567211673}
     m_Modifications:
-    - target: {fileID: 8229277339187162304, guid: 1f543b0073df6864290daf09c22d727c,
+    - target: {fileID: 5545271469694268120, guid: 1f543b0073df6864290daf09c22d727c,
         type: 3}
-      propertyPath: m_ExcludeLayers.m_Bits
-      value: 1975
-      objectReference: {fileID: 0}
-    - target: {fileID: 8229277339187162304, guid: 1f543b0073df6864290daf09c22d727c,
-        type: 3}
-      propertyPath: m_IncludeLayers.m_Bits
-      value: 64
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8603771114398264274, guid: 1f543b0073df6864290daf09c22d727c,
         type: 3}
@@ -10062,6 +10057,12 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &1749090063 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5545271469694268120, guid: 1f543b0073df6864290daf09c22d727c,
+    type: 3}
+  m_PrefabInstance: {fileID: 812339447}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1766944350
 GameObject:
   m_ObjectHideFlags: 0
@@ -13194,6 +13195,11 @@ PrefabInstance:
       propertyPath: pauseCanvas
       value: 
       objectReference: {fileID: 1220747066}
+    - target: {fileID: 3487701668120240390, guid: dad39a0fda8779045b727a74f3fe3941,
+        type: 3}
+      propertyPath: _bulletTrail
+      value: 
+      objectReference: {fileID: 1749090063}
     - target: {fileID: 3487701668120240390, guid: dad39a0fda8779045b727a74f3fe3941,
         type: 3}
       propertyPath: _shotParticle
