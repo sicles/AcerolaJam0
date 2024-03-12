@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
-	<object class="AudioFile" id="{7e85e9f0-0b03-411f-b394-8ec6fd18a996}">
+	<object class="AudioFile" id="{11b4362e-a7eb-4a14-b2f4-ae2ba89d8e83}">
 		<property name="assetPath">
-			<value>Scrolls/warden2.wav</value>
+			<value>Scrubs/symbiosis_scrub04.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>
@@ -11,7 +11,7 @@
 			<value>2</value>
 		</property>
 		<property name="length">
-			<value>3</value>
+			<value>0.50961451247165535</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{d28682da-5472-47df-98b8-19164b24f0fc}</destination>

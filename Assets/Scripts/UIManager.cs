@@ -85,7 +85,7 @@ public class UIManager : MonoBehaviour
         // TODO set this more elegantly when method is done
         const int shuffleFrames = 5;
         const float shuffleTimePer = 0.02f;
-        EventInstance shuffleSound = FMODUnity.RuntimeManager.CreateInstance("event:/scroll");
+        EventInstance shuffleSound = FMODUnity.RuntimeManager.CreateInstance("event:/scrub");
         
         for (int i = 0; i < message.Length; i++)
         {
@@ -119,6 +119,8 @@ public class UIManager : MonoBehaviour
     public void Blackout()
     {
         _blackoutRawImage.gameObject.SetActive(true);
+        _blackoutRawImage.color = new Color(_blackoutRawImage.color.r, _blackoutRawImage.color.r,
+            _blackoutRawImage.color.r, 1);
     }
     
     public void Unblackout(float duration)
@@ -144,6 +146,8 @@ public class UIManager : MonoBehaviour
         
         _blackoutRawImage.color = new Color(_blackoutRawImage.color.r, _blackoutRawImage.color.r,
             _blackoutRawImage.color.r, 0);
+        
+        _blackoutRawImage.gameObject.SetActive(false);
     }
 
     /// <summary>

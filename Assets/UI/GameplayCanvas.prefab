@@ -343,6 +343,7 @@ MonoBehaviour:
   _messageBoard: {fileID: 6241261881581826369}
   _tutorialBoard: {fileID: 6524214840869965237}
   _blackoutRawImage: {fileID: 4541987080477572825}
+  messageIsRunning: 0
 --- !u!1 &4649683503622135042
 GameObject:
   m_ObjectHideFlags: 0
@@ -1010,7 +1011,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 25, y: 25}
+  m_SizeDelta: {x: 54, y: 54}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9115268097903433270
 CanvasRenderer:

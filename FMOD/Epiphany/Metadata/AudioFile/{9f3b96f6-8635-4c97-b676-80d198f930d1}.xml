@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
-	<object class="AudioFile" id="{07ac5f36-6e56-4f4d-a27f-aafa8d163c11}">
+	<object class="AudioFile" id="{9f3b96f6-8635-4c97-b676-80d198f930d1}">
 		<property name="assetPath">
-			<value>Scrolls/eldritch3.wav</value>
+			<value>Scrubs/symbiosis_scrub06.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>
@@ -11,7 +11,7 @@
 			<value>2</value>
 		</property>
 		<property name="length">
-			<value>3</value>
+			<value>0.50961451247165535</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{d28682da-5472-47df-98b8-19164b24f0fc}</destination>

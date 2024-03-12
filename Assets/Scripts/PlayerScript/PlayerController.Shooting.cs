@@ -90,8 +90,11 @@ namespace PlayerScript
                 AttachBullet(hit);
 
                 // this code isn't terrible if i don't look at it :)
-                if (hit.collider.gameObject.TryGetComponent<AI.PrototypeAI>(out AI.PrototypeAI prototypeAI))
-                    prototypeAI.TakeDamage(50, hit.transform.position, hit.normal, playerCamera.transform.forward);
+                if (hit.collider.transform.TryGetComponent<EnemyHitboxPart>(out EnemyHitboxPart hitboxPart))
+                {
+                    Debug.Log(hitboxPart.gameObject + " has been DIRECTLY hit");
+                    hitboxPart.HasBeenHit(50, hit.transform.position, hit.normal, playerCamera.transform.forward);
+                }
                 else if (hit.collider.gameObject.TryGetComponent<Destructible>(out Destructible destructible))
                     destructible.DestroyAnimation();
                 else if (hit.collider.gameObject.TryGetComponent<BedroomDoor>(out BedroomDoor bedroomDoor))

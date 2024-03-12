@@ -54,33 +54,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 7000
---- !u!114 &-7257726296254382879
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/scroll
-  m_EditorClassIdentifier: 
-  Path: event:/scroll
-  Guid:
-    Data1: 1937469589
-    Data2: 1243640752
-    Data3: -599827787
-    Data4: 307898088
-  Banks:
-  - {fileID: -4153306486887348001}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 4000
 --- !u!114 &-6291663786048104198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,10 +177,10 @@ MonoBehaviour:
   Path: FMOD/Epiphany/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638458619079396356
+  lastModified: 638458672570455190
   FileSizes:
   - Name: Desktop
-    Value: 3171904
+    Value: 3575840
   Exists: 1
 --- !u!114 &-3914798416766589998
 MonoBehaviour:
@@ -468,7 +441,6 @@ MonoBehaviour:
   - {fileID: 7496632294980018557}
   - {fileID: -4153306486887348001}
   EditorEvents:
-  - {fileID: -7257726296254382879}
   - {fileID: -1994931059513889140}
   - {fileID: 9158754920118481771}
   - {fileID: 9184050369320175615}
@@ -495,12 +467,14 @@ MonoBehaviour:
   - {fileID: -8737861059227165543}
   - {fileID: 6029384405973557376}
   - {fileID: 6837482743879473085}
+  - {fileID: 6958898710979301969}
+  - {fileID: 1889174141433723488}
   EditorParameters: []
   MasterBanks:
   - {fileID: -4153306486887348001}
   StringsBanks:
   - {fileID: 7496632294980018557}
-  cacheTime: 638458619079431453
+  cacheTime: 638458672570475252
   cacheVersion: 131616
 --- !u!114 &1039063973876396610
 MonoBehaviour:
@@ -556,6 +530,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 7235
+--- !u!114 &1889174141433723488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Ascension
+  m_EditorClassIdentifier: 
+  Path: event:/Ascension
+  Guid:
+    Data1: -230332495
+    Data2: 1184055555
+    Data3: -1552414331
+    Data4: -843594720
+  Banks:
+  - {fileID: -4153306486887348001}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 41639
 --- !u!114 &4020769357102857717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -691,6 +692,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2000
+--- !u!114 &6958898710979301969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/scrub
+  m_EditorClassIdentifier: 
+  Path: event:/scrub
+  Guid:
+    Data1: 1937469589
+    Data2: 1243640752
+    Data3: -599827787
+    Data4: 307898088
+  Banks:
+  - {fileID: -4153306486887348001}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 950
 --- !u!114 &7496632294980018557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -706,10 +734,10 @@ MonoBehaviour:
   Path: FMOD/Epiphany/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638458619079431453
+  lastModified: 638458672570475252
   FileSizes:
   - Name: Desktop
-    Value: 1932
+    Value: 1972
   Exists: 1
 --- !u!114 &8140345641202422398
 MonoBehaviour:
