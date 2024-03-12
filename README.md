@@ -1,5 +1,5 @@
 # AcerolaJam0
-I FEEL MOST ALIVE WHEN RAPIDLY APPROACHING MY DEATH
+SYMBIOSIS by simon 'wavewire' clemens
 
 
 used frameworks for this project are:  
