@@ -37,9 +37,6 @@ namespace PlayerScript
 
         public bool GunIsRacked => _gunIsRacked;
 
-        partial void AbortInput();  // not implemented
-        partial void PauseGame();   // not checked in update **yet** because this is really annoying while editing
-
         private void Shoot()
         {
             if (!Input.GetKeyDown(KeyCode.Mouse0)) return;

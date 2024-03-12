@@ -95,12 +95,12 @@ namespace ArenaTriggers
                 leftBlackboard.material = leftWarningMat;
                 rightBlackboard.material = rightWarningMat;
                 
-                yield return new WaitForSeconds(0.05f);
+                yield return new WaitForSeconds(0.02f);
                 
                 leftBlackboard.material = cleanMat;
                 rightBlackboard.material = cleanMat;
                 
-                yield return new WaitForSeconds(0.05f);
+                yield return new WaitForSeconds(0.03f);
             }
         }
 

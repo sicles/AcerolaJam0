@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using FMOD.Studio;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.Serialization;
 #pragma warning disable CS0414 // Field is assigned but its value is never used
@@ -9,6 +10,10 @@ namespace PlayerScript
 {
     public partial class PlayerController : MonoBehaviour
     {
+        [SerializeField] private Settings settings;
+        [SerializeField] private GameObject pauseCanvas;
+        [SerializeField] private GameObject gameplayCanvas;
+        
         [SerializeField] private CharacterController controller;
         [SerializeField] private Camera playerCamera;
         [SerializeField] float playerRadius;
@@ -38,6 +43,8 @@ namespace PlayerScript
         public KeyCode dInput = KeyCode.A;
         public KeyCode aInput = KeyCode.D;
         public float mouseSensitivity = 1f;
+        private float gameVolume = 1f;
+        private int isFullscreen = 1;
         private float _playerAcceleration;
         [SerializeField] private float defaultPlayerAcceleration = 2.5f;
 
@@ -56,6 +63,7 @@ namespace PlayerScript
         private EventInstance _rackGunSound;
         private bool isEnd;
         private bool _playerControlsAreOn = true;
+        private bool _isPaused;
 
         public bool IsEnd
         {
@@ -72,6 +80,7 @@ namespace PlayerScript
         private void Awake()
         {
             _transformCache = controller.transform;
+            settings.LoadSettings(ref mouseSensitivity, ref gameVolume, ref isFullscreen);
         }
 
         void Start()
@@ -92,48 +101,51 @@ namespace PlayerScript
 
         private void Update()
         {
-            //PauseGame(); not yet implemented
-            
-            IsGroundedCheck();
-            SetGravity();
-            BulletTravel();
+            PauseGame();
 
-            PlayerTilt();   // calling that one even when dead because of death tilt
-
-            if (!PlayerIsDead && PlayerControlsAreOn)
+            if (!_isPaused)
             {
-                MouseLook();
+                IsGroundedCheck();
+                SetGravity();
+                BulletTravel();
 
-                if (!isEnd)
+                PlayerTilt();   // calling that one even when dead because of death tilt
+
+                if (!PlayerIsDead && PlayerControlsAreOn)
                 {
-                    DashTick();
-                    CallDash();
-                    Dash();                    
-                }
+                    MouseLook();
+
+                    if (!isEnd)
+                    {
+                        DashTick();
+                        CallDash();
+                        Dash();                    
+                    }
 
         
-                WasdGetSet();
-                // Jump();  obsolete; honestly there is little reason for this game to have a jump
-                if (isArmed && !isEnd)
-                {
-                    CheckIfReloading();
-                    LetGoOfRack();
-                    IsLoaded();
+                    WasdGetSet();
+                    // Jump();  obsolete; honestly there is little reason for this game to have a jump
+                    if (isArmed && !isEnd)
+                    {
+                        CheckIfReloading();
+                        LetGoOfRack();
+                        IsLoaded();
 
             
-                    ResetRackOnReload();
-                    Shoot();
-                    RackGun();
-                    Reload();
+                        ResetRackOnReload();
+                        Shoot();
+                        RackGun();
+                        Reload();
 
-                    TickRecallTicker();
-                }
+                        TickRecallTicker();
+                    }
 
-                if (!isEnd)
-                {
-                    // Animation logic
-                    IsWalking();
-                    SetGunRacked();
+                    if (!isEnd)
+                    {
+                        // Animation logic
+                        IsWalking();
+                        SetGunRacked();
+                    }
                 }
             }
         }
@@ -204,9 +216,32 @@ namespace PlayerScript
         /// Set timescale to 0 when pausing
         /// Set timescale to 1 when unpausing
         /// </summary>
-        partial void PauseGame()
+        private void PauseGame()
         {
-            if (Input.GetKeyDown(KeyCode.Escape)) Time.timeScale = Time.timeScale < 1 ? 1 : 0;
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return))
+            {
+                if (!_isPaused)
+                {
+                    RuntimeManager.PauseAllEvents(true);
+                    Time.timeScale = 0.01f;
+                    gameplayCanvas.SetActive(false);
+                    pauseCanvas.SetActive(true);
+                    Cursor.lockState = CursorLockMode.Confined;
+                    Cursor.visible = true;
+                    _isPaused = true;
+                }
+                else
+                {
+                    Time.timeScale = 1;
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                    gameplayCanvas.SetActive(true);
+                    pauseCanvas.SetActive(false);
+                    _isPaused = false;
+                    settings.LoadSettings(ref mouseSensitivity, ref gameVolume, ref isFullscreen);
+                }
+
+            }
         }
 
         #region Getters/Setters
