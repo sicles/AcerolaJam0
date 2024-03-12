@@ -27,7 +27,7 @@ namespace AI
         [FormerlySerializedAs("isSubmerged")] [SerializeField] private bool isSubmergedAtStart = true;
         [SerializeField] private bool alive = true;
         [SerializeField] private SkinnedMeshRenderer thisSkinnedMeshRenderer;
-        [SerializeField] private BoxCollider thisBoxCollider;
+        // [SerializeField] private BoxCollider thisBoxCollider;
 
         [SerializeField] private float detectionRadius = 5f;
         private Vector3 _playerDistanceRaw;
@@ -60,7 +60,7 @@ namespace AI
         private void Submerge(bool isSubmerged)
         {
             thisSkinnedMeshRenderer.enabled = !isSubmerged;
-            thisBoxCollider.enabled = !isSubmerged;
+            // thisBoxCollider.enabled = !isSubmerged;
         }
 
         private void Update()
