@@ -17,10 +17,10 @@ public class BedroomProximity : MonoBehaviour
 
     private IEnumerator PushPlayer()
     {
-        for (int i = 0; i < 400; i++)
+        for (int i = 0; i < 300; i++)
         {
             playerController.PushPlayer(-transform.forward, 0.1f);
-            yield return new WaitForSeconds(0.01f);   // TODO i just realized that WaitForEndOfFrame() waits for update, not for fixedupdate, which makes iframes framerate dependent, which is cringe
+            yield return new WaitForSeconds(0.01f);  
         }
     }
 }

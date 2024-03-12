@@ -4,6 +4,7 @@ using FMODUnity;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace AI
 {
@@ -37,6 +38,7 @@ namespace AI
         private Coroutine _walkToRoutine1;
         private bool _isOrderedToWalk;
         private static readonly int IsClimbing = Animator.StringToHash("IsClimbing");
+        private EventInstance _footstepSound;
 
         public bool Alive => alive;
 
@@ -66,6 +68,7 @@ namespace AI
             if (Alive && !_isOrderedToWalk)
             {
                 DecideIdleSound();
+                DecideFootstepSound();
 
                 NavMeshUpdates();
                 CooldownTick();
@@ -100,8 +103,11 @@ namespace AI
         {
             idleAlertSound = RuntimeManager.CreateInstance("event:/OnEnemyEvents/IdleAlert");
             idleUnalertSound = RuntimeManager.CreateInstance("event:/OnEnemyEvents/IdleUnalert");
-            RuntimeManager.AttachInstanceToGameObject(idleAlertSound,  transform);
+            _footstepSound = RuntimeManager.CreateInstance("event:/OnEnemyEvents/Footsteps");
+            RuntimeManager.AttachInstanceToGameObject(idleAlertSound,  transform);  // does this really need to be set every frame? seems weird
             RuntimeManager.AttachInstanceToGameObject(idleUnalertSound,  transform);
+            RuntimeManager.AttachInstanceToGameObject(_footstepSound,  transform);
+            
         }
 
         /// <summary>
@@ -131,6 +137,7 @@ namespace AI
             this.isAlert = false;
             _agent.isStopped = true;
             RuntimeManager.PlayOneShotAttached("event:/OnEnemyEvents/Alerted", transform.gameObject);
+            RuntimeManager.PlayOneShotAttached("event:/OnEnemyEvents/Spawn", transform.gameObject);
 
             _animator.SetBool(IsClimbing, true);
             
@@ -190,7 +197,9 @@ namespace AI
         private void CreateBloodDecal()
         {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, _playerCamera.transform.forward, out hit, 50))
+
+            LayerMask bloodMask = LayerMask.GetMask("Default");
+            if (Physics.Raycast(transform.position, _playerCamera.transform.forward, out hit, 50, bloodMask))
             {
                 GameObject newDecal  = Instantiate(bloodDecal, 
                                         hit.point + hit.normal * 0.01f,
@@ -200,6 +209,10 @@ namespace AI
 
         private void Die(Vector3 bulletDirection)
         {
+            _footstepSound.stop(STOP_MODE.ALLOWFADEOUT);
+            idleAlertSound.stop(STOP_MODE.ALLOWFADEOUT);
+            idleUnalertSound.stop(STOP_MODE.ALLOWFADEOUT);
+            
             alive = false;
             // stop all current attacks
             StopAllCoroutines();

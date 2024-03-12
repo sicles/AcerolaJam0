@@ -32,6 +32,7 @@ namespace PlayerScript
         public Vector3 BulletBackcallDirection { get; private set; }
         [SerializeField] private LineRenderer gunshotLineRenderer;
         [SerializeField] private Transform gunTip;
+        [SerializeField] private ParticleSystem _shotParticle;
 
         public int Ammunition => ammunition;
 
@@ -60,7 +61,8 @@ namespace PlayerScript
             }
             
             Ray ray = new Ray(playerCamera.transform.position, CalculateShotDirection());
-            
+
+            ShotParticle();
             SetBulletReadyParticleState(false);
             StartCoroutine(CameraShake(0.12f, 15f));
             
@@ -98,6 +100,18 @@ namespace PlayerScript
                 else if (hit.collider.gameObject.TryGetComponent<NotaryDoor>(out NotaryDoor notaryDoor))
                     notaryDoor.OpenDoor();
             }
+        }
+
+        private void ShotParticle()
+        {
+            StartCoroutine(ShotParticleRoutine());
+        }
+
+        private IEnumerator ShotParticleRoutine()
+        {
+            _shotParticle.Play();
+            yield return new WaitForSeconds(0.5f);
+            _shotParticle.Stop();
         }
 
         void CastGunshotLine(RaycastHit hit)

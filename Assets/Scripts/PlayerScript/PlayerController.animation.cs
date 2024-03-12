@@ -105,9 +105,9 @@ namespace PlayerScript
             {
                 yield return new WaitForEndOfFrame();
             }
-            _animator.SetBool(IsCatching, false);
             SetBulletReadyParticleState(true);
 
+            _animator.SetBool(IsCatching, false);
             yield return new WaitForSeconds(0.25f);
             
             _catchReloadCoroutine = null;

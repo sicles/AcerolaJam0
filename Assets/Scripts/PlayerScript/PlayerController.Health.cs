@@ -65,7 +65,6 @@ namespace PlayerScript
                 mesh.SetActive(false);
             }
             
-            
             uiManager.SlowBlackout(3f);
             yield return new WaitForSeconds(6f);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

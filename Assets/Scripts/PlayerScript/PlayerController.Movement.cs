@@ -226,7 +226,6 @@ namespace PlayerScript
         {
             _playerAcceleration = defaultPlayerAcceleration;
             _dashRecovery = false;
-            // playerCamera.transform.localRotation = Quaternion.Euler(Vector3.zero);
         }
 
         private void DashTick()

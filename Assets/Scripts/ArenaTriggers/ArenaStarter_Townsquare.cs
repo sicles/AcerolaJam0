@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using AI;
 using LevelStateMachines;
@@ -68,13 +69,20 @@ namespace ArenaTriggers
             Invoke(nameof(DeactivateOldGeometry), 1f);
             
             levelStateMachineParis.TownSquareArenaQuip();;
-        
+
+
+            StartCoroutine(AlertingRoutine());
+
+            _hasEntered = true;
+        }
+
+        private IEnumerator AlertingRoutine()
+        {
             foreach (var enemy in enemiesToActivate)
             {
                 enemy.SetAlert();
+                yield return new WaitForSeconds(0.25f);
             }
-
-            _hasEntered = true;
         }
 
         private void DeactivateOldGeometry()

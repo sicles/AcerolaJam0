@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using FMOD.Studio;
+using FMODUnity;
 using UnityEngine;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace AI
 {
@@ -16,13 +18,20 @@ namespace AI
         private static readonly int DodgeDirection = Animator.StringToHash("DodgeDirection");
         private int _lastPositionIdleAlertSound;
         private int _lastPositionIdleUnalertSound1;
-        
+        private bool _isWalking;
+
         private void IsWalking()
         {
             if (_agent.velocity.magnitude > 0)
+            {
                 _animator.SetBool(Walking, true);
+                _isWalking = true;
+            }
             else
+            {
                 _animator.SetBool(Walking, false);
+                _isWalking = false;
+            }
         }
 
         private void IsDodging()
@@ -43,6 +52,41 @@ namespace AI
             _animator.SetInteger(IdleState, newState);
         }
 
+        private void DecideFootstepSound()
+        {
+            if (!Alive)
+            {
+                _footstepSound.stop(STOP_MODE.ALLOWFADEOUT);
+                return;
+            }
+            
+            RuntimeManager.AttachInstanceToGameObject(_footstepSound,  transform);
+            
+            _footstepSound.getPlaybackState(out var footstepSoundPlaybackState);
+            
+            if (_isWalking)
+            {
+                if (footstepSoundPlaybackState != PLAYBACK_STATE.PLAYING)
+                    _footstepSound.start();
+
+                return;
+            }
+            
+            
+            // if (!_isWalking && enemyIsBusy)
+            // {
+            //     if (footstepSoundPlaybackState == PLAYBACK_STATE.PLAYING)
+            //         _footstepSound.stop(STOP_MODE.ALLOWFADEOUT);
+            // }
+        }
+
+        public void StopDynamicSounds()
+        {
+            _footstepSound.stop(STOP_MODE.ALLOWFADEOUT);
+            idleAlertSound.stop(STOP_MODE.ALLOWFADEOUT);
+            idleUnalertSound.stop(STOP_MODE.ALLOWFADEOUT);
+        }
+        
         private void DecideIdleSound()
         {
             if (!Alive)
@@ -51,6 +95,9 @@ namespace AI
                 idleUnalertSound.stop(STOP_MODE.ALLOWFADEOUT);
                 return;
             }
+            
+            RuntimeManager.AttachInstanceToGameObject(idleAlertSound,  transform);
+            RuntimeManager.AttachInstanceToGameObject(idleUnalertSound,  transform);
             
             if (isAlert)
             {

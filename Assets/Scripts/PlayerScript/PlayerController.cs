@@ -93,6 +93,7 @@ namespace PlayerScript
             ePlayerState = PlayerState.CanMove;
             _playerAcceleration = defaultPlayerAcceleration;
             playerHealth = _playerMaxHealth;
+            _shotParticle.Stop();
             Cursor.lockState = CursorLockMode.Locked;
             SetBulletReadyParticleState(false);
             _rackGunSound = FMODUnity.RuntimeManager.CreateInstance("event:/OnPlayerEvents/Racking");
@@ -101,7 +102,7 @@ namespace PlayerScript
 
         private void Update()
         {
-            PauseGame();
+            // PauseGame();
 
             if (!_isPaused)
             {
@@ -215,6 +216,7 @@ namespace PlayerScript
         /// <summary>
         /// Set timescale to 0 when pausing
         /// Set timescale to 1 when unpausing
+        /// THIS BREAKS COROUTINES SO NOT ACTIVE AT TIME OF WRITING
         /// </summary>
         private void PauseGame()
         {
@@ -222,8 +224,7 @@ namespace PlayerScript
             {
                 if (!_isPaused)
                 {
-                    RuntimeManager.PauseAllEvents(true);
-                    Time.timeScale = 0.01f;
+                    Time.timeScale = 0f;
                     gameplayCanvas.SetActive(false);
                     pauseCanvas.SetActive(true);
                     Cursor.lockState = CursorLockMode.Confined;

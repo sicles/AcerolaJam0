@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{92b32e7b-12a8-416c-8022-0a8fc3560874}">
+		<property name="assetPath">
+			<value>Enemies/spawn01.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>7.3894331065759635</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{d28682da-5472-47df-98b8-19164b24f0fc}</destination>
+		</relationship>
+	</object>
+</objects>

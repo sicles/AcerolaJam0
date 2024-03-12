@@ -22,16 +22,12 @@ public class UIManager : MonoBehaviour
     private static readonly int UnderlayOffsetX = Shader.PropertyToID("_UnderlayOffsetX");
     private static readonly int UnderlayOffsetY = Shader.PropertyToID("_UnderlayOffsetY");
 
+    public bool messageIsRunning;
+
     private void Start()
     {
         _messageBoard.text = "";
         _tutorialBoard.text = "";
-    }
-
-    private void FixedUpdate()
-    {
-        // _messageBoard.GetComponent<Material>().SetFloat(UnderlayOffsetX, Random.Range(-1f, 1f));
-        // _messageBoard.GetComponent<Material>().SetFloat(UnderlayOffsetY, Random.Range(-1f, 1f));
     }
 
     public void UpdateHealthbar(int lastHealth)
@@ -84,6 +80,7 @@ public class UIManager : MonoBehaviour
     private IEnumerator SendMessageRoutine(string message, float lifetime)
     {
         _messageBoard.text = "";
+        messageIsRunning = true;
         
         // TODO set this more elegantly when method is done
         const int shuffleFrames = 5;
@@ -110,12 +107,13 @@ public class UIManager : MonoBehaviour
             shuffleSound.start();
             
             _messageBoard.text += message[i];
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(1/60f);
         }
 
         yield return new WaitForSeconds(lifetime);
         _messageBoard.text = "";
         _currentSendMessage = null;
+        messageIsRunning = false;
     }
 
     public void Blackout()

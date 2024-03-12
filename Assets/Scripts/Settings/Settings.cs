@@ -64,7 +64,7 @@ public class Settings : MonoBehaviour
         if (sensUI.value == 0)
             sensUI.value = 0.01f;
         else
-            currentSensitivity = sensUI.value * 5;
+            currentSensitivity = sensUI.value * 1;
         
         SaveSettings();
         Debug.Log("new sens is " + currentSensitivity);

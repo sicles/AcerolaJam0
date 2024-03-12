@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
+using FMODUnity;
 using PlayerScript;
 using TMPro;
 using UnityEngine;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace LevelStateMachines
 {
@@ -17,6 +20,8 @@ namespace LevelStateMachines
 
         [SerializeField] private Light tutorialDoorLight;
         private static readonly int IsBroken = Animator.StringToHash("IsBroken");
+        private EventInstance _knockSound;
+        private bool _knocking;
 
         private void Start()
         {
@@ -28,17 +33,22 @@ namespace LevelStateMachines
             playerController.PlayerControlsAreOn = false;
             uiManager.Blackout();
 
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(5f);
+            
+            _knocking = true;
+            KnockKnock();
+            uiManager.Unblackout(10f);
+            
+            yield return new WaitForSeconds(10f);
 
-            uiManager.Unblackout(3f);
             playerController.PlayerControlsAreOn = true;
-            
-            yield return new WaitForSeconds(3f);
-            
             creditsTMP.gameObject.SetActive(true);
 
             yield return new WaitUntil(() => bedroomDoor.GetBool(IsBroken));
-            
+
+            RuntimeManager.PlayOneShotAttached("event:/BreakDoor", bedroomDoor.transform.gameObject);
+            _knocking = false;
+            _knockSound.stop(STOP_MODE.ALLOWFADEOUT);
             creditsTMP.gameObject.SetActive(false);
             
             yield return new WaitForSeconds(4f);
@@ -49,6 +59,23 @@ namespace LevelStateMachines
             }
             
             Invoke(nameof(DropSequence), 2f);
+        }
+
+        private void KnockKnock()
+        {
+            _knockSound = RuntimeManager.CreateInstance("event:/KnockKnock");
+            RuntimeManager.AttachInstanceToGameObject(_knockSound,  bedroomDoor.transform);
+
+            StartCoroutine(KnockRoutine());
+        }
+
+        private IEnumerator KnockRoutine()
+        {
+            while (_knocking)
+            {
+                _knockSound.start();
+                yield return new WaitForSeconds(Random.Range(4f, 7f));
+            }
         }
 
         private void DropSequence()
