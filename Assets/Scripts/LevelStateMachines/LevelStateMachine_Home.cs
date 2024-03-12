@@ -14,6 +14,9 @@ namespace LevelStateMachines
         [SerializeField] private PlayerController playerController;
         [SerializeField] private ArenaStarter_Apartment _arenaStarterApartment;
 
+        [SerializeField] private GameObject window;
+        [SerializeField] private Material windowReplacementMat;
+        
         [SerializeField] private List<Light> lightsToSwitchOff;
         [SerializeField] private List<GameObject> lightsToSwitchOn;
         
@@ -54,6 +57,8 @@ namespace LevelStateMachines
                 lightOn.SetActive(true);
                 yield return new WaitForSeconds(0.15f);
             }
+
+            window.GetComponent<MeshRenderer>().material = windowReplacementMat;
         }
 
         public void CallArenaEndQuip()

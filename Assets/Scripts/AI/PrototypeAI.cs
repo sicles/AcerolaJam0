@@ -230,7 +230,7 @@ namespace AI
 
         private void KillTrigger()
         {
-            if (transform.position.y < -1000)
+            if (transform.position.y < -550)
             {
                 if (_playerController.Ammunition == 0)
                     _playerController.BulletRecall();

@@ -894,6 +894,9 @@ MonoBehaviour:
   uiManager: {fileID: 1973294517}
   playerController: {fileID: 141584202}
   _arenaStarterApartment: {fileID: 57981170}
+  window: {fileID: 1346384318}
+  windowReplacementMat: {fileID: 2100000, guid: 5d3e9977e9a741747a227b00a01b520e,
+    type: 2}
   lightsToSwitchOff:
   - {fileID: 101201580}
   - {fileID: 1027661768}
@@ -1828,16 +1831,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: epiphanyEnemy1 Variant
       objectReference: {fileID: 0}
-    - target: {fileID: 2109168785270739779, guid: e2e1208de10f74f4ab64af4fac22c55f,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4313769114180312499, guid: e2e1208de10f74f4ab64af4fac22c55f,
-        type: 3}
-      propertyPath: manualAlert
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2635,6 +2628,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1346384318 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ae1b3b7e380ec1c4cb8d7bb1761f8911,
+    type: 3}
+  m_PrefabInstance: {fileID: 1526258618}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1348006920 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3890729039104682098, guid: a69d1c8de7cd10c4e88d2e3908814f0a,

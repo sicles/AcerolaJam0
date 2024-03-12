@@ -55,11 +55,18 @@ namespace PlayerScript
         private bool _reloadIsPlaying;
         private EventInstance _rackGunSound;
         private bool isEnd;
+        private bool _playerControlsAreOn = true;
 
         public bool IsEnd
         {
             get => isEnd;
             set => isEnd = value;
+        }
+
+        public bool PlayerControlsAreOn
+        {
+            get => _playerControlsAreOn;
+            set => _playerControlsAreOn = value;
         }
 
         private void Awake()
@@ -93,7 +100,7 @@ namespace PlayerScript
 
             PlayerTilt();   // calling that one even when dead because of death tilt
 
-            if (!PlayerIsDead)
+            if (!PlayerIsDead && PlayerControlsAreOn)
             {
                 MouseLook();
 
@@ -129,6 +136,11 @@ namespace PlayerScript
                     SetGunRacked();
                 }
             }
+        }
+
+        public void PushPlayer(Vector3 direction, float force)
+        {
+            controller.Move(direction * force);
         }
         
         private void MouseLook()

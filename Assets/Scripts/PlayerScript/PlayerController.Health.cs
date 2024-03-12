@@ -40,6 +40,8 @@ namespace PlayerScript
         private void PlayerDeath()
         {
             PlayFootsteps(false);
+
+            StartCoroutine(StopAllSounds());
             
             RuntimeManager.PlayOneShot("event:/OnPlayerEvents/Death");
             
@@ -48,6 +50,12 @@ namespace PlayerScript
             // for camera tilt logic see PlayerTilt()
             
             StartCoroutine(PlayerDeathRoutine());
+        }
+
+        private IEnumerator StopAllSounds()
+        {
+            yield return new WaitForSeconds(5f);
+            RuntimeManager.PauseAllEvents(true);
         }
         
         private IEnumerator PlayerDeathRoutine()

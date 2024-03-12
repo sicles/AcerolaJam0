@@ -25,19 +25,21 @@ namespace LevelStateMachines
 
         private IEnumerator OpeningSequence()
         {
+            playerController.PlayerControlsAreOn = false;
             uiManager.Blackout();
 
             yield return new WaitForSeconds(3f);
 
             uiManager.Unblackout(3f);
+            playerController.PlayerControlsAreOn = true;
             
             yield return new WaitForSeconds(3f);
             
             creditsTMP.gameObject.SetActive(true);
 
-            yield return new WaitForSeconds(5f);
+            yield return new WaitUntil(() => bedroomDoor.GetBool(IsBroken));
             
-            bedroomDoor.SetBool(IsBroken, true);
+            creditsTMP.gameObject.SetActive(false);
             
             yield return new WaitForSeconds(4f);
             
@@ -46,13 +48,12 @@ namespace LevelStateMachines
                 hatchpart.SetActive(false);
             }
             
-            creditsTMP.gameObject.SetActive(false);
-
             Invoke(nameof(DropSequence), 2f);
         }
 
         private void DropSequence()
         {
+            StartCoroutine(DropSequenceRoutine());
         }
 
         private IEnumerator DropSequenceRoutine()
