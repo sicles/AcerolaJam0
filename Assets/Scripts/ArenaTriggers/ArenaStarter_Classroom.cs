@@ -88,9 +88,9 @@ namespace ArenaTriggers
 
         private IEnumerator BlackboardFlicker()
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(3f);
             
-            for (int i = 0; i < 40; i++)
+            for (int i = 0; i < 20; i++)
             {
                 leftBlackboard.material = leftWarningMat;
                 rightBlackboard.material = rightWarningMat;

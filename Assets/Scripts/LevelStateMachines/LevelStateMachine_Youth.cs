@@ -37,7 +37,7 @@ namespace LevelStateMachines
             
             _knocking = true;
             KnockKnock();
-            uiManager.Unblackout(10f);
+            uiManager.Unblackout(5f);
             
             yield return new WaitForSeconds(10f);
 

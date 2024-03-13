@@ -9,14 +9,8 @@ public class Bullet : MonoBehaviour
     private AI.PrototypeAI _prototypeAI;
     private PlayerScript.PlayerController _playerController;
     private PLAYBACK_STATE _bulletFlightPlaybackState;
-    [SerializeField] private bool isActive;
     [SerializeField] private StudioEventEmitter bulletFlight;
     public bool IsActive { get; set; }
-
-    private void Update()
-    {
-        isActive = IsActive;    // what the hell am i doing
-    }
 
     public GameObject LastEnemy { get; set; }
 
@@ -26,6 +20,11 @@ public class Bullet : MonoBehaviour
     {
         _playerController = FindObjectOfType<PlayerScript.PlayerController>();
         bulletFlight = GetComponent<StudioEventEmitter>();
+    }
+
+    private void Update()
+    {
+        Debug.Log(LastEnemy);
     }
 
     public void SetFlightSound(bool shouldPlay)
@@ -40,12 +39,12 @@ public class Bullet : MonoBehaviour
     {
         if (!IsActive) return;
         
-        Debug.Log("bullet hit a " + other.transform.gameObject);
+        // Debug.Log("bullet hit a " + other.transform.gameObject);
         
-        if (other.transform.GetComponent<AI.PrototypeAI>() != null && other.gameObject != LastEnemy)
+        if (other.transform.GetComponent<EnemyHitboxPart>() != null && other.transform.root.gameObject != LastEnemy)
         {
-            Debug.Log("attempted to deal collision damage!");
-            other.transform.GetComponent<AI.PrototypeAI>().TakeDamage(50, other.transform.position, other.transform.rotation.eulerAngles, _playerController.BulletBackcallDirection);
+            Debug.Log("dealt collision damage!");
+            other.transform.GetComponent<EnemyHitboxPart>().HasBeenHit(50, other.transform.position, other.transform.rotation.eulerAngles, _playerController.BulletBackcallDirection);
         }
 
         LastEnemy = other.gameObject;

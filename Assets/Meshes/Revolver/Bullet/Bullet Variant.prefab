@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8884231443622433112}
   - component: {fileID: 7872067794581268126}
   - component: {fileID: 858470611224494645}
-  m_Layer: 11
+  m_Layer: 2
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,7 +214,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 1d14b6ca9963b5a48a9db5f381a963b8,
         type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -267,10 +267,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4023
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -321,7 +321,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d7e7444616ebad4da0bc3b628196ce8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 0
   bulletFlight: {fileID: 1376647624801237319}
 --- !u!54 &2958728752002684061
 Rigidbody:
@@ -481,7 +480,7 @@ PrefabInstance:
     - target: {fileID: 4015729591603538519, guid: 58d81a9eca0d28544aed99c35c7393cb,
         type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

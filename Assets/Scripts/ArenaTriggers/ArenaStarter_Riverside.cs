@@ -11,7 +11,8 @@ namespace ArenaTriggers
 {
     public class ArenaStarterRiverside : MonoBehaviour
     {
-        [SerializeField] private List<PrototypeAI> enemiesToActivate;
+        [FormerlySerializedAs("enemiesToActivate")] [SerializeField] private List<PrototypeAI> firstWaveToActivate;
+        [SerializeField] private List<PrototypeAI> secondWaveToActivate; 
         [SerializeField] private Animator entranceAnimator;
         [FormerlySerializedAs("levelStateMachine")] [SerializeField] private LevelStateMachine_Paris levelStateMachineParis;
         [SerializeField] private Animator exitAnimator;
@@ -38,23 +39,36 @@ namespace ArenaTriggers
             waterMaterial.SetColor(WaterColor, new Color(0.2235293f, 0.5372549f, 0.7254902f, 0.6470588f));
         }
 
-        private void FixedUpdate()
+        private bool CheckForSurvivors(int wave)
         {
-            CheckForSurvivors();
-        }
-
-        private void CheckForSurvivors()
-        {
-            if (!_fightIsOver)
+            if (wave == 1)
             {
-                foreach (var enemy in enemiesToActivate)
+                if (!_fightIsOver)
                 {
-                    if (enemy.Alive) return;
+                    foreach (var enemy in firstWaveToActivate)
+                    {
+                        if (enemy.Alive) return false;
+                    }
+
+                    return true;
+                }
+            }
+            
+            if (wave == 2)
+            {
+                if (!_fightIsOver)
+                {
+                    foreach (var enemy in secondWaveToActivate)
+                    {
+                        if (enemy.Alive) return false;
+                    }
+                    
+                    _fightIsOver = true;
+                    return true;
                 }
             }
 
-            _fightIsOver = true;
-            ReleaseArena();
+            return false;
         }
 
         private void ReleaseArena()
@@ -92,10 +106,26 @@ namespace ArenaTriggers
 
         private void StartArena()
         {
-            foreach (var enemy in enemiesToActivate)
+            StartCoroutine(RiversideFightRoutine());
+        }
+
+        private IEnumerator RiversideFightRoutine()
+        {
+            foreach (var enemy in firstWaveToActivate)
             {
                 enemy.SetAlert();
             }
+
+            yield return new WaitUntil(() => CheckForSurvivors(1));
+
+            foreach (var enemy in secondWaveToActivate)
+            {
+                enemy.SetAlert();
+            }
+            
+            yield return new WaitUntil(() => CheckForSurvivors(2));
+            
+            ReleaseArena();
         }
         
         private void ThrowTheTea()

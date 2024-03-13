@@ -35,7 +35,7 @@ namespace LevelStateMachines
             if (_townSquareMemoryHasBeenCalled) return;
 
             _townSquareMemoryHasBeenCalled = true;
-            uiManager.CallSendMessage("I was just standing there, waiting for you to ask me.", 3f);
+            uiManager.CallSendMessage("I was too embarassed to ask.", 3f);
         }
 
         public void TownSquareArenaQuip()
@@ -43,7 +43,7 @@ namespace LevelStateMachines
             if (_townSquareArenaQuipHasBeenCalled) return;
 
             _townSquareArenaQuipHasBeenCalled = true;
-            uiManager.CallSendMessage("And then... you did.", 3f);    
+            uiManager.CallSendMessage("But then... you did.", 3f);    
         }
 
         public void RiversideEntranceMemory()
@@ -51,7 +51,7 @@ namespace LevelStateMachines
             if (_riversideEntranceMemoryHasBeenCalled) return;
 
             _riversideEntranceMemoryHasBeenCalled = true;
-            uiManager.CallSendMessage("Then, by the iridescent river... just us.", 3f);
+            uiManager.CallSendMessage("Then, by the iridescent river...", 3f);
         }
 
         public void RiversideArenaQuip()
@@ -59,7 +59,7 @@ namespace LevelStateMachines
             if (_riversideArenaQuipHasBeenCalled) return;
 
             _riversideArenaQuipHasBeenCalled = true;
-            uiManager.CallSendMessage("In hindsight, it's no wonder you were feeling watched.", 3f);
+            uiManager.CallSendMessage("...watching you.", 3f);
         }
     }
 }

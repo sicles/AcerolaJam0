@@ -54,7 +54,7 @@ namespace AI
 
         private void DecideFootstepSound()
         {
-            if (!Alive)
+            if (!Alive || _playerController.PlayerIsDead)
             {
                 _footstepSound.stop(STOP_MODE.ALLOWFADEOUT);
                 return;
@@ -89,7 +89,7 @@ namespace AI
         
         private void DecideIdleSound()
         {
-            if (!Alive)
+            if (!Alive || _playerController.PlayerIsDead)
             {
                 idleAlertSound.stop(STOP_MODE.ALLOWFADEOUT);    // not checking for playstate might lead to bugs if enemy is never alive
                 idleUnalertSound.stop(STOP_MODE.ALLOWFADEOUT);

@@ -8,6 +8,7 @@ public class EnemyHitboxPart : MonoBehaviour
     [SerializeField] private PrototypeAI parentAI;
 
     // the things you have to do when unity's meshcollider stops working
+    // TODO use root instead of this trainwreck
     
     public void HasBeenHit(int damage, Vector3 position, Vector3 rotation, Vector3 bulletDirection)
     {

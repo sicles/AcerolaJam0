@@ -55,7 +55,7 @@ namespace PlayerScript
         private IEnumerator StopAllSounds()
         {
             yield return new WaitForSeconds(5f);
-            RuntimeManager.PauseAllEvents(true);
+            // RuntimeManager.PauseAllEvents(true);
         }
         
         private IEnumerator PlayerDeathRoutine()

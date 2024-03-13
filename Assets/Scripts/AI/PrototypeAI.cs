@@ -51,6 +51,7 @@ namespace AI
             _rigidbody = transform.GetComponent<Rigidbody>();
             _agent = GetComponent<NavMeshAgent>();
             _agent.isStopped = true;
+            isAlert = false;
             _playerController = player.gameObject.GetComponent<PlayerScript.PlayerController>();
             _playerCamera = player.GetComponentInChildren<Camera>();
             _animator = GetComponent<Animator>();
@@ -187,8 +188,7 @@ namespace AI
             health -= damage;
             RuntimeManager.PlayOneShotAttached("event:/OnEnemyEvents/Hurt", transform.gameObject);
             RuntimeManager.PlayOneShot("event:/OnPlayerEvents/HitMark");
-            Object.Instantiate(bloodGush, position, _playerCamera.transform.rotation);
-            CreateBloodDecal();
+            Instantiate(bloodGush, position, _playerCamera.transform.rotation);
             CallHurtState();
         
             if (health <= 0)

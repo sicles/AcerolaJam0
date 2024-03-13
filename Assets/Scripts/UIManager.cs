@@ -83,8 +83,8 @@ public class UIManager : MonoBehaviour
         messageIsRunning = true;
         
         // TODO set this more elegantly when method is done
-        const int shuffleFrames = 5;
-        const float shuffleTimePer = 0.02f;
+        const int shuffleFrames = 4;
+        const float shuffleTimePer = 0.015f;
         EventInstance shuffleSound = FMODUnity.RuntimeManager.CreateInstance("event:/scrub");
         
         for (int i = 0; i < message.Length; i++)

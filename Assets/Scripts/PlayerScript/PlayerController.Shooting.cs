@@ -74,13 +74,14 @@ namespace PlayerScript
                                                                         "Enemy",
                                                                         "Water");
             
+            
             if (Physics.Raycast(ray, out RaycastHit hit, _shootRange))
             {
                 CastGunshotLine(hit);
 
-                bullet.GetComponent<Bullet>().LastEnemy = hit.transform.gameObject;
+                bullet.GetComponent<Bullet>().LastEnemy = hit.transform.root.gameObject;
                 bullet.GetComponent<MeshRenderer>().enabled = true;
-                bullet.transform.GetChild(0).gameObject.SetActive(true);
+                bullet.transform.GetChild(0).gameObject.SetActive(true);    // huh?
                 
                 bullet.transform.SetParent(null, true);
                 bullet.transform.GetComponent<MeshRenderer>().enabled = true;
@@ -92,8 +93,7 @@ namespace PlayerScript
                 // this code isn't terrible if i don't look at it :)
                 if (hit.collider.transform.TryGetComponent<EnemyHitboxPart>(out EnemyHitboxPart hitboxPart))
                 {
-                    Debug.Log(hitboxPart.gameObject + " has been DIRECTLY hit");
-                    hitboxPart.HasBeenHit(50, hit.transform.position, hit.normal, playerCamera.transform.forward);
+                    hitboxPart.HasBeenHit(50, hit.point, hit.normal, playerCamera.transform.forward);
                 }
                 else if (hit.collider.gameObject.TryGetComponent<Destructible>(out Destructible destructible))
                     destructible.DestroyAnimation();
@@ -113,6 +113,7 @@ namespace PlayerScript
 
         private IEnumerator ShotParticleRoutine()
         {
+            _shotParticle.gameObject.SetActive(true);
             _shotParticle.Play();
             yield return new WaitForSeconds(0.5f);
             _shotParticle.Stop();
