@@ -149,13 +149,10 @@ namespace AI
 
         private IEnumerator AlertRoutine()
         {
-            yield return new WaitForEndOfFrame(); 
-            yield return new WaitForEndOfFrame(); 
-            
-            _animator.SetBool(IsClimbing, false);
-
             yield return new WaitForSeconds(5f);    // as long as climbing anim takes
 
+            _animator.SetBool(IsClimbing, false);
+            
             if (!_animator.GetBool(IsHurt)) // getting logic from the animation logic is cringe but i forgive myself
                 ShouldTaunt();
             else
@@ -185,6 +182,7 @@ namespace AI
             //     SetAlert();
 
             if (!Alive) return;    // TODO remove the gib logic, is obsolete and not working with this new logic
+            if (_animator.GetBool(IsClimbing)) return;
             
             health -= damage;
             RuntimeManager.PlayOneShotAttached("event:/OnEnemyEvents/Hurt", transform.gameObject);

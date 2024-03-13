@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using AI;
+using FMODUnity;
 using LevelStateMachines;
 using PlayerScript;
 using UnityEngine;
@@ -82,6 +83,8 @@ namespace ArenaTriggers
             {
                 shiny.gameObject.SetActive(true);
             }
+            
+            RuntimeManager.PlayOneShotAttached("event:/GateOpen", exitAnimator.gameObject);
             
             waterMaterial.SetColor(WaterColor, startColor);
             waterMaterial.SetFloat(Metallic, 0.3f);

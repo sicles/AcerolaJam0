@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using AI;
+using FMOD.Studio;
+using FMODUnity;
 using LevelStateMachines;
 using PlayerScript;
 using UnityEngine;
@@ -52,6 +54,7 @@ namespace ArenaTriggers
             if (newGeometry != null)
                 newGeometry.SetActive(true);
             
+            RuntimeManager.PlayOneShotAttached("event:/GateOpen", exitAnimator.gameObject);
             levelStateMachineHome.CallArenaEndQuip();
         }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using AI;
+using FMODUnity;
 using LevelStateMachines;
 using PlayerScript;
 using UnityEngine;
@@ -22,6 +23,8 @@ namespace ArenaTriggers
         [SerializeField] private GameObject arenaGeometry;
         [SerializeField] private GameObject newGeometry;
         [SerializeField] private bool arenaGeometryActiveOnStart;
+        [SerializeField] private List<StudioEventEmitter> tableChatter;
+        private bool _gateOpenSFX;
         private bool _hasEntered;
         private static readonly int IsTriggered = Animator.StringToHash("IsTriggered");
         private bool _fightIsOver;
@@ -57,6 +60,7 @@ namespace ArenaTriggers
                 newGeometry.SetActive(true);
             
             exitLight.SetActive(true);
+            RuntimeManager.PlayOneShotAttached("event:/GateOpen", exitAnimator.gameObject);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -67,6 +71,11 @@ namespace ArenaTriggers
         
             entranceAnimator.SetBool(IsTriggered, true);
             Invoke(nameof(DeactivateOldGeometry), 1f);
+            
+            foreach (var chatter in tableChatter)
+            {
+                chatter.Stop();
+            }
             
             levelStateMachineParis.TownSquareArenaQuip();;
 

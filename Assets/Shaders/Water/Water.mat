@@ -61,7 +61,7 @@ Material:
     m_Floats:
     - _Current_Speed: 0
     - _Foam_Distance: 0.5
-    - _Metallic: 0.3
+    - _Metallic: 0.414
     - _Noise_Scale: 0.193
     - _QueueControl: 0
     - _QueueOffset: 0

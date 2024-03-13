@@ -67,6 +67,8 @@ namespace ArenaTriggers
             exitAnimator.SetBool(IsTriggered, true);
             if (newGeometry != null)
                 newGeometry.SetActive(true);
+            
+            RuntimeManager.PlayOneShotAttached("event:/GateOpen", exitAnimator.gameObject);
         }
 
         private void OnTriggerEnter(Collider other)

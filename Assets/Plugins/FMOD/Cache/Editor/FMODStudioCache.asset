@@ -1,5 +1,32 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8593617195060827614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/EndingChant
+  m_EditorClassIdentifier: 
+  Path: event:/EndingChant
+  Guid:
+    Data1: 1575387188
+    Data2: 1117139466
+    Data3: 2040368003
+    Data4: -1902261868
+  Banks:
+  - {fileID: -4153306486887348001}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 35076
 --- !u!114 &-7985080506232602279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,6 +108,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 25645
+--- !u!114 &-6667637811965940906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/L02/River
+  m_EditorClassIdentifier: 
+  Path: event:/L02/River
+  Guid:
+    Data1: 562520465
+    Data2: 1339201524
+    Data3: -1189688669
+    Data4: -18923629
+  Banks:
+  - {fileID: -4153306486887348001}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 12923
 --- !u!114 &-6291663786048104198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,10 +285,10 @@ MonoBehaviour:
   Path: FMOD/Epiphany/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638459501708339788
+  lastModified: 638459604575595788
   FileSizes:
   - Name: Desktop
-    Value: 6668672
+    Value: 7763840
   Exists: 1
 --- !u!114 &-3914798416766589998
 MonoBehaviour:
@@ -290,6 +344,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2000
+--- !u!114 &-3422680207030447303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/L02/River Corrupted
+  m_EditorClassIdentifier: 
+  Path: event:/L02/River Corrupted
+  Guid:
+    Data1: 511281792
+    Data2: 1082924042
+    Data3: -856341868
+    Data4: -406886326
+  Banks:
+  - {fileID: -4153306486887348001}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 12923
 --- !u!114 &-2824178273580132033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -583,13 +664,46 @@ MonoBehaviour:
   - {fileID: -7697234209651162918}
   - {fileID: 2860502968650880317}
   - {fileID: -1564537615475098051}
+  - {fileID: 80237092947368573}
+  - {fileID: -6667637811965940906}
+  - {fileID: -3422680207030447303}
+  - {fileID: 6293678179768798205}
+  - {fileID: -8593617195060827614}
+  - {fileID: 6969024336154866798}
   EditorParameters: []
   MasterBanks:
   - {fileID: -4153306486887348001}
   StringsBanks:
   - {fileID: 7496632294980018557}
-  cacheTime: 638459501708395072
+  cacheTime: 638459604575645925
   cacheVersion: 131616
+--- !u!114 &80237092947368573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/L02/LanternSpawn
+  m_EditorClassIdentifier: 
+  Path: event:/L02/LanternSpawn
+  Guid:
+    Data1: -418222158
+    Data2: 1152055585
+    Data3: -819587146
+    Data4: -236312257
+  Banks:
+  - {fileID: -4153306486887348001}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 6000
 --- !u!114 &1039063973876396610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -833,6 +947,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1500
+--- !u!114 &6293678179768798205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/L02/TownsquareChatter
+  m_EditorClassIdentifier: 
+  Path: event:/L02/TownsquareChatter
+  Guid:
+    Data1: -251395635
+    Data2: 1178721038
+    Data3: 611013268
+    Data4: -756986943
+  Banks:
+  - {fileID: -4153306486887348001}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 20307
 --- !u!114 &6532687700368848700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -887,6 +1028,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2000
+--- !u!114 &6969024336154866798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/GateOpen
+  m_EditorClassIdentifier: 
+  Path: event:/GateOpen
+  Guid:
+    Data1: 522433708
+    Data2: 1089792028
+    Data3: -215481962
+    Data4: -1505584172
+  Banks:
+  - {fileID: -4153306486887348001}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 6000
 --- !u!114 &7496632294980018557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -902,10 +1070,10 @@ MonoBehaviour:
   Path: FMOD/Epiphany/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638459501708395072
+  lastModified: 638459604575645925
   FileSizes:
   - Name: Desktop
-    Value: 2290
+    Value: 2576
   Exists: 1
 --- !u!114 &8140345641202422398
 MonoBehaviour:
