@@ -8,7 +8,7 @@ public class Altar : MonoBehaviour
     [SerializeField] private PlayerController playerController;
     [SerializeField] private LevelStateMachine_Youth _levelStateMachineYouth;
     [SerializeField] private GameObject detachedGun;
-    [SerializeField] private Light altarLight;
+    [SerializeField] private List<Light> altarLight;
     [SerializeField] private List<GameObject> uiElementsToActivate;
     private bool _hasBeenTriggered;
 
@@ -20,7 +20,11 @@ public class Altar : MonoBehaviour
         
         playerController.ActivateGun(true);
         detachedGun.SetActive(false);
-        altarLight.gameObject.SetActive(false);
+
+        // foreach (var lighty in altarLight)
+        // {
+        //     lighty.gameObject.SetActive(false);
+        // }
 
         foreach (var element in uiElementsToActivate)
         {

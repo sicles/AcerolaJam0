@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour
     private static readonly int UnderlayOffsetY = Shader.PropertyToID("_UnderlayOffsetY");
 
     public bool messageIsRunning;
+    private bool _tutorialIsActive;
 
     private void Start()
     {
@@ -65,6 +66,37 @@ public class UIManager : MonoBehaviour
         _tutorialBoard.text = tutorialMessage;
     }
 
+    public void SetTutorialState(bool state)
+    {
+        _tutorialIsActive = state;
+    }
+
+    public void RecallReminderTutorial()
+    {
+        if (_tutorialIsActive) return;
+        StartCoroutine(RecallReminderRoutine());
+    }
+
+    private IEnumerator RecallReminderRoutine()
+    {
+        CallSendTutorial("Press 'R' to recall your bullet.");
+        yield return new WaitForSeconds(3f);
+        ClearTutorial();
+    }
+    
+    public void RackReminderTutorial()
+    {
+        if (_tutorialIsActive) return;
+        StartCoroutine(RackReminderRoutine());
+    }
+
+    private IEnumerator RackReminderRoutine()
+    {
+        CallSendTutorial("Hold 'Right Mouse' to ready your gun.");
+        yield return new WaitForSeconds(3f);
+        ClearTutorial();
+    }
+    
     public void ClearTutorial()
     {
         _tutorialBoard.text = "";
@@ -85,7 +117,7 @@ public class UIManager : MonoBehaviour
         // TODO set this more elegantly when method is done
         const int shuffleFrames = 4;
         const float shuffleTimePer = 0.015f;
-        EventInstance shuffleSound = FMODUnity.RuntimeManager.CreateInstance("event:/scrub");
+        EventInstance shuffleSound = FMODUnity.RuntimeManager.CreateInstance("event:/other/scrub");
         
         for (int i = 0; i < message.Length; i++)
         {

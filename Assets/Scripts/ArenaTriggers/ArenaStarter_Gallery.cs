@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
 using AI;
+using FMOD.Studio;
+using FMODUnity;
 using LevelStateMachines;
 using PlayerScript;
 using UnityEngine;
 using UnityEngine.Serialization;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 // listen i know i shouldn't just have copypasted this script instead of inheritance, mistakes were made
 
@@ -23,7 +26,7 @@ namespace ArenaTriggers
         
         [SerializeField] private GameObject paintingExit;
         [SerializeField] private GameObject paintingRamp;
-        
+
         private bool _hasEntered;
         private static readonly int IsTriggered = Animator.StringToHash("IsTriggered");
         private bool _fightIsOver;

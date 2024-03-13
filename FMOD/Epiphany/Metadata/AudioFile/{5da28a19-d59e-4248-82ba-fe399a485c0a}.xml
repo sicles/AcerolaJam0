@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{5da28a19-d59e-4248-82ba-fe399a485c0a}">
 		<property name="assetPath">
-			<value>hitMark04.wav</value>
+			<value>Revolver/hitMark04.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>

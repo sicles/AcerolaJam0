@@ -17,14 +17,17 @@ namespace LevelStateMachines
         [SerializeField] private PlayerController playerController;
         [SerializeField] private Animator bedroomDoor;
         [SerializeField] private TextMeshProUGUI creditsTMP;
+        [SerializeField] private StudioEventEmitter choir;
 
         [SerializeField] private Light tutorialDoorLight;
+        [SerializeField] private Light tutorialAltarLight;
         private static readonly int IsBroken = Animator.StringToHash("IsBroken");
         private EventInstance _knockSound;
         private bool _knocking;
 
         private void Start()
         {
+            Debug.Log("hello");
             StartCoroutine(OpeningSequence());
         }
 
@@ -39,14 +42,17 @@ namespace LevelStateMachines
             KnockKnock();
             uiManager.Unblackout(3f, 2f);
             
-            yield return new WaitForSeconds(10f);
-
-            playerController.PlayerControlsAreOn = true;
+            yield return new WaitForSeconds(2f);
+            
             creditsTMP.gameObject.SetActive(true);
+            playerController.PlayerControlsAreOn = true;
+            
+            yield return new WaitForSeconds(3f);
 
             yield return new WaitUntil(() => bedroomDoor.GetBool(IsBroken));
 
-            RuntimeManager.PlayOneShotAttached("event:/BreakDoor", bedroomDoor.transform.gameObject);
+            RuntimeManager.PlayOneShotAttached("event:/L01/BreakDoor", bedroomDoor.transform.gameObject);
+            Debug.Log("NOW");
             _knocking = false;
             _knockSound.stop(STOP_MODE.ALLOWFADEOUT);
             creditsTMP.gameObject.SetActive(false);
@@ -63,7 +69,7 @@ namespace LevelStateMachines
 
         private void KnockKnock()
         {
-            _knockSound = RuntimeManager.CreateInstance("event:/KnockKnock");
+            _knockSound = RuntimeManager.CreateInstance("event:/L01/KnockKnock");
             RuntimeManager.AttachInstanceToGameObject(_knockSound,  bedroomDoor.transform);
 
             StartCoroutine(KnockRoutine());
@@ -85,6 +91,7 @@ namespace LevelStateMachines
 
         private IEnumerator DropSequenceRoutine()
         {
+            RuntimeManager.PlayOneShot("event:/L01/TubeFall");
             uiManager.CallSendMessage("You are not alone anymore.", 3f);
             yield return new WaitForSeconds(5f);
             uiManager.CallSendMessage("And will never need to be again.", 3f);
@@ -92,6 +99,7 @@ namespace LevelStateMachines
 
         public void CallGunTutorial()
         {
+            uiManager.SetTutorialState(true);
             StartCoroutine(GunTutorialRoutine());
         }
         
@@ -115,12 +123,15 @@ namespace LevelStateMachines
         {
             uiManager.CallSendTutorial("Press 'Left Mouse' to fire.");
             tutorialDoorLight.gameObject.SetActive(true);
+            tutorialAltarLight.gameObject.SetActive(false);
             yield return new WaitUntil(() => playerController.Ammunition == 0);
+            choir.Stop();
             uiManager.ClearTutorial();
             
             uiManager.CallSendTutorial("Press 'R' to recall your bullet whenever you fired it.");
             yield return new WaitUntil(() => playerController.Ammunition == 1);
             uiManager.ClearTutorial();
+            uiManager.SetTutorialState(false);
             
             uiManager.CallSendMessage("A single bullet, yes... but not just any bullet.", 3f);
         }

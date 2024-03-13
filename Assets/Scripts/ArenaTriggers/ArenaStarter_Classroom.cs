@@ -2,10 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using AI;
+using FMOD.Studio;
+using FMODUnity;
 using LevelStateMachines;
 using PlayerScript;
 using UnityEngine;
 using UnityEngine.Serialization;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 // listen i know i shouldn't just have copypasted this script instead of inheritance, mistakes were made
 
@@ -30,6 +33,7 @@ namespace ArenaTriggers
         [SerializeField] private Material rightWarningMat;
         [SerializeField] private MeshRenderer leftBlackboard;
         [SerializeField] private MeshRenderer rightBlackboard;
+        [SerializeField] private List<StudioEventEmitter> chatterSFXs;
         
 
         private void Start()
@@ -72,6 +76,10 @@ namespace ArenaTriggers
                 return;
             
             levelStateMachineYouth.CallClassroomMemory2();
+            foreach (var chatter in chatterSFXs)
+            {
+                chatter.Stop();
+            }
         
             entranceAnimator.SetBool(IsTriggered, true);
             Invoke(nameof(DeactivateOldGeometry), 1f);
@@ -88,19 +96,19 @@ namespace ArenaTriggers
 
         private IEnumerator BlackboardFlicker()
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(5f);
             
             for (int i = 0; i < 20; i++)
             {
                 leftBlackboard.material = leftWarningMat;
                 rightBlackboard.material = rightWarningMat;
                 
-                yield return new WaitForSeconds(0.02f);
+                yield return new WaitForSeconds(0.01f);
                 
                 leftBlackboard.material = cleanMat;
                 rightBlackboard.material = cleanMat;
                 
-                yield return new WaitForSeconds(0.03f);
+                yield return new WaitForSeconds(0.02f);
             }
         }
 

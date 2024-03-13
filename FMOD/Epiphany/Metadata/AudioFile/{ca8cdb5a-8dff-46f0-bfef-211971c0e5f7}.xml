@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{ca8cdb5a-8dff-46f0-bfef-211971c0e5f7}">
 		<property name="assetPath">
-			<value>GunshotMuffled.wav</value>
+			<value>L01/GunshotMuffled.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>

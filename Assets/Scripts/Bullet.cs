@@ -22,11 +22,6 @@ public class Bullet : MonoBehaviour
         bulletFlight = GetComponent<StudioEventEmitter>();
     }
 
-    private void Update()
-    {
-        Debug.Log(LastEnemy);
-    }
-
     public void SetFlightSound(bool shouldPlay)
     {
         if (shouldPlay)

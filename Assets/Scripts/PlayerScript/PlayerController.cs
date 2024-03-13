@@ -103,6 +103,7 @@ namespace PlayerScript
         private void Update()
         {
             // PauseGame();
+            DummyPointsDecay();
 
             if (!_isPaused)
             {

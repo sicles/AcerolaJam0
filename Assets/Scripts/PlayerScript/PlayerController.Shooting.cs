@@ -34,11 +34,24 @@ namespace PlayerScript
         [SerializeField] private Transform gunTip;
         [SerializeField] private ParticleSystem _shotParticle;
         [SerializeField] GameObject _bulletTrail;
+        [SerializeField] private float _dummyPoints;
 
         public int Ammunition => ammunition;
 
         public bool GunIsRacked => _gunIsRacked;
 
+        private void AddDummyPoints(int amount)
+        {
+            _dummyPoints += amount;
+            Debug.Log("added dummy points! new value: " + _dummyPoints);
+        }
+
+        private void DummyPointsDecay()
+        {
+            if (_dummyPoints > 0)
+            _dummyPoints -= Time.deltaTime;
+        }
+        
         private void Shoot()
         {
             if (!Input.GetKeyDown(KeyCode.Mouse0)) return;
@@ -50,7 +63,12 @@ namespace PlayerScript
             StopRackAnimation();
 
             if (!GunIsRacked)
+            {
+                AddDummyPoints(1);
+                if (_dummyPoints > 2)
+                    uiManager.RackReminderTutorial();
                 return;
+            }
             
             CallShootAnimation();
             
@@ -58,6 +76,10 @@ namespace PlayerScript
             {
                 RuntimeManager.PlayOneShot("event:/OnPlayerEvents/UnloadedShoot");
                 _gunIsRacked = false;
+                AddDummyPoints(3);
+                if (_dummyPoints > 2)
+                    uiManager.RecallReminderTutorial();
+                
                 return;
             }
             

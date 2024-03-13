@@ -257,7 +257,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletFlight: {fileID: 0}
-  testField: 0
 --- !u!65 &4987354665051327450
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -298,7 +297,7 @@ MonoBehaviour:
       Data2: 1338792672
       Data3: 286247075
       Data4: 634825931
-    Path: event:/BulletFlight
+    Path: event:/Other/BulletFlight
   Event: 
   PlayEvent: 0
   StopEvent: 0

@@ -4,16 +4,28 @@ using System.Collections.Generic;
 using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 public class SFXProximityStarter : MonoBehaviour
 {
-    private bool hasEntered;
-    
+    private bool _hasEntered;
+    private EventInstance _ascensionSfx;
+
+    private void Start()
+    {
+        _ascensionSfx = RuntimeManager.CreateInstance("event:/L01/Ascension");
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (hasEntered) return;
-        
-        RuntimeManager.PlayOneShot("event:/Ascension");
-        hasEntered = true;
+        if (_hasEntered) return;
+
+        _ascensionSfx.start();
+        _hasEntered = true;
+    }
+
+    public void StopAscensionSFX()
+    {
+        _ascensionSfx.stop(STOP_MODE.ALLOWFADEOUT);
     }
 }

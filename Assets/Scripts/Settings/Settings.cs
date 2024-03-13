@@ -64,7 +64,6 @@ namespace Settings
                 currentSensitivity = sensUI.value * 1;
         
             SaveSettings();
-            Debug.Log("new sens is " + currentSensitivity);
         }
 
         public void GetNewVolume()
@@ -73,7 +72,6 @@ namespace Settings
             _master.setVolume(currentVolume);
         
             SaveSettings();
-            Debug.Log("new vol is " + currentVolume);
         }
 
         public void GetIfFullscreen()
