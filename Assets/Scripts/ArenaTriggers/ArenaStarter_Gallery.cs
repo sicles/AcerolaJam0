@@ -30,6 +30,7 @@ namespace ArenaTriggers
         private bool _hasEntered;
         private static readonly int IsTriggered = Animator.StringToHash("IsTriggered");
         private bool _fightIsOver;
+        private bool _hasBeenReleased;
 
         private void Start()
         {
@@ -57,6 +58,10 @@ namespace ArenaTriggers
 
         private void ReleaseArena()
         {
+            if (_hasBeenReleased) return;
+
+            _hasBeenReleased = true;
+            
             // exitAnimator.SetBool(IsTriggered, true);
             if (newGeometry != null)
                 newGeometry.SetActive(true);

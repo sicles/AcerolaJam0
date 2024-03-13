@@ -33,6 +33,7 @@ namespace ArenaTriggers
         private static readonly int WaterColor = Shader.PropertyToID("_Water_Color");
         private static readonly int Metallic = Shader.PropertyToID("_Metallic");
         private static readonly int Transparency = Shader.PropertyToID("_Transparency");
+        private bool _hasBeenReleased;
 
         private void Start()
         {
@@ -74,6 +75,10 @@ namespace ArenaTriggers
 
         private void ReleaseArena()
         {
+            if (_hasBeenReleased) return;
+
+            _hasBeenReleased = true;
+            
             foreach (var lighty in riverLights)
             {
                 lighty.color = Color.white;

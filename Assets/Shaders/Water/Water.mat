@@ -61,17 +61,17 @@ Material:
     m_Floats:
     - _Current_Speed: 0
     - _Foam_Distance: 0.5
-    - _Metallic: 0.414
+    - _Metallic: 0.9
     - _Noise_Scale: 0.193
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Refraction: 0.0931
     - _Smoothness: 0.542
-    - _Transparency: 0.995
+    - _Transparency: 1
     - _Wave_Speed: 0.01
     m_Colors:
     - _Foam_Color: {r: 1, g: 1, b: 1, a: 0}
     - _Foamcolor: {r: 1, g: 1, b: 1, a: 0}
-    - _Water_Color: {r: 0.2235293, g: 0.5372549, b: 0.7254902, a: 0.6470588}
+    - _Water_Color: {r: 0.4823529, g: 0.05490194, b: 0.01176471, a: 0.6470588}
     - _Watercolor: {r: 0.2117647, g: 0.5778429, b: 0.7921569, a: 0.6745098}
   m_BuildTextureStacks: []

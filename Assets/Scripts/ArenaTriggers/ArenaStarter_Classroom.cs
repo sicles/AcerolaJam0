@@ -34,7 +34,8 @@ namespace ArenaTriggers
         [SerializeField] private MeshRenderer leftBlackboard;
         [SerializeField] private MeshRenderer rightBlackboard;
         [SerializeField] private List<StudioEventEmitter> chatterSFXs;
-        
+        private bool _hasBeenReleased;
+
 
         private void Start()
         {
@@ -64,6 +65,10 @@ namespace ArenaTriggers
 
         private void ReleaseArena()
         {
+            if (_hasBeenReleased) return;
+
+            _hasBeenReleased = true;
+            
             exitAnimator.SetBool(IsTriggered, true);
             if (newGeometry != null)
                 newGeometry.SetActive(true);

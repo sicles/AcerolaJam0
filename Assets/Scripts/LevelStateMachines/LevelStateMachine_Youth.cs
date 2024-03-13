@@ -35,7 +35,8 @@ namespace LevelStateMachines
         {
             playerController.PlayerControlsAreOn = false;
             uiManager.Blackout();
-
+            creditsTMP.gameObject.SetActive(true);
+            
             yield return new WaitForSeconds(5f);
             
             _knocking = true;
@@ -44,7 +45,6 @@ namespace LevelStateMachines
             
             yield return new WaitForSeconds(2f);
             
-            creditsTMP.gameObject.SetActive(true);
             playerController.PlayerControlsAreOn = true;
             
             yield return new WaitForSeconds(3f);
@@ -133,7 +133,7 @@ namespace LevelStateMachines
             uiManager.ClearTutorial();
             uiManager.SetTutorialState(false);
             
-            uiManager.CallSendMessage("A single bullet, yes... but not just any bullet.", 3f);
+            uiManager.CallSendMessage("A single bullet, yes... but this one's special.", 3f);
         }
 
         public void CallClassroomMemory()
