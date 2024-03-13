@@ -27,7 +27,7 @@ namespace LevelStateMachines
         private void FadeIn()
         {
             uiManager.Blackout();
-            uiManager.Unblackout(5f);
+            uiManager.Unblackout(3f, 2f);
         }
 
         public void TownSquareMemory()

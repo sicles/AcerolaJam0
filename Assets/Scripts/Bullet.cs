@@ -35,18 +35,19 @@ public class Bullet : MonoBehaviour
             BulletFlight.Stop();
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (!IsActive) return;
-        
-        // Debug.Log("bullet hit a " + other.transform.gameObject);
-        
-        if (other.transform.GetComponent<EnemyHitboxPart>() != null && other.transform.root.gameObject != LastEnemy)
-        {
-            Debug.Log("dealt collision damage!");
-            other.transform.GetComponent<EnemyHitboxPart>().HasBeenHit(50, other.transform.position, other.transform.rotation.eulerAngles, _playerController.BulletBackcallDirection);
-        }
-
-        LastEnemy = other.gameObject;
-    }
+    // this is heavily bugged so i'm disabling it :(
+    // private void OnTriggerExit(Collider other)
+    // {
+    //     if (!IsActive) return;
+    //     
+    //     // Debug.Log("bullet hit a " + other.transform.gameObject);
+    //     
+    //     if (other.transform.GetComponent<EnemyHitboxPart>() != null && other.transform.root.gameObject != LastEnemy)
+    //     {
+    //         Debug.Log("dealt collision damage!");
+    //         other.transform.GetComponent<EnemyHitboxPart>().HasBeenHit(50, other.transform.position, other.transform.rotation.eulerAngles, _playerController.BulletBackcallDirection);
+    //     }
+    //
+    //     LastEnemy = other.gameObject;
+    // }
 }

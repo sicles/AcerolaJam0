@@ -71,7 +71,6 @@ namespace AI
                 DecideIdleSound();
                 DecideFootstepSound();
 
-                NavMeshUpdates();
                 CooldownTick();
                 if (!manualAlert)
                     Seek();
@@ -81,6 +80,8 @@ namespace AI
                 
                 if (isAlert)
                 {
+                    NavMeshUpdates();
+                    
                     ShouldDodge();
                     ShouldAttack();
                     ShouldCharge();
@@ -180,8 +181,8 @@ namespace AI
         /// <param name="bulletDirection">Direction bullet was traveling at hit time.</param>
         public void TakeDamage(int damage, Vector3 position, Vector3 rotation, Vector3 bulletDirection)
         {
-            if (!isAlert)
-                SetAlert();
+            // if (!isAlert)    // this only serves to create bugs tbh
+            //     SetAlert();
 
             if (!Alive) return;    // TODO remove the gib logic, is obsolete and not working with this new logic
             

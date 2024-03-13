@@ -123,12 +123,12 @@ public class UIManager : MonoBehaviour
             _blackoutRawImage.color.r, 1);
     }
     
-    public void Unblackout(float duration)
+    public void Unblackout(float duration, float delay)
     {
-        StartCoroutine(UnblackoutRoutine(duration));
+        StartCoroutine(UnblackoutRoutine(duration, delay));
     }
 
-    private IEnumerator UnblackoutRoutine(float duration)
+    private IEnumerator UnblackoutRoutine(float duration, float delay)
     {
         float currentAlpha = 1;
         _blackoutRawImage.color =
@@ -136,6 +136,8 @@ public class UIManager : MonoBehaviour
 
         _blackoutRawImage.gameObject.SetActive(true);
 
+        yield return new WaitForSeconds(delay);
+        
         for (int i = 0; i < 99; i++)
         {
             _blackoutRawImage.color = new Color(_blackoutRawImage.color.r, _blackoutRawImage.color.r,

@@ -52,7 +52,7 @@ namespace ArenaTriggers
             if (newGeometry != null)
                 newGeometry.SetActive(true);
             
-            // levelStateMachineHome.CallArenaEndQuip();
+            levelStateMachineHome.CallArenaEndQuip();
         }
 
         public void ActivateHomeArena()
@@ -67,6 +67,7 @@ namespace ArenaTriggers
                 enemy.SetAlert();
                 yield return new WaitForSeconds(6f);
             }
+            // 24 seconds
         }
     }
 }

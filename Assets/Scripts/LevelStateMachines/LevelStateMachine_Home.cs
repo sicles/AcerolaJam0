@@ -19,6 +19,7 @@ namespace LevelStateMachines
         
         [SerializeField] private List<Light> lightsToSwitchOff;
         [SerializeField] private List<GameObject> lightsToSwitchOn;
+        [SerializeField] private GameObject fightOverLight;
         
         private void Start()
         {
@@ -29,12 +30,12 @@ namespace LevelStateMachines
         private void FadeIn()
         {
             uiManager.Blackout();
-            uiManager.Unblackout(5f);
+            uiManager.Unblackout(3f, 2f);
         }
 
         private IEnumerator OpeningSequence()
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(5f);
             StartCoroutine(LightSwitch());
             uiManager.CallSendMessage("Our apartment...", 5f);
             yield return new WaitForSeconds(5f);
@@ -43,26 +44,22 @@ namespace LevelStateMachines
             uiManager.CallSendMessage("It was home.", 3f);
             yield return new WaitForSeconds(5f);
             uiManager.CallSendMessage("And then, it was something else", 3f);
-            yield return new WaitForSeconds(5f);
-            _arenaStarterApartment.ActivateHomeArena();
+            yield return new WaitForSeconds(5f);    // 25 seconds
+            _arenaStarterApartment.ActivateHomeArena();     // 24 seconds
             }
 
         private IEnumerator LightSwitch()
         {
-            yield return new WaitForSeconds(5f);
-
             foreach (var lightOff in lightsToSwitchOff)
             {
                 lightOff.gameObject.SetActive(false);
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(5f);
             }
-
-            yield return new WaitForSeconds(5f);
 
             foreach (var lightOn in lightsToSwitchOn)
             {
                 lightOn.SetActive(true);
-                yield return new WaitForSeconds(0.15f);
+                yield return new WaitForSeconds(6f);
             }
 
             window.GetComponent<MeshRenderer>().material = windowReplacementMat;
@@ -70,13 +67,15 @@ namespace LevelStateMachines
 
         public void CallArenaEndQuip()
         {
-            StartCoroutine(ArenaEndQuipRoutine());
+            // disabled due to bug
+            // StartCoroutine(ArenaEndQuipRoutine());
         }
         
         private IEnumerator ArenaEndQuipRoutine()
         {
-            yield return new WaitForSeconds(5f);
-            uiManager.CallSendMessage("I am waiting for you.", 5f);
+            fightOverLight.SetActive(true);
+            yield return new WaitForSeconds(3f);
+            uiManager.CallSendMessage("I am waiting.", 5f);
         }
 
         public void CallEndQuip()
@@ -93,7 +92,7 @@ namespace LevelStateMachines
                 uiManager.CallSendMessage("I am a part of you now and forever.", 5f);
             yield return new WaitForSeconds(5f);
             if (!playerController.IsEnd)
-                uiManager.CallSendMessage("You will never be alone again.", 5f);
+                uiManager.CallSendMessage("You will never be alone again.", 5000f);
         }
     }
 }

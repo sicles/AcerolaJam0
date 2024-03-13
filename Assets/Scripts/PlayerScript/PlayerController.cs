@@ -10,7 +10,7 @@ namespace PlayerScript
 {
     public partial class PlayerController : MonoBehaviour
     {
-        [SerializeField] private Settings settings;
+        [SerializeField] private Settings.Settings settings;
         [SerializeField] private GameObject pauseCanvas;
         [SerializeField] private GameObject gameplayCanvas;
         
